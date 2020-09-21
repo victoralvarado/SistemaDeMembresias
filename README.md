@@ -1,4 +1,4 @@
-# SistemaDeMembresias
+# Sistema de membresías
 ## Descripción y contexto
 _...
 ## Guía de usuario
