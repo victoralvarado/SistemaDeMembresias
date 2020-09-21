@@ -6,11 +6,12 @@ _...
 ## Guía de instalación
 _...
 ## Autores
-*Victor Alvarado
-*Adrián Luna
-*Andrea Rosales
-*Ever Garcia
-*Roberto Aguillon
+* **Victor Alvarado
+* **Adrián Luna
+* **Andrea Rosales
+* **Ever Garcia
+* **Roberto Aguillon
 
 ## Licence
-_Este proyecto está bajo la Licencia Apache Licence 2.0
+Este proyecto está bajo la Licencia Apache Licence 2.0
+ - mira el archivo [LICENSE.md](LICENSE.md) para detalles
