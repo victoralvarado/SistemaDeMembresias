@@ -9,8 +9,8 @@ Autores
 Victor Alvarado
 Adrián Luna
 Andrea Rosales
-Ever 
-Roberto
+Ever Garcia
+Roberto Aguillon
 
 Licence
-Apache 2.0
+Apache Licence 2.0
