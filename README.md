@@ -12,6 +12,6 @@ _...
 * **Ever Garcia**
 * **Roberto Aguillon**
 
-## Licence
-Este proyecto está bajo la Licencia Apache Licence 2.0 - mira el archivo 
-[Licence.md](Licence.md) para detalles
+## License
+Este proyecto está bajo la Licencia Apache License 2.0 - mira el archivo 
+[LICENSE.md](LICENSE.md) para detalles
