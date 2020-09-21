@@ -14,4 +14,4 @@ _...
 
 ## License
 Este proyecto está bajo la Licencia Apache License 2.0 - mira el archivo 
-[LICENSE.md](LICENSE.md) para detalles
+[LICENSE](LICENSE) para detalles
