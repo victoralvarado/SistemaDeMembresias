@@ -23,7 +23,7 @@ public class Conexion {
         
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistemademembresias?", "root", "Itca123!");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistemademembresias?","root","Itca123!");
             return true;
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null,"Error al conectar" + e.getMessage(),
