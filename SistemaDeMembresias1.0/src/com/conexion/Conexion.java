@@ -28,4 +28,20 @@ public class Conexion {
             return false;
         }
     }
+    
+    public boolean desconectar() {
+        try {
+            if(con!=null)
+            {
+                if(con.isClosed()==false)
+                {
+                    con.close();
+                }
+            }
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null,"Error al desconectar "+e.getMessage(),"Error",0);
+            return false;
+        }
+    }
 }
