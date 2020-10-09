@@ -24,7 +24,7 @@ public class DaoSuscriptor extends Conexion implements OperacionesSuscriptor {
     }
 
     @Override
-    public String insertarSuscriptor(Suscriptor sus) throws Exception {
+    public void insertarSuscriptor(Suscriptor sus) throws Exception {
        
         try
         {
@@ -42,23 +42,23 @@ public class DaoSuscriptor extends Conexion implements OperacionesSuscriptor {
             pre.setDouble(9, sus.getTotalCompra());
             pre.setString(10, sus.getFecha());
             pre.executeUpdate();
-            return "Insertado correctamente";
+            
         }catch(SQLException e)
         {
              JOptionPane.showMessageDialog(null, "Error al insertar"+
                     e.getMessage());
-            return "No inserto";
+            
         }
         
     }
 
     @Override
-    public String modificarSuscriptor(Suscriptor sus) throws Exception {
+    public void modificarSuscriptor(Suscriptor sus) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String eliminarSuscriptor(Suscriptor sus) throws Exception {
+    public void eliminarSuscriptor(Suscriptor sus) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
