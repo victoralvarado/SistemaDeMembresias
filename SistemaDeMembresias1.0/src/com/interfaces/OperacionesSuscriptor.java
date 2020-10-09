@@ -18,8 +18,8 @@ import java.util.List;
 public interface OperacionesSuscriptor {
     
     public List<Suscriptor>mostrarSuscriptor() throws Exception;
-    public String insertarSuscriptor(Suscriptor sus) throws Exception;
-    public String modificarSuscriptor(Suscriptor sus) throws Exception;
-    public String eliminarSuscriptor(Suscriptor sus) throws Exception;
+    public void insertarSuscriptor(Suscriptor sus) throws Exception;
+    public void modificarSuscriptor(Suscriptor sus) throws Exception;
+    public void eliminarSuscriptor(Suscriptor sus) throws Exception;
     
 }
