@@ -1,9 +1,13 @@
 package com.modelo;
 
 /**
- *
- * @author Virov
+ * Nombre de la clase: Carrito
+ * Fecha: 10-10-2020
+ * Versión: 1.0
+ * CopyRight: ITCA-FEPADE
+ * @author desctroy-vasquez
  */
+
 public class Carrito {
     private int idCarrito;
     private int idSuscriptor;

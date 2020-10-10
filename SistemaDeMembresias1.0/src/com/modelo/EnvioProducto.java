@@ -9,11 +9,11 @@ package com.modelo;
  */
 
 public class EnvioProducto {
-    int idEnvio;
-    int idSuscriptor;
-    int idPersonaExterna;
-    String telefono;
-    String fechaEnvio;
+    private int idEnvio;
+    private int idSuscriptor;
+    private int idPersonaExterna;
+    private String telefono;
+    private String fechaEnvio;
 
     public EnvioProducto() {
     }
@@ -23,6 +23,14 @@ public class EnvioProducto {
         this.idSuscriptor = idSuscriptor;
         this.idPersonaExterna = idPersonaExterna;
         this.telefono = telefono;
+        this.fechaEnvio = fechaEnvio;
+    }
+
+    public String getFechaEnvio() {
+        return fechaEnvio;
+    }
+
+    public void setFechaEnvio(String fechaEnvio) {
         this.fechaEnvio = fechaEnvio;
     }
 
@@ -58,14 +66,5 @@ public class EnvioProducto {
         this.telefono = telefono;
     }
 
-    public String getFechaEnvio() {
-        return fechaEnvio;
-    }
-
-    public void setFechaEnvio(String fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
-    }
-
-    
     
 }
