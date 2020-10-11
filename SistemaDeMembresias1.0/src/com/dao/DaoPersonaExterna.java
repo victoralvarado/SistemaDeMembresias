@@ -106,6 +106,5 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
         } finally {
             this.desconectar();
         }
-    }
-    
+    }  
 }
