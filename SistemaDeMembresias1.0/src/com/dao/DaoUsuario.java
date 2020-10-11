@@ -124,5 +124,4 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
             this.desconectar();
         }
     }
-    
 }
