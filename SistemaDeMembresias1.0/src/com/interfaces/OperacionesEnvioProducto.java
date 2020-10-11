@@ -9,9 +9,8 @@ import java.util.List;
  * Fecha: 10-10-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author desctroy-vasquez
+ * @author ever vasquez
  */
-
 public interface OperacionesEnvioProducto {
     public List<EnvioProducto> mostrarEnvioProducto() throws Exception;
     public void insertarProducto(EnvioProducto env) throws Exception;
