@@ -1,12 +1,11 @@
-
 package com.modelo;
 
 /**
- * nombre de la clase: Categoria
- * Fecha: 09/10/2020
- * CopyRigth:
- * Version:0.1
- * @author Luna-
+ * Nombre de la clase: Categoria
+ * Fecha: 09-10-2020
+ * Versión: 1.0
+ * CopyRight: ITCA-FEPADE
+ * @author adrian luna
  */
 public class Categoria {
     private int idCategoria;

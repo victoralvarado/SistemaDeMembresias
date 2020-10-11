@@ -4,11 +4,11 @@ import com.modelo.Carrito;
 import java.util.List;
 
 /**
- * Nombre de la clase: OperacionesCarrito
+ * Nombre de la interface: OperacionesCarrito
  * Fecha: 10-10-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author desctroy-vasquez
+ * @author ever vasquez
  */
 public interface OperacionesCarrito {
     public List<Carrito> mostrarCarrito() throws Exception;

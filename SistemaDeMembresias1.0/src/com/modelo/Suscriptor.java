@@ -1,14 +1,11 @@
-
 package com.modelo;
 
-import java.util.List;
-
 /**
- *Nombre de la clase: Suscriptor
- *Fecha: 09/10/2020
- *CopyRigth:
- *Version:0.1
- *@author 
+ * Nombre de la clase: Suscriptor
+ * Fecha: 09-10-2020
+ * Versión: 1.0
+ * CopyRight: ITCA-FEPADE
+ * @author andrea rosales
  */
 public class Suscriptor{
     
