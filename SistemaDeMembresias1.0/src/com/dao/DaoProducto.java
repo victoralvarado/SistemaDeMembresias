@@ -29,7 +29,7 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
             String sql = "select * from producto;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             rs = pre.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 Producto p = new Producto();
                 p.setIdProducto(rs.getInt("idProducto"));
                 p.setIdCategoria(rs.getInt("idCategoria"));
@@ -45,8 +45,7 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        finally {
+        } finally {
             this.desconectar();
         }
         return lst;
@@ -74,8 +73,7 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        finally {
+        } finally {
             this.desconectar();
         }
     }
@@ -104,8 +102,7 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al modificar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        finally {
+        } finally {
             this.desconectar();
         }
     }
@@ -123,10 +120,8 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        finally {
+        } finally {
             this.desconectar();
         }
     }
-    
 }

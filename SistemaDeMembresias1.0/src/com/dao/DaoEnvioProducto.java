@@ -12,7 +12,6 @@ import java.util.List;
  * CopyRight: ITCA-FEPADE
  * @author desctroy-vasquez
  */
-
 public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProducto{
 
     @Override
@@ -34,6 +33,5 @@ public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProduc
     @Override
     public void eliminarProducto(EnvioProducto env) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    } 
 }

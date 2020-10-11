@@ -10,7 +10,7 @@ import java.util.List;
  * Fecha: 10-10-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author desctroy-vasquez
+ * @author ever vasquez
  */
 public class DaoCarrito extends Conexion implements OperacionesCarrito{
 
@@ -33,5 +33,4 @@ public class DaoCarrito extends Conexion implements OperacionesCarrito{
     public void eliminarCarrito(Carrito car) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }
