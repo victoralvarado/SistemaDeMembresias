@@ -10,7 +10,7 @@ import java.io.FileInputStream;
  * @author victor alvarado
  */
 public class Usuario {
-    private int codigoUsuario;
+    private int idUsuario;
     private String email;
     private String nombre;
     private String apellido;
@@ -24,8 +24,8 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(int codigoUsuario, String email, String nombre, String apellido, int tipoUsuario, String password, int estado, FileInputStream foto, String ultimoLogin, String fecha) {
-        this.codigoUsuario = codigoUsuario;
+    public Usuario(int idUsuario, String email, String nombre, String apellido, int tipoUsuario, String password, int estado, FileInputStream foto, String ultimoLogin, String fecha) {
+        this.idUsuario = idUsuario;
         this.email = email;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -37,12 +37,12 @@ public class Usuario {
         this.fecha = fecha;
     }
 
-    public int getCodigoUsuario() {
-        return codigoUsuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setCodigoUsuario(int codigoUsuario) {
-        this.codigoUsuario = codigoUsuario;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getEmail() {
