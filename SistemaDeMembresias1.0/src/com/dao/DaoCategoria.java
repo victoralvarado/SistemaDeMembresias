@@ -32,6 +32,5 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
     @Override
     public void eliminarCategoria(Categoria cat) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    } 
 }
