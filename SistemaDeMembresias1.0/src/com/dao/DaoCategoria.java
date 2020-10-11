@@ -1,4 +1,3 @@
-
 package com.dao;
 
 import com.conexion.Conexion;
@@ -7,8 +6,11 @@ import com.modelo.Categoria;
 import java.util.List;
 
 /**
- *
- * @author Luna-
+ * Nombre de la clase: DaoCategoria
+ * Fecha: 09-10-2020
+ * Versión: 1.0
+ * CopyRight: ITCA-FEPADE
+ * @author adrian luna
  */
 public class DaoCategoria extends Conexion implements OperacionesCategoria{
 
