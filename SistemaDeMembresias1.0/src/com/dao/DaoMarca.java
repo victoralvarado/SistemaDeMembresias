@@ -1,4 +1,3 @@
-
 package com.dao;
 
 import com.conexion.Conexion;
@@ -12,11 +11,11 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- *Nombre de la clase: DaoMarca
- *Fecha: 09/10/2020
- *CopyRigth:
- *Version:0.1
- * @author 
+ * Nombre de la clase: DaoMarca
+ * Fecha: 09-10-2020
+ * Versión: 1.0
+ * CopyRight: ITCA-FEPADE
+ * @author andrea rosales
  */
 public class DaoMarca extends Conexion implements OperacionesMarca {
 
