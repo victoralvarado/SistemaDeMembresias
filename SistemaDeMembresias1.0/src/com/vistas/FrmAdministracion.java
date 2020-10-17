@@ -66,7 +66,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPruebaActionPerformed
-        FrmPrueba fp = new FrmPrueba();
+        FrmProducto fp = new FrmProducto();
         deskPnlContenedor.add(fp);
         fp.setVisible(true);
     }//GEN-LAST:event_btnPruebaActionPerformed
