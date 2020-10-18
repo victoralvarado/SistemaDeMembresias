@@ -25,6 +25,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         menuPrincipal = new javax.swing.JMenuBar();
         btnMenu = new javax.swing.JMenu();
         btnPrueba = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +49,14 @@ public class FrmAdministracion extends javax.swing.JFrame {
             }
         });
         btnMenu.add(btnPrueba);
+
+        jMenuItem1.setText("Carrito");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        btnMenu.add(jMenuItem1);
 
         menuPrincipal.add(btnMenu);
 
@@ -77,6 +86,15 @@ public class FrmAdministracion extends javax.swing.JFrame {
         //Fin mostrar formulario centrado
         fp.setVisible(true);
     }//GEN-LAST:event_btnPruebaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        FrmCarrito carrito = new FrmCarrito();
+        deskPnlContenedor.add(carrito);
+        Dimension desktopSize = deskPnlContenedor.getSize();
+        Dimension FrameSize = carrito.getSize();
+        carrito.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        carrito.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 
     public static void main(String args[]) {
@@ -115,6 +133,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenu btnMenu;
     private javax.swing.JMenuItem btnPrueba;
     private javax.swing.JDesktopPane deskPnlContenedor;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 
