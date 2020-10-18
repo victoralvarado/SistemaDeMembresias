@@ -1,5 +1,7 @@
 package com.vistas;
 
+import java.awt.Dimension;
+
 /**
  * Nombre de la clase: FrmAdministracion
  * Fecha: 17-10-2020
@@ -68,6 +70,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private void btnPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPruebaActionPerformed
         FrmProducto fp = new FrmProducto();
         deskPnlContenedor.add(fp);
+        //Mostar formulario centrado
+        Dimension desktopSize = deskPnlContenedor.getSize();
+        Dimension FrameSize = fp.getSize();
+        fp.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+        //Fin mostrar formulario centrado
         fp.setVisible(true);
     }//GEN-LAST:event_btnPruebaActionPerformed
 
