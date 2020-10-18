@@ -3,12 +3,18 @@ package com.dao;
 import com.conexion.Conexion;
 import com.interfaces.OperacionesProducto;
 import com.modelo.Producto;
+import com.utilidades.CustomImageIcon;
 import java.awt.HeadlessException;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,7 +61,7 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
     public void insertarProducto(Producto p) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into departamento values(?,?,?,?,?,?,?,?,?,?);";
+            String sql = "insert into producto values(?,?,?,?,?,?,?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, p.getIdProducto());
             pre.setInt(2, p.getIdCategoria());
@@ -123,5 +129,31 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         } finally {
             this.desconectar();
         }
+    }
+    
+    @Override
+    public CustomImageIcon getImagen(int id) throws Exception {
+        ResultSet rs;
+        CustomImageIcon ii = null;
+        InputStream is = null;
+        try {
+            this.conectar();
+            String sql = "select imagen from producto where idProducto = " + id + ";";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            rs = pre.executeQuery();
+            if (rs.next()) {
+                is = rs.getBinaryStream(1);
+                if (is != null) {
+                    BufferedImage bi = ImageIO.read(is);
+                    ii = new CustomImageIcon(bi);
+                }
+            }
+        } catch (IOException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar imagen " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return ii;
     }
 }
