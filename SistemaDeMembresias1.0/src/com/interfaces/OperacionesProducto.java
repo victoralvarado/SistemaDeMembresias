@@ -1,6 +1,7 @@
 package com.interfaces;
 
 import com.modelo.Producto;
+import com.utilidades.CustomImageIcon;
 import java.util.List;
 
 /**
@@ -15,4 +16,5 @@ public interface OperacionesProducto {
     public void insertarProducto(Producto p) throws Exception;
     public void modificarProducto(Producto p) throws Exception;
     public void eliminarProducto(Producto p) throws Exception;
+    public CustomImageIcon getImagen(int id) throws Exception;
 }
