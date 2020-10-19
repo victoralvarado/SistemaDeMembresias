@@ -1,6 +1,8 @@
 package com.vistas;
 
 import java.awt.Dimension;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
@@ -23,15 +25,15 @@ public class FrmAdministracion extends javax.swing.JFrame {
     
     public void abrirFrm(JInternalFrame frm) {
         //Agregar instancias de sus formularios
-        FrmProducto fp = new FrmProducto();
-        FrmPrueba fpu = new FrmPrueba();
+        FrmProducto producto = new FrmProducto();
+        FrmCarrito carrito = new FrmCarrito();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
         else {
             deskPnlContenedor.removeAll();
-            fp.setVisible(false);
-            fpu.setVisible(false);
+            producto.setVisible(false);
+            carrito.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -68,8 +70,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         deskPnlContenedor = new javax.swing.JDesktopPane();
         menuPrincipal = new javax.swing.JMenuBar();
         btnMenu = new javax.swing.JMenu();
-        btnPrueba = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        btnProducto = new javax.swing.JMenuItem();
+        btnCarrito = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,21 +88,21 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         btnMenu.setText("MENU");
 
-        btnPrueba.setText("Prueba");
-        btnPrueba.addActionListener(new java.awt.event.ActionListener() {
+        btnProducto.setText("Producto");
+        btnProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPruebaActionPerformed(evt);
+                btnProductoActionPerformed(evt);
             }
         });
-        btnMenu.add(btnPrueba);
+        btnMenu.add(btnProducto);
 
-        jMenuItem1.setText("Carrito");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        btnCarrito.setText("Carrito");
+        btnCarrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                btnCarritoActionPerformed(evt);
             }
         });
-        btnMenu.add(jMenuItem1);
+        btnMenu.add(btnCarrito);
 
         menuPrincipal.add(btnMenu);
 
@@ -120,28 +122,17 @@ public class FrmAdministracion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPruebaActionPerformed
+    private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
         //Instancia formulario
-        FrmProducto fp = new FrmProducto();
+        FrmProducto producto = new FrmProducto();
         //Invocacion de metodo para abrir formulario
-        abrirFrm(fp);
-    }//GEN-LAST:event_btnPruebaActionPerformed
+        abrirFrm(producto);
+    }//GEN-LAST:event_btnProductoActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-
-        FrmCarrito carrito;
-        try {
-            carrito = new FrmCarrito();
-            deskPnlContenedor.add(carrito);
-            Dimension desktopSize = deskPnlContenedor.getSize();
-            Dimension FrameSize = carrito.getSize();
-            carrito.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-            carrito.setVisible(true);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al cargar fromulario","Error Formulario Carrito",JOptionPane.ERROR_MESSAGE);
-        }
-        
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void btnCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarritoActionPerformed
+        FrmCarrito carrito = new FrmCarrito();
+        abrirFrm(carrito);
+    }//GEN-LAST:event_btnCarritoActionPerformed
 
 
 
@@ -178,10 +169,10 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnCarrito;
     private javax.swing.JMenu btnMenu;
-    private javax.swing.JMenuItem btnPrueba;
+    private javax.swing.JMenuItem btnProducto;
     private javax.swing.JDesktopPane deskPnlContenedor;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 
