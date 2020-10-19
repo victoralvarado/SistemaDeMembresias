@@ -3,7 +3,12 @@ package com.dao;
 import com.conexion.Conexion;
 import com.interfaces.OperacionesCarrito;
 import com.modelo.Carrito;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Nombre de la clase: DaoCarrito
@@ -33,4 +38,6 @@ public class DaoCarrito extends Conexion implements OperacionesCarrito{
     public void eliminarCarrito(Carrito car) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+
 }
