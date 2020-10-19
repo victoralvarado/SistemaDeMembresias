@@ -1,6 +1,7 @@
 package com.vistas;
 
 import java.awt.Dimension;
+import javax.swing.JInternalFrame;
 
 /**
  * Nombre de la clase: FrmAdministracion
@@ -10,11 +11,51 @@ import java.awt.Dimension;
  * @author victor alvarado
  */
 public class FrmAdministracion extends javax.swing.JFrame {
-
+    
     public FrmAdministracion() {
         initComponents();
         //Iniciar maximixado FrmAdministracion
         this.setExtendedState(MAXIMIZED_BOTH);
+    }
+    
+    public void abrirFrm(JInternalFrame frm) {
+        //Agregar instancias de sus formularios
+        FrmProducto fp = new FrmProducto();
+        FrmPrueba fpu = new FrmPrueba();
+        if (!jInternalFramesAbiertos()) {
+            mostrarFrm(frm);
+        }
+        else {
+            deskPnlContenedor.removeAll();
+            fp.setVisible(false);
+            fpu.setVisible(false);
+            deskPnlContenedor.repaint();
+            mostrarFrm(frm);
+        }
+    }
+    
+    public void mostrarFrm(JInternalFrame frm) {
+        deskPnlContenedor.add(frm);
+        //Mostar formulario centrado
+        Dimension desktopSize = deskPnlContenedor.getSize();
+        Dimension FrameSize = frm.getSize();
+        frm.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        //Fin mostrar formulario centrado
+        frm.setVisible(true);
+    }
+    
+    public boolean jInternalFramesAbiertos() {
+        // Este arreglo almacena todos los JInternalFrames que esten abierto en el jDesktopPane.
+        JInternalFrame[] frmActivo = deskPnlContenedor.getAllFrames(); 
+        // Creamos un ciclo for para recorrer nuestro arreglo utilizando la propiedad length de nuestro arreglo.
+        for (int i = 0; i < frmActivo.length; i++) {
+            // Validamos con un if si nuestro arreglo en la posición i es igual al JInternalFrame que esta activo en 
+            //el jDesktopPane, si es igual devolverá true.
+            if (frmActivo[i] == deskPnlContenedor.getSelectedFrame()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -25,6 +66,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         menuPrincipal = new javax.swing.JMenuBar();
         btnMenu = new javax.swing.JMenu();
         btnPrueba = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +91,14 @@ public class FrmAdministracion extends javax.swing.JFrame {
         });
         btnMenu.add(btnPrueba);
 
+        jMenuItem1.setText("FRMP");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        btnMenu.add(jMenuItem1);
+
         menuPrincipal.add(btnMenu);
 
         setJMenuBar(menuPrincipal);
@@ -68,16 +118,18 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPruebaActionPerformed
+        //Instancia formulario
         FrmProducto fp = new FrmProducto();
-        deskPnlContenedor.add(fp);
-        //Mostar formulario centrado
-        Dimension desktopSize = deskPnlContenedor.getSize();
-        Dimension FrameSize = fp.getSize();
-        fp.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        //Fin mostrar formulario centrado
-        fp.setVisible(true);
+        //Invocacion de metodo para abrir formulario
+        abrirFrm(fp);
     }//GEN-LAST:event_btnPruebaActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        //Instancia formulario
+        FrmPrueba fpu = new FrmPrueba();
+        //Invocacion de metodo para abrir formulario
+        abrirFrm(fpu);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -115,6 +167,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenu btnMenu;
     private javax.swing.JMenuItem btnPrueba;
     private javax.swing.JDesktopPane deskPnlContenedor;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 
