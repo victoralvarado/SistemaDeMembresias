@@ -1,7 +1,11 @@
 package com.vistas;
 
 import java.awt.Dimension;
-import javax.swing.JInternalFrame;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 /**
  * Nombre de la clase: FrmAdministracion
@@ -91,7 +95,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         });
         btnMenu.add(btnPrueba);
 
-        jMenuItem1.setText("FRMP");
+        jMenuItem1.setText("Carrito");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -125,11 +129,22 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPruebaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        //Instancia formulario
-        FrmPrueba fpu = new FrmPrueba();
-        //Invocacion de metodo para abrir formulario
-        abrirFrm(fpu);
+
+        FrmCarrito carrito;
+        try {
+            carrito = new FrmCarrito();
+            deskPnlContenedor.add(carrito);
+            Dimension desktopSize = deskPnlContenedor.getSize();
+            Dimension FrameSize = carrito.getSize();
+            carrito.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
+            carrito.setVisible(true);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al cargar fromulario","Error Formulario Carrito",JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
