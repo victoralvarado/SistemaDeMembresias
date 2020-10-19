@@ -1,9 +1,11 @@
 package com.vistas;
 
 import java.awt.Dimension;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 
 /**
  * Nombre de la clase: FrmAdministracion
@@ -13,11 +15,51 @@ import javax.swing.JOptionPane;
  * @author victor alvarado
  */
 public class FrmAdministracion extends javax.swing.JFrame {
-
+    
     public FrmAdministracion() {
         initComponents();
         //Iniciar maximixado FrmAdministracion
         this.setExtendedState(MAXIMIZED_BOTH);
+    }
+    
+    public void abrirFrm(JInternalFrame frm) {
+        //Agregar instancias de sus formularios
+        FrmProducto fp = new FrmProducto();
+        FrmPrueba fpu = new FrmPrueba();
+        if (!jInternalFramesAbiertos()) {
+            mostrarFrm(frm);
+        }
+        else {
+            deskPnlContenedor.removeAll();
+            fp.setVisible(false);
+            fpu.setVisible(false);
+            deskPnlContenedor.repaint();
+            mostrarFrm(frm);
+        }
+    }
+    
+    public void mostrarFrm(JInternalFrame frm) {
+        deskPnlContenedor.add(frm);
+        //Mostar formulario centrado
+        Dimension desktopSize = deskPnlContenedor.getSize();
+        Dimension FrameSize = frm.getSize();
+        frm.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        //Fin mostrar formulario centrado
+        frm.setVisible(true);
+    }
+    
+    public boolean jInternalFramesAbiertos() {
+        // Este arreglo almacena todos los JInternalFrames que esten abierto en el jDesktopPane.
+        JInternalFrame[] frmActivo = deskPnlContenedor.getAllFrames(); 
+        // Creamos un ciclo for para recorrer nuestro arreglo utilizando la propiedad length de nuestro arreglo.
+        for (int i = 0; i < frmActivo.length; i++) {
+            // Validamos con un if si nuestro arreglo en la posición i es igual al JInternalFrame que esta activo en 
+            //el jDesktopPane, si es igual devolverá true.
+            if (frmActivo[i] == deskPnlContenedor.getSelectedFrame()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @SuppressWarnings("unchecked")
@@ -80,17 +122,14 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPruebaActionPerformed
+        //Instancia formulario
         FrmProducto fp = new FrmProducto();
-        deskPnlContenedor.add(fp);
-        //Mostar formulario centrado
-        Dimension desktopSize = deskPnlContenedor.getSize();
-        Dimension FrameSize = fp.getSize();
-        fp.setLocation((desktopSize.width - FrameSize.width)/2, (desktopSize.height- FrameSize.height)/2);
-        //Fin mostrar formulario centrado
-        fp.setVisible(true);
+        //Invocacion de metodo para abrir formulario
+        abrirFrm(fp);
     }//GEN-LAST:event_btnPruebaActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
         FrmCarrito carrito;
         try {
             carrito = new FrmCarrito();
@@ -104,6 +143,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
 
 
     public static void main(String args[]) {
