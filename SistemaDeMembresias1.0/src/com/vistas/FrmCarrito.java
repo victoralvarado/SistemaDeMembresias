@@ -6,6 +6,8 @@ import com.utilidades.GenerarNumeross;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Nombre de la clase: FrmCarrito
@@ -18,11 +20,15 @@ import java.sql.SQLException;
 public class FrmCarrito extends javax.swing.JInternalFrame {
     
    
-    public FrmCarrito() throws Exception {
-       initComponents();
-       this.setLocation(25,15 );
-       codigoCarrito();
-       txtCodigoCarrito.setEnabled(false);
+    public FrmCarrito() {
+        try {
+            initComponents();
+            this.setLocation(25,15 );
+            codigoCarrito();
+            txtCodigoCarrito.setEnabled(false);
+        } catch (Exception ex) {
+            Logger.getLogger(FrmCarrito.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     public void codigoCarrito() throws Exception {
         Conexion con = new Conexion();
