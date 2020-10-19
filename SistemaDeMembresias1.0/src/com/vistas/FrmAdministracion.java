@@ -2,8 +2,7 @@ package com.vistas;
 
 import java.awt.Dimension;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 
