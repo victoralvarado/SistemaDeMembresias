@@ -114,6 +114,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnMenu.add(btnCarrito);
 
         btnCategoria.setText("Categoria");
+        btnCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriaActionPerformed(evt);
+            }
+        });
         btnMenu.add(btnCategoria);
 
         menuPrincipal.add(btnMenu);
@@ -147,9 +152,13 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCarritoActionPerformed
 
     private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        
+    }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
         FrmCategoria categoria=new FrmCategoria();
         abrirFrm(categoria);
-    }//GEN-LAST:event_btnMenuActionPerformed
+    }//GEN-LAST:event_btnCategoriaActionPerformed
 
 
 
