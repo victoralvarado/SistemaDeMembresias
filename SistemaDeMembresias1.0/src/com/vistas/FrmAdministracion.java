@@ -28,6 +28,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmProducto producto = new FrmProducto();
         FrmCarrito carrito = new FrmCarrito();
         FrmCategoria categoria=new FrmCategoria();
+        
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
