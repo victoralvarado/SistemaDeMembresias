@@ -25,6 +25,7 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     
     public FrmCategoria() {
         initComponents();
+        mostrar();
     }
 
     public void mostrar()
