@@ -72,7 +72,7 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
     public void modificarCategoria(Categoria cat) throws Exception {
         try {
             this.conectar();
-            String sql = "update categoria set idCategoria=?, categoria=?, where idCategoria=?;";
+            String sql = "update categoria set categoria=?, where idCategoria=?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1,cat.getIdCategoria());
             pre.setString(2,cat.getCategoria());
