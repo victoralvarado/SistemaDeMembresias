@@ -1,8 +1,9 @@
+
 package com.dao;
 
 import com.conexion.Conexion;
-import com.interfaces.OperacionesCategoria;
-import com.modelo.Categoria;
+import com.interfaces.OperacionesOrden;
+import com.modelo.Orden;
 import java.awt.HeadlessException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,28 +13,32 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- * Nombre de la clase: DaoCategoria
- * Fecha: 09-10-2020
+ * Nombre de la clase: DaoOrden
+ * Fecha: 19/10/2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author adrian luna
+ * @author Luna-
  */
-public class DaoCategoria extends Conexion implements OperacionesCategoria{
+
+public class DaoOrden extends Conexion implements OperacionesOrden{
 
     @Override
-    public List<Categoria> mostrarCategoria() throws Exception {
+    public List<Orden> mostrarOrden() throws Exception {
         ResultSet rs;
-        List<Categoria> lst = new ArrayList();
+        List<Orden> lst = new ArrayList();
         try {
             this.conectar();
-            String sql = "select * from categoria;";
+            String sql = "select * from orden;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {                
-                Categoria cat= new Categoria();
-                cat.setIdCategoria(rs.getInt("idCategoria"));
-                cat.setCategoria(rs.getString("categoria"));
-                lst.add(cat);
+                Orden ord= new Orden();
+                ord.setIdOrden(rs.getInt("idOrden"));
+                ord.setIdSuscriptor(rs.getInt("idSuscriptor"));
+                ord.setIdDetalle(rs.getInt("idDetalle"));
+                ord.setTotal(rs.getFloat("total"));
+                ord.setIdEnvio(rs.getInt("idEnvio"));
+                lst.add(ord);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
@@ -47,13 +52,16 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
     }
 
     @Override
-    public void insertarCategoria(Categoria cat) throws Exception {
+    public void insertarOrden(Orden ord) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into categoria values(?,?);";
+            String sql = "insert into orden values(?,?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1,cat.getIdCategoria());
-            pre.setString(2,cat.getCategoria());
+            pre.setInt(1,ord.getIdOrden());
+            pre.setInt(2,ord.getIdSuscriptor());
+            pre.setInt(3,ord.getIdDetalle());
+            pre.setFloat(4,ord.getTotal());
+            pre.setInt(5,ord.getIdEnvio());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
                     "Insertar", JOptionPane.INFORMATION_MESSAGE);
@@ -69,13 +77,16 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
     }
 
     @Override
-    public void modificarCategoria(Categoria cat) throws Exception {
+    public void modificarOrden(Orden ord) throws Exception {
         try {
             this.conectar();
-            String sql = "update categoria set categoria=?, where idCategoria=?;";
+            String sql = "update orden set idOrden=?, idSuscriptor=?, idDetalle=?, total=?, idEnvio=?, where idCategoria=?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1,cat.getIdCategoria());
-            pre.setString(2,cat.getCategoria());
+            pre.setInt(1,ord.getIdOrden());
+            pre.setInt(2,ord.getIdSuscriptor());
+            pre.setInt(3,ord.getIdDetalle());
+            pre.setFloat(4,ord.getTotal());
+            pre.setInt(5,ord.getIdEnvio());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Dato modificado correctamente",
                     "Modificar", JOptionPane.INFORMATION_MESSAGE);
@@ -91,12 +102,12 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
     }
 
     @Override
-    public void eliminarCategoria(Categoria cat) throws Exception {
+    public void eliminarOrden(Orden ord) throws Exception {
         try {
             this.conectar();
-            String sql = "delete from categoria where idCategoria=?;";
+            String sql = "delete from orden where idOrden=?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, cat.getIdCategoria());
+            pre.setInt(1,ord.getIdOrden());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Dato eliminado correctamente",
                     "Eliminar", JOptionPane.INFORMATION_MESSAGE);
@@ -108,5 +119,6 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
         {
             this.desconectar();
         }
-    } 
+    }
+    
 }
