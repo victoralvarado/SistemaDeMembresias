@@ -19,6 +19,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         initComponents();
         //Iniciar maximixado FrmAdministracion
         this.setExtendedState(MAXIMIZED_BOTH);
+        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
         FrmPrincipalInicio inicio = new FrmPrincipalInicio();
         abrirFrm(inicio);
     }
@@ -94,7 +95,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnInicio.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         btnInicio.setForeground(new java.awt.Color(255, 255, 255));
         btnInicio.setText(" Inicio ");
-        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
         btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -137,7 +137,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(429, Short.MAX_VALUE)
+                .addContainerGap(433, Short.MAX_VALUE)
                 .addComponent(btnInicio)
                 .addGap(18, 18, 18)
                 .addComponent(btnVinos)
@@ -152,14 +152,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnInicio)
                     .addComponent(btnVinos)
                     .addComponent(btnLicores)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(40, 55, 71));
@@ -185,7 +185,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         );
         deskPnlContenedorLayout.setVerticalGroup(
             deskPnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
+            .addGap(0, 508, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
