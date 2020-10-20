@@ -36,6 +36,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             deskPnlContenedor.removeAll();
             producto.setVisible(false);
             carrito.setVisible(false);
+            categoria.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
