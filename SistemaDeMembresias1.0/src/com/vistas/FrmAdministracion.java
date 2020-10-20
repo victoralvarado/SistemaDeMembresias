@@ -79,25 +79,31 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        deskPnlContenedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
+
         javax.swing.GroupLayout deskPnlContenedorLayout = new javax.swing.GroupLayout(deskPnlContenedor);
         deskPnlContenedor.setLayout(deskPnlContenedorLayout);
         deskPnlContenedorLayout.setHorizontalGroup(
             deskPnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 798, Short.MAX_VALUE)
+            .addGap(0, 794, Short.MAX_VALUE)
         );
         deskPnlContenedorLayout.setVerticalGroup(
             deskPnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 503, Short.MAX_VALUE)
+            .addGap(0, 451, Short.MAX_VALUE)
         );
 
-        btnMenu.setText("MENU");
+        btnMenu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
+        btnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/mantenimiento.png"))); // NOI18N
+        btnMenu.setText("MANTENIMIENTO");
         btnMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMenuActionPerformed(evt);
             }
         });
 
+        btnProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/producto.png"))); // NOI18N
         btnProducto.setText("Producto");
+        btnProducto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductoActionPerformed(evt);
@@ -105,7 +111,9 @@ public class FrmAdministracion extends javax.swing.JFrame {
         });
         btnMenu.add(btnProducto);
 
+        btnCarrito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btnCarrito.setText("Carrito");
+        btnCarrito.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCarrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCarritoActionPerformed(evt);
@@ -113,7 +121,9 @@ public class FrmAdministracion extends javax.swing.JFrame {
         });
         btnMenu.add(btnCarrito);
 
+        btnCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/categoria.png"))); // NOI18N
         btnCategoria.setText("Categoria");
+        btnCategoria.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCategoriaActionPerformed(evt);
