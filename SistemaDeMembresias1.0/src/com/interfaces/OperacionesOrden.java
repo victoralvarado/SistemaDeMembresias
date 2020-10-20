@@ -5,7 +5,10 @@ import com.modelo.Orden;
 import java.util.List;
 
 /**
- *
+ * Nombre de la clase: OpreacionesOrden
+ * Fecha: 19/10/2020
+ * Versión: 1.0
+ * CopyRight: ITCA-FEPADE
  * @author Luna-
  */
 public interface OperacionesOrden {

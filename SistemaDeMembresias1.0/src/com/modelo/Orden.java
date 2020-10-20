@@ -2,8 +2,8 @@
 package com.modelo;
 
 /**
- * Nombre de la clase: Categoria
- * Fecha: 09-10-2020
+ * Nombre de la clase: Orden
+ * Fecha: 19/10/2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
  * @author Luna-
