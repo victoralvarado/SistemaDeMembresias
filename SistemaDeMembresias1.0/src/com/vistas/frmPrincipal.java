@@ -1,9 +1,12 @@
 package com.vistas;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
 
 /**
@@ -14,14 +17,25 @@ import javax.swing.JInternalFrame;
  * @author victor alvarado
  */
 public class frmPrincipal extends javax.swing.JFrame {
-
+    ImageIcon fot;
+    Image img;
+    Icon iconoEsca;
     public frmPrincipal() {
         initComponents();
         //Iniciar maximixado FrmAdministracion
         this.setExtendedState(MAXIMIZED_BOTH);
         btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
         FrmPrincipalInicio inicio = new FrmPrincipalInicio();
+        logo();
         abrirFrm(inicio);
+    }
+    
+    public final void logo() {
+        fot = new ImageIcon(getClass().getResource("/com/media/logo.png"));
+        img = fot.getImage().getScaledInstance(218, 58, Image.SCALE_SMOOTH);
+        iconoEsca = new ImageIcon(img);
+        lblLogo.setIcon(iconoEsca);
+        lblLogo.repaint();
     }
     
     public void abrirFrm(JInternalFrame frm) {
@@ -82,18 +96,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnLicores = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        pnlLogo = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         deskPnlContenedor = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        pnlPrincipal.setBackground(new java.awt.Color(28, 40, 51));
+        pnlPrincipal.setBackground(new java.awt.Color(250, 250, 250));
+        pnlPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jPanel1.setBackground(new java.awt.Color(40, 55, 71));
+        jPanel1.setBackground(new java.awt.Color(245, 245, 245));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnInicio.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        btnInicio.setForeground(new java.awt.Color(255, 255, 255));
         btnInicio.setText(" Inicio ");
         btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -103,7 +119,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         btnVinos.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        btnVinos.setForeground(new java.awt.Color(255, 255, 255));
         btnVinos.setText(" Vinos ");
         btnVinos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVinos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -113,7 +128,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         btnLicores.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        btnLicores.setForeground(new java.awt.Color(255, 255, 255));
         btnLicores.setText(" Licores ");
         btnLicores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLicores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -123,21 +137,37 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText(" Sobre nosotros ");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText(" Club ");
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        pnlLogo.setBackground(new java.awt.Color(245, 245, 245));
+
+        lblLogo.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout pnlLogoLayout = new javax.swing.GroupLayout(pnlLogo);
+        pnlLogo.setLayout(pnlLogoLayout);
+        pnlLogoLayout.setHorizontalGroup(
+            pnlLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlLogoLayout.createSequentialGroup()
+                .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        pnlLogoLayout.setVerticalGroup(
+            pnlLogoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(433, Short.MAX_VALUE)
+                .addComponent(pnlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnInicio)
                 .addGap(18, 18, 18)
                 .addComponent(btnVinos)
@@ -159,33 +189,21 @@ public class frmPrincipal extends javax.swing.JFrame {
                     .addComponent(btnLicores)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
+            .addComponent(pnlLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(40, 55, 71));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 218, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        jPanel3.setBackground(new java.awt.Color(40, 55, 71));
+        jPanel3.setBackground(new java.awt.Color(250, 250, 250));
 
         javax.swing.GroupLayout deskPnlContenedorLayout = new javax.swing.GroupLayout(deskPnlContenedor);
         deskPnlContenedor.setLayout(deskPnlContenedorLayout);
         deskPnlContenedorLayout.setHorizontalGroup(
             deskPnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1012, Short.MAX_VALUE)
         );
         deskPnlContenedorLayout.setVerticalGroup(
             deskPnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+            .addGap(0, 502, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -209,19 +227,14 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlPrincipalLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPrincipalLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -246,8 +259,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         abrirFrm(inicio);
         btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
         //Borde al color del fondo
-        btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 55, 71), 2));
-        btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 55, 71), 2));
+        btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+        btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
     }//GEN-LAST:event_btnInicioMouseClicked
 
     private void btnVinosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVinosMouseClicked
@@ -255,8 +268,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         abrirFrm(vino);
         btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
         //Borde al color del fondo
-        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 55, 71), 2));
-        btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 55, 71), 2));
+        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+        btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
     }//GEN-LAST:event_btnVinosMouseClicked
 
     private void btnLicoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLicoresMouseClicked
@@ -264,8 +277,8 @@ public class frmPrincipal extends javax.swing.JFrame {
         abrirFrm(licor);
         btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
         //Borde al color del fondo
-        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 55, 71), 2));
-        btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(40, 55, 71), 2));
+        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+        btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
     }//GEN-LAST:event_btnLicoresMouseClicked
 
 
@@ -309,8 +322,9 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JPanel pnlLogo;
     private javax.swing.JPanel pnlPrincipal;
     // End of variables declaration//GEN-END:variables
 
