@@ -386,16 +386,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
         if (frm.equalsIgnoreCase("vinos")) {
             JOptionPane.showMessageDialog(null, "No hay vinos");
-//            FrmBuscarLicores licor = new FrmBuscarLicores();
-//            abrirFrm(licor);
-//            lblTitulo.setText("BUSQUEDA LICORES");
-//            btnBuscar.setVisible(false);
-//
-//            //Borde al color del fondo
-//            btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-//            btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-//            btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-//            btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+            //Falta codificacion
         }
         
     }//GEN-LAST:event_btnBuscarMouseClicked
