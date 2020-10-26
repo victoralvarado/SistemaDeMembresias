@@ -5,7 +5,6 @@ import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
 import java.awt.Image;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,7 +31,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     int longitudBytes;
     DaoProducto daop = new DaoProducto();
     Producto prod = new Producto();
-    FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagen", "jpg","png","jpeg");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagen","jpg","png","jpeg");
     SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
     Date FechaActual = new Date();
     public FrmProducto() {
@@ -52,8 +51,10 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                     return false;
                 }
             };
+            
             List lst;
             lst = daop.mostrarProducto();
+            
             for (int i = 0; i < lst.size(); i++) {
                 prod = (Producto) lst.get(i);
                 datos[0] = prod.getIdProducto();
@@ -425,6 +426,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         try {
             JFileChooser se = new JFileChooser();
             se.setFileFilter(filter);
+            
             int estado = se.showOpenDialog(null);
             if (estado == JFileChooser.APPROVE_OPTION) {
 
