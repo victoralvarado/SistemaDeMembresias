@@ -11,10 +11,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 /**
- * Nombre de la clase: FrrrmPrincipal
- Fecha: 19-10-2020
- Versión: 1.0
- CopyRight: ITCA-FEPADE
+ * Nombre de la clase: FrmPrincipal
+ * Fecha: 19-10-2020
+ * Versión: 1.0
+ * CopyRight: ITCA-FEPADE
  * @author victor alvarado
  */
 public class FrmPrincipal extends javax.swing.JFrame {
