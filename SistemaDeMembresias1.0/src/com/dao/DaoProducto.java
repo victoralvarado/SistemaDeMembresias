@@ -6,6 +6,7 @@ import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
@@ -29,6 +30,8 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
     @Override
     public List<Producto> mostrarProducto() throws Exception {
         ResultSet rs;
+        CustomImageIcon ii = null;
+        InputStream is = null;
         List<Producto> lst = new ArrayList();
         try {
             this.conectar();
