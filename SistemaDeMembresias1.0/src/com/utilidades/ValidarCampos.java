@@ -36,4 +36,12 @@ public class ValidarCampos {
             evt.consume();
         }
     }
+    public void arroba(KeyEvent evt, JTextField textField)
+    {
+        if(evt.getKeyChar()=='@' && textField.getText().contains("@"))
+        {
+            evt.consume();
+        }
+        
+    }
 }

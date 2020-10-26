@@ -15,7 +15,10 @@ public class Suscriptor{
     private String email;
     private String telefono;
     private String direccion;
+    private String genero;
     private int tipoSuscriptor;
+    private String tiempoSus;
+    private double costoSus;
     private String fechaNacimiento;
     private double totalCompra;
     private String fecha;
@@ -23,18 +26,23 @@ public class Suscriptor{
     public Suscriptor() {
     }
 
-    public Suscriptor(int idSuscriptor, String nombre, String apellido, String email, String telefono, String direccion, int tipoSuscriptor, String fechaNacimiento, double totalCompra, String fecha) {
+    public Suscriptor(int idSuscriptor, String nombre, String apellido, String email, String telefono, String direccion, String genero, int tipoSuscriptor, String tiempoSus, double costoSus, String fechaNacimiento, double totalCompra, String fecha) {
         this.idSuscriptor = idSuscriptor;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.telefono = telefono;
         this.direccion = direccion;
+        this.genero = genero;
         this.tipoSuscriptor = tipoSuscriptor;
+        this.tiempoSus = tiempoSus;
+        this.costoSus = costoSus;
         this.fechaNacimiento = fechaNacimiento;
         this.totalCompra = totalCompra;
         this.fecha = fecha;
     }
+
+   
 
     public int getIdSuscriptor() {
         return idSuscriptor;
@@ -84,12 +92,28 @@ public class Suscriptor{
         this.direccion = direccion;
     }
 
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
     public int getTipoSuscriptor() {
         return tipoSuscriptor;
     }
 
     public void setTipoSuscriptor(int tipoSuscriptor) {
         this.tipoSuscriptor = tipoSuscriptor;
+    }
+
+    public String getTiempoSus() {
+        return tiempoSus;
+    }
+
+    public void setTiempoSus(String tiempoSus) {
+        this.tiempoSus = tiempoSus;
     }
 
     public String getFechaNacimiento() {
@@ -114,5 +138,14 @@ public class Suscriptor{
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
-    }  
+    }
+
+    public double getCostoSus() {
+        return costoSus;
+    }
+
+    public void setCostoSus(double costoSus) {
+        this.costoSus = costoSus;
+    }
+    
 }
