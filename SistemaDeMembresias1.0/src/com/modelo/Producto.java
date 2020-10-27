@@ -12,27 +12,25 @@ import java.io.FileInputStream;
 public class Producto {
     private int idProducto;
     private int idCategoria;
+    private int idMarca;
     private String nombre;
     private String descripcion;
-    private int idMarca;
     private FileInputStream imagen;
     private int stock;
-    private double precioCompra;
     private double precioVenta;
     private String fecha;
 
     public Producto() {
     }
 
-    public Producto(int idProducto, int idCategoria, String nombre, String descripcion, int idMarca, FileInputStream imagen, int stock, double precioCompra, double precioVenta, String fecha) {
+    public Producto(int idProducto, int idCategoria, int idMarca, String nombre, String descripcion, FileInputStream imagen, int stock, double precioVenta, String fecha) {
         this.idProducto = idProducto;
         this.idCategoria = idCategoria;
+        this.idMarca = idMarca;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.idMarca = idMarca;
         this.imagen = imagen;
         this.stock = stock;
-        this.precioCompra = precioCompra;
         this.precioVenta = precioVenta;
         this.fecha = fecha;
     }
@@ -53,6 +51,14 @@ public class Producto {
         this.idCategoria = idCategoria;
     }
 
+    public int getIdMarca() {
+        return idMarca;
+    }
+
+    public void setIdMarca(int idMarca) {
+        this.idMarca = idMarca;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -67,14 +73,6 @@ public class Producto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public int getIdMarca() {
-        return idMarca;
-    }
-
-    public void setIdMarca(int idMarca) {
-        this.idMarca = idMarca;
     }
 
     public FileInputStream getImagen() {
@@ -93,14 +91,6 @@ public class Producto {
         this.stock = stock;
     }
 
-    public double getPrecioCompra() {
-        return precioCompra;
-    }
-
-    public void setPrecioCompra(double precioCompra) {
-        this.precioCompra = precioCompra;
-    }
-
     public double getPrecioVenta() {
         return precioVenta;
     }
@@ -116,6 +106,5 @@ public class Producto {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-    
     
 }

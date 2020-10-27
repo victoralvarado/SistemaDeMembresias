@@ -30,8 +30,6 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
     @Override
     public List<Producto> mostrarProducto() throws Exception {
         ResultSet rs;
-        CustomImageIcon ii = null;
-        InputStream is = null;
         List<Producto> lst = new ArrayList();
         try {
             this.conectar();
@@ -42,11 +40,10 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
                 Producto p = new Producto();
                 p.setIdProducto(rs.getInt("idProducto"));
                 p.setIdCategoria(rs.getInt("idCategoria"));
+                p.setIdMarca(rs.getInt("idMarca"));
                 p.setNombre(rs.getString("nombre"));
                 p.setDescripcion(rs.getString("descripcion"));
-                p.setIdMarca(rs.getInt("idMarca"));
                 p.setStock(rs.getInt("stock"));
-                p.setPrecioCompra(rs.getDouble("precioCompra"));
                 p.setPrecioVenta(rs.getDouble("precioVenta"));
                 p.setFecha(rs.getString("fecha"));
                 lst.add(p);
@@ -64,18 +61,16 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
     public void insertarProducto(Producto p) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into producto values(?,?,?,?,?,?,?,?,?,?);";
+            String sql = "insert into producto(idCategoria, idMarca,nombre, descripcion, imagen, stock, precioVenta, fecha) values(?,?,?,?,?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, p.getIdProducto());
+            pre.setInt(1, p.getIdCategoria());
             pre.setInt(2, p.getIdCategoria());
             pre.setString(3, p.getNombre());
             pre.setString(4, p.getDescripcion());
-            pre.setInt(5, p.getIdMarca());
-            pre.setBinaryStream(6, p.getImagen());
-            pre.setInt(7, p.getStock());
-            pre.setDouble(8, p.getPrecioCompra());
-            pre.setDouble(9, p.getPrecioVenta());
-            pre.setString(10, p.getFecha());
+            pre.setBinaryStream(5, p.getImagen());
+            pre.setInt(6, p.getStock());
+            pre.setDouble(7, p.getPrecioVenta());
+            pre.setString(8, p.getFecha());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
                     "Insertar", JOptionPane.INFORMATION_MESSAGE);
@@ -92,19 +87,17 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         try {
             this.conectar();
             String sql = "update producto set idCategoria = ?, nombre = ?, descripcion = ?, "
-                    + "idMarca = ?, imagen = ?, stock = ?, precioCompra = ?, precioVenta = ?, "
+                    + "imagen = ?, stock = ?, precioVenta = ?, "
                     + "fecha = ? where idProducto = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, p.getIdCategoria());
             pre.setString(2, p.getNombre());
             pre.setString(3, p.getDescripcion());
-            pre.setInt(4, p.getIdMarca());
-            pre.setBinaryStream(5, p.getImagen());
-            pre.setInt(6, p.getStock());
-            pre.setDouble(7, p.getPrecioCompra());
-            pre.setDouble(8, p.getPrecioVenta());
-            pre.setString(9, p.getFecha());
-            pre.setInt(10, p.getIdProducto());
+            pre.setBinaryStream(4, p.getImagen());
+            pre.setInt(5, p.getStock());
+            pre.setDouble(6, p.getPrecioVenta());
+            pre.setString(7, p.getFecha());
+            pre.setInt(8, p.getIdProducto());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Dato modificado correctamente",
                     "Modificar", JOptionPane.INFORMATION_MESSAGE);
