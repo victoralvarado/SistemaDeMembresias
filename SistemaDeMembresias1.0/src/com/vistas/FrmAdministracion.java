@@ -28,6 +28,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmProducto producto = new FrmProducto();
         FrmCarrito carrito = new FrmCarrito();
         FrmCategoria categoria=new FrmCategoria();
+        FrmOrden orden=new FrmOrden();
         
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
@@ -37,6 +38,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             producto.setVisible(false);
             carrito.setVisible(false);
             categoria.setVisible(false);
+            orden.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -76,6 +78,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnProducto = new javax.swing.JMenuItem();
         btnCarrito = new javax.swing.JMenuItem();
         btnCategoria = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        btnOrden = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +137,19 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(btnMenu);
 
+        jMenu1.setText("TABLAS");
+
+        btnOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/orden.png"))); // NOI18N
+        btnOrden.setText("Ordenes");
+        btnOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrdenActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnOrden);
+
+        menuPrincipal.add(jMenu1);
+
         setJMenuBar(menuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,6 +186,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmCategoria categoria=new FrmCategoria();
         abrirFrm(categoria);
     }//GEN-LAST:event_btnCategoriaActionPerformed
+
+    private void btnOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenActionPerformed
+        FrmOrden orden=new FrmOrden();
+        abrirFrm(orden);
+    }//GEN-LAST:event_btnOrdenActionPerformed
 
 
 
@@ -208,8 +230,10 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnCarrito;
     private javax.swing.JMenuItem btnCategoria;
     private javax.swing.JMenu btnMenu;
+    private javax.swing.JMenuItem btnOrden;
     private javax.swing.JMenuItem btnProducto;
     private javax.swing.JDesktopPane deskPnlContenedor;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 
