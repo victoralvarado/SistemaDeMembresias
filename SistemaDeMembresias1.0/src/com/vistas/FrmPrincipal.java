@@ -462,13 +462,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel btnLicores;
     private javax.swing.JLabel btnVinos;
     private javax.swing.JDesktopPane deskPnlContenedor;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlLogo;
