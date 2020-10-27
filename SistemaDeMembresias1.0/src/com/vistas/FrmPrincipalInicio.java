@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -29,19 +31,26 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     DaoProducto daop = new DaoProducto();
     public FrmPrincipalInicio() {
         initComponents();
-        cargarProducto();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
     
-    public void cargarProducto() {
-        String id1 = "1";
-        String id2 = "2";
-        String id3 = "3";
+    public void cargarProducto(String id, String tooltip, String nombre, double precio) {
+        String id1 = "10";
+        String id2 = "11";
+        String id3 = "12";
         String id4 = "5";
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
+        
         try {
         CustomImageIcon imagen1 = daop.getImagen(Integer.parseInt(id1));
         p1.setIcon(imagen1);
         p1.updateUI();
+        p1.setToolTipText(tooltip);
+        lblNombre.setText(nombre);
+        lblNombre.setToolTipText(nombre);
+        lblPrecio.setText(String.valueOf(nf.format(precio)));
+        
+        
         
         CustomImageIcon imagen2 = daop.getImagen(Integer.parseInt(id2));
         p2.setIcon(imagen2);
@@ -68,6 +77,8 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         p1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jSpinner4 = new javax.swing.JSpinner();
+        lblNombre = new javax.swing.JLabel();
+        lblPrecio = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         p2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -100,7 +111,6 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         p1.setBackground(new java.awt.Color(255, 255, 255));
-        p1.setToolTipText("<html>Vino procedente de La Rioja Alta,<br>\ntiene un color granate con notas<br>\nvioláceas en el menisco.</html>");
         p1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
@@ -112,6 +122,15 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         });
 
         jSpinner4.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        lblNombre.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombre.setText("Nombre");
+        lblNombre.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblPrecio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPrecio.setText("Precio");
+        lblPrecio.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,12 +146,24 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                         .addGap(42, 42, 42)
                         .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(p1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPrecio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -377,7 +408,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -440,6 +471,8 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblPublicidad1;
     private javax.swing.JLabel lblPublicidad2;
     private javax.swing.JLabel p1;
