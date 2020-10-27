@@ -64,7 +64,7 @@ public class FrmVenta extends javax.swing.JInternalFrame {
                 datos[3] = prod.getDescripcion();
                 datos[4] = prod.getIdMarca();
                 datos[5] = prod.getStock();
-                datos[6] = prod.getPrecioCompra();
+                //datos[6] = prod.getPrecioCompra();
                 datos[7] = prod.getPrecioVenta();
                 datos[8] = prod.getFecha();
                 tabla.addRow(datos);
