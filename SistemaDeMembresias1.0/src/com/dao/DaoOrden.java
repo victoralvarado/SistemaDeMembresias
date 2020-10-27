@@ -80,13 +80,13 @@ public class DaoOrden extends Conexion implements OperacionesOrden{
     public void modificarOrden(Orden ord) throws Exception {
         try {
             this.conectar();
-            String sql = "update orden set idOrden=?, idSuscriptor=?, idDetalle=?, total=?, idEnvio=?, where idCategoria=?;";
-            PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1,ord.getIdOrden());
-            pre.setInt(2,ord.getIdSuscriptor());
-            pre.setInt(3,ord.getIdDetalle());
-            pre.setFloat(4,ord.getTotal());
-            pre.setInt(5,ord.getIdEnvio());
+            String sql = "update orden set idSuscriptor=?, idDetalle=?, total=?, idEnvio=?, where idCategoria=?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);;
+            pre.setInt(1,ord.getIdSuscriptor());
+            pre.setInt(2,ord.getIdDetalle());
+            pre.setFloat(3,ord.getTotal());
+            pre.setInt(4,ord.getIdEnvio());
+            pre.setInt(5,ord.getIdOrden());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Dato modificado correctamente",
                     "Modificar", JOptionPane.INFORMATION_MESSAGE);

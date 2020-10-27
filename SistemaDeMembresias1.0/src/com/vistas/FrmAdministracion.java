@@ -76,6 +76,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnProducto = new javax.swing.JMenuItem();
         btnCarrito = new javax.swing.JMenuItem();
         btnCategoria = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +132,15 @@ public class FrmAdministracion extends javax.swing.JFrame {
         });
         btnMenu.add(btnCategoria);
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/orden.png"))); // NOI18N
+        jMenuItem1.setText("Orden");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        btnMenu.add(jMenuItem1);
+
         menuPrincipal.add(btnMenu);
 
         setJMenuBar(menuPrincipal);
@@ -169,6 +179,10 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmCategoria categoria=new FrmCategoria();
         abrirFrm(categoria);
     }//GEN-LAST:event_btnCategoriaActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 
 
@@ -210,6 +224,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenu btnMenu;
     private javax.swing.JMenuItem btnProducto;
     private javax.swing.JDesktopPane deskPnlContenedor;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 
