@@ -353,43 +353,34 @@ public class FrmSuscriptor extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSuscriptor = new javax.swing.JTable();
 
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("SUSCRIPCION");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(287, 11, -1, -1));
 
         jLabel2.setText("ID:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 36, -1, -1));
 
         txtId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdKeyTyped(evt);
             }
         });
-        jPanel1.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 56, 79, -1));
 
         jLabel3.setText("Nombres:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, -1, -1));
 
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreKeyTyped(evt);
             }
         });
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 216, -1));
 
         jLabel4.setText("Apellidos:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, -1, -1));
 
         txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtApellidoKeyTyped(evt);
             }
         });
-        jPanel1.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 216, -1));
 
         jLabel5.setText("E-mail:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -401,69 +392,52 @@ public class FrmSuscriptor extends javax.swing.JInternalFrame {
                 txtEmailKeyTyped(evt);
             }
         });
-        jPanel1.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 110, 170, -1));
 
         jLabel6.setText("Teléfono:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, -1, -1));
 
         try {
             txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 110, 120, -1));
 
         jLabel7.setText("Fecha de nacimiento:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, -1));
 
         jLabel8.setText("Dirección:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, -1, -1));
 
         txtDireccion.setColumns(20);
         txtDireccion.setRows(5);
         jScrollPane1.setViewportView(txtDireccion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 290, 60));
 
         jLabel9.setText("Tipo de suscriptor:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 140, -1, -1));
 
         cmbTipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbTipoItemStateChanged(evt);
             }
         });
-        jPanel1.add(cmbTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 210, -1));
 
         jLabel10.setText("Total a pagar:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
 
         txtCompras.setText("0");
         txtCompras.setEnabled(false);
-        jPanel1.add(txtCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 150, -1));
 
         jLabel11.setText("Fecha:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, -1, -1));
 
         DtNaci.setDateFormatString("yyyy-MM-dd");
-        jPanel1.add(DtNaci, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 110, 140, -1));
 
         DtFecha.setDateFormatString("yyyy-MM-dd");
-        jPanel1.add(DtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, 150, -1));
 
         jLabel12.setText("Genero:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, -1, -1));
 
         buttonGroup1.add(rdFemenino);
         rdFemenino.setText("Fem");
-        jPanel1.add(rdFemenino, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 110, -1, -1));
 
         buttonGroup1.add(rdMasculino);
         rdMasculino.setText("Masc");
-        jPanel1.add(rdMasculino, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 110, -1, -1));
 
         jLabel13.setText("Tiempo de suscripcion:");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 140, -1, -1));
 
         cmbTiempo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3 Meses", "6 Mese", "9 Meses", "12 Meses" }));
         cmbTiempo.addItemListener(new java.awt.event.ItemListener() {
@@ -471,13 +445,10 @@ public class FrmSuscriptor extends javax.swing.JInternalFrame {
                 cmbTiempoItemStateChanged(evt);
             }
         });
-        jPanel1.add(cmbTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 160, 130, -1));
 
         jLabel14.setText("Costo de suscripcion:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 210, -1, -1));
 
         txtCosto.setEnabled(false);
-        jPanel1.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 240, 130, -1));
 
         btnInsertar.setText("Insertar");
         btnInsertar.addMouseListener(new java.awt.event.MouseAdapter() {
