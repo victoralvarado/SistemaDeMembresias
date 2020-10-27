@@ -137,10 +137,13 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(btnMenu);
 
+        jMenu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/tablas.png"))); // NOI18N
         jMenu1.setText("TABLAS");
 
         btnOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/orden.png"))); // NOI18N
         btnOrden.setText("Ordenes");
+        btnOrden.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnOrden.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrdenActionPerformed(evt);
