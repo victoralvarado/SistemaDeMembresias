@@ -42,8 +42,8 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     
     public void mostrar(){
         try {
-            String[] Columnas = {"Código", "Categoria", "Nombre", "Descripcion", "Marca", "Stock",
-                "Precio Compra", "Precio Venta", "Fecha"};
+            String[] Columnas = {"Código", "Categoria", "Nombre", "Descripcion", "Stock",
+                "Precio Venta", "Fecha"};
             Object[] datos = new Object[9];
             DefaultTableModel tabla = new DefaultTableModel(null, Columnas) {
                 @Override
@@ -61,11 +61,9 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                 datos[1] = prod.getIdCategoria();
                 datos[2] = prod.getNombre();
                 datos[3] = prod.getDescripcion();
-                datos[4] = prod.getIdMarca();
-                datos[5] = prod.getStock();
-                datos[6] = prod.getPrecioCompra();
-                datos[7] = prod.getPrecioVenta();
-                datos[8] = prod.getFecha();
+                datos[4] = prod.getStock();
+                datos[5] = prod.getPrecioVenta();
+                datos[6] = prod.getFecha();
                 tabla.addRow(datos);
             }
             this.tblProducto.setModel(tabla);
@@ -78,12 +76,10 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     public void insertar() throws Exception {
         try {
             prod.setIdProducto(Integer.parseInt(txtCodigoProducto.getText()));
-            prod.setIdCategoria(Integer.parseInt(this.comboCategoria.getSelectedItem().toString()));
+            prod.setIdCategoria(Integer.parseInt(this.comboTipo.getSelectedItem().toString()));
             prod.setNombre(this.txtNombre.getText());
             prod.setDescripcion(this.txtDescripcion.getText());
-            prod.setIdMarca(Integer.parseInt(this.comboMarca.getSelectedItem().toString()));
             prod.setStock(Integer.parseInt(this.spStock.getValue().toString()));
-            prod.setPrecioCompra(Double.parseDouble(this.txtPrecioCompra.getText()));
             prod.setPrecioVenta(Double.parseDouble(this.txtPrecioVenta.getText()));
             prod.setFecha(formatoFecha.format(this.dateFecha.getDate()));
             prod.setImagen(fis);
@@ -100,10 +96,9 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txtCodigoProducto.setText("");
         txtDescripcion.setText("");
         txtNombre.setText("");
-        txtPrecioCompra.setText("");
         txtPrecioVenta.setText("");
+        comboTipo.setSelectedIndex(0);
         comboCategoria.setSelectedIndex(0);
-        comboMarca.setSelectedIndex(0);
         dateFecha.setDate(FechaActual);
         lblImagen.setIcon(null);
         spStock.setValue(0);
@@ -116,12 +111,11 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         if (fila > -1) {
             String id = tblProducto.getValueAt(fila, 0).toString();
             this.txtCodigoProducto.setText(String.valueOf(this.tblProducto.getValueAt(fila, 0)));
-            this.comboCategoria.setSelectedItem(String.valueOf(this.tblProducto.getValueAt(fila, 1)));
+            this.comboTipo.setSelectedItem(String.valueOf(this.tblProducto.getValueAt(fila, 1)));
             this.txtNombre.setText(String.valueOf(this.tblProducto.getValueAt(fila, 2)));
             this.txtDescripcion.setText(String.valueOf(this.tblProducto.getValueAt(fila, 3)));
-            this.comboMarca.setSelectedItem(String.valueOf(this.tblProducto.getValueAt(fila, 4)));
+            this.comboCategoria.setSelectedItem(String.valueOf(this.tblProducto.getValueAt(fila, 4)));
             this.spStock.setValue(Integer.parseInt(this.tblProducto.getValueAt(fila, 5).toString()));
-            this.txtPrecioCompra.setText(String.valueOf(this.tblProducto.getValueAt(fila, 6)));
             this.txtPrecioVenta.setText(String.valueOf(this.tblProducto.getValueAt(fila, 7)));
             this.dateFecha.setDate(parseFecha(String.valueOf(this.tblProducto.getValueAt(fila, 8))));
             try {
@@ -161,7 +155,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -172,13 +165,12 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         txtCodigoProducto = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
-        comboCategoria = new javax.swing.JComboBox<>();
+        comboTipo = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
-        comboMarca = new javax.swing.JComboBox<>();
+        comboCategoria = new javax.swing.JComboBox<>();
         lblImagen = new javax.swing.JLabel();
         spStock = new javax.swing.JSpinner();
-        txtPrecioCompra = new javax.swing.JTextField();
         txtPrecioVenta = new javax.swing.JTextField();
         dateFecha = new com.toedter.calendar.JDateChooser();
         btnImagen = new javax.swing.JButton();
@@ -193,19 +185,17 @@ public class FrmProducto extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Codigo Producto");
 
-        jLabel3.setText("Categoria");
+        jLabel3.setText("Tipo");
 
         jLabel4.setText("Nombre");
 
         jLabel5.setText("Descripcion");
 
-        jLabel6.setText("Marca");
+        jLabel6.setText("Categoria");
 
         jLabel7.setText("Imagen");
 
         jLabel8.setText("Stock");
-
-        jLabel9.setText("Precio Compra");
 
         jLabel10.setText("Precio Venta");
 
@@ -247,13 +237,13 @@ public class FrmProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setRows(5);
         jScrollPane2.setViewportView(txtDescripcion);
 
-        comboMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
 
         lblImagen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
 
@@ -279,59 +269,57 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGap(33, 33, 33)
-                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(jLabel4)
-                        .addGap(127, 127, 127)
-                        .addComponent(jLabel3)))
-                .addGap(166, 166, 166)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addGap(124, 124, 124)
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel3)
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addGap(227, 227, 227)))
                 .addComponent(jLabel7)
                 .addGap(52, 52, 52))
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(215, 215, 215)
-                        .addComponent(jLabel8))
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(189, 189, 189)
-                        .addComponent(spStock, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(327, 327, 327)
+                        .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(491, 491, 491))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(230, 230, 230)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(39, 39, 39)
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel8))
+                            .addComponent(spStock, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(112, 112, 112)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
                                 .addComponent(jLabel10)
-                                .addGap(122, 122, 122)
-                                .addComponent(jLabel11)))
-                        .addGap(34, 34, 34)
-                        .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(15, Short.MAX_VALUE))))
+                                .addGap(9, 9, 9)))
+                        .addGap(175, 175, 175)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(499, 499, 499)
-                        .addComponent(jLabel1)
+                        .addGap(453, 453, 453)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
@@ -347,7 +335,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                     .addComponent(btnCancelar))
                 .addGap(53, 53, 53)
                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,26 +353,29 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(txtCodigoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(comboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addComponent(jLabel8)
-                                .addComponent(jLabel9)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(spStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtPrecioVenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(spStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAgregar)
@@ -392,9 +383,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                             .addComponent(btnEliminar)
                             .addComponent(btnCancelar)))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnImagen))
+                        .addComponent(btnImagen)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -468,7 +457,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnImagen;
     private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox<String> comboCategoria;
-    private javax.swing.JComboBox<String> comboMarca;
+    private javax.swing.JComboBox<String> comboTipo;
     private com.toedter.calendar.JDateChooser dateFecha;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -480,7 +469,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImagen;
@@ -490,7 +478,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodigoProducto;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPrecioCompra;
     private javax.swing.JTextField txtPrecioVenta;
     // End of variables declaration//GEN-END:variables
 
