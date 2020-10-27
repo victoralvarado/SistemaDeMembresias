@@ -27,6 +27,7 @@ public class FrmOrden extends javax.swing.JInternalFrame {
 
     public FrmOrden() {
         initComponents();
+        mostrar();
     }
     
     public void mostrar()
