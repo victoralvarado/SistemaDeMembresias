@@ -75,7 +75,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     
     public void insertar() throws Exception {
         try {
-            prod.setIdProducto(Integer.parseInt(txtCodigoProducto.getText()));
+            //prod.setIdProducto(Integer.parseInt(txtCodigoProducto.getText()));
             prod.setIdCategoria(Integer.parseInt(this.comboTipo.getSelectedItem().toString()));
             prod.setNombre(this.txtNombre.getText());
             prod.setDescripcion(this.txtDescripcion.getText());
