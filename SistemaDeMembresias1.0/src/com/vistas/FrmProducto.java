@@ -45,6 +45,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
             String[] Columnas = {"Código", "Categoria","Marca", "Nombre", "Descripcion", "Stock",
                 "Precio Venta", "Fecha"};
             Object[] datos = new Object[8];
+            tblProducto.getTableHeader().setReorderingAllowed(false) ;
             DefaultTableModel tabla = new DefaultTableModel(null, Columnas) {
                 @Override
                 public boolean isCellEditable(int row, int col) {
