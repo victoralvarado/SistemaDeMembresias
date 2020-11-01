@@ -1,6 +1,8 @@
 package com.vistas;
 
 import com.dao.DaoProducto;
+import com.dao.DaoProductoInicio;
+import com.modelo.ProductoInicio;
 import com.utilidades.CargarImagen;
 import com.utilidades.CustomImageIcon;
 import java.awt.Desktop;
@@ -29,40 +31,55 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     Image img;
     Icon iconoEsca;
     DaoProducto daop = new DaoProducto();
+    DaoProductoInicio daopi = new DaoProductoInicio();
+    ProductoInicio pi = new ProductoInicio();
     public FrmPrincipalInicio() {
         initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        cargarProducto();
     }
     
-    public void cargarProducto(String id, String tooltip, String nombre, double precio) {
-        String id1 = "10";
-        String id2 = "11";
-        String id3 = "12";
-        String id4 = "5";
+    public void cargarProducto() {
+        
+        int id1 = daopi.getIdPrducto(1).getIdProducto();
+        int id2 = daopi.getIdPrducto(2).getIdProducto();
+        int id3 = daopi.getIdPrducto(3).getIdProducto();
+        int id4 = daopi.getIdPrducto(4).getIdProducto();
+        
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
         
         try {
-        CustomImageIcon imagen1 = daop.getImagen(Integer.parseInt(id1));
+        CustomImageIcon imagen1 = daop.getImagen(id1);
         p1.setIcon(imagen1);
         p1.updateUI();
-        p1.setToolTipText(tooltip);
-        lblNombre.setText(nombre);
-        lblNombre.setToolTipText(nombre);
-        lblPrecio.setText(String.valueOf(nf.format(precio)));
+        p1.setToolTipText(daop.info("descripcion", id1));
+        lblNombre.setText(daop.info("nombre", id1));
+        lblNombre.setToolTipText(daop.info("nombre", id1));
+        lblPrecio.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id1))));
         
-        
-        
-        CustomImageIcon imagen2 = daop.getImagen(Integer.parseInt(id2));
+        CustomImageIcon imagen2 = daop.getImagen(id2);
         p2.setIcon(imagen2);
         p2.updateUI();
+        p2.setToolTipText(daop.info("descripcion", id2));
+        lblNombre1.setText(daop.info("nombre", id2));
+        lblNombre1.setToolTipText(daop.info("nombre", id2));
+        lblPrecio1.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id2))));
         
-        CustomImageIcon imagen3 = daop.getImagen(Integer.parseInt(id3));
+        CustomImageIcon imagen3 = daop.getImagen(id3);
         p3.setIcon(imagen3);
         p3.updateUI();
+        p3.setToolTipText(daop.info("descripcion", id3));
+        lblNombre2.setText(daop.info("nombre", id3));
+        lblNombre2.setToolTipText(daop.info("nombre", id3));
+        lblPrecio2.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id3))));
         
-        CustomImageIcon imagen4 = daop.getImagen(Integer.parseInt(id4));
+        CustomImageIcon imagen4 = daop.getImagen(id4);
         p4.setIcon(imagen4);
         p4.updateUI();
+        p4.setToolTipText(daop.info("descripcion", id4));
+        lblNombre3.setText(daop.info("nombre", id4));
+        lblNombre3.setToolTipText(daop.info("nombre", id4));
+        lblPrecio3.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id4))));
         } catch (Exception ex) {
             Logger.getLogger(FrmPrincipalInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,15 +100,21 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         p2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jSpinner3 = new javax.swing.JSpinner();
+        lblPrecio1 = new javax.swing.JLabel();
+        lblNombre1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         p3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jSpinner2 = new javax.swing.JSpinner();
+        lblNombre2 = new javax.swing.JLabel();
+        lblPrecio2 = new javax.swing.JLabel();
         pnlPortada = new CargarImagen("/com/media/p1.png");
         jPanel6 = new javax.swing.JPanel();
         p4 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jSpinner1 = new javax.swing.JSpinner();
+        lblPrecio3 = new javax.swing.JLabel();
+        lblNombre3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblPublicidad1 = new javax.swing.JLabel();
         btnVisitar1 = new javax.swing.JButton();
@@ -147,13 +170,14 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                         .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,6 +211,15 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
 
         jSpinner3.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
+        lblPrecio1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPrecio1.setText("Precio");
+        lblPrecio1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblNombre1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        lblNombre1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombre1.setText("Nombre");
+        lblNombre1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -194,20 +227,32 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(p2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(p2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 25, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPrecio1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(p2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombre1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPrecio1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -231,27 +276,50 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
 
         jSpinner2.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
+        lblNombre2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        lblNombre2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombre2.setText("Nombre");
+        lblNombre2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblPrecio2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPrecio2.setText("Precio");
+        lblPrecio2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(lblPrecio2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap())
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addGap(17, 17, 17)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(p3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(26, 26, 26))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(60, 60, 60)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(p3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60))))
+                        .addComponent(lblNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(p3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNombre2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPrecio2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -286,6 +354,15 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
+        lblPrecio3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPrecio3.setText("Precio");
+        lblPrecio3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        lblNombre3.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        lblNombre3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblNombre3.setText("Nombre");
+        lblNombre3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -296,12 +373,18 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(p4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 21, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPrecio3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNombre3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,12 +392,17 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(p4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblNombre3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPrecio3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addContainerGap())
         );
 
+        lblPublicidad1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPublicidad1.setText("PUBLICIDAD");
         lblPublicidad1.setFocusable(false);
         lblPublicidad1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -348,6 +436,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblPublicidad2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPublicidad2.setText("PUBLICIDAD");
 
         btnVisitar2.setText("Visitar");
@@ -472,7 +561,13 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JSpinner jSpinner4;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombre1;
+    private javax.swing.JLabel lblNombre2;
+    private javax.swing.JLabel lblNombre3;
     private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblPrecio1;
+    private javax.swing.JLabel lblPrecio2;
+    private javax.swing.JLabel lblPrecio3;
     private javax.swing.JLabel lblPublicidad1;
     private javax.swing.JLabel lblPublicidad2;
     private javax.swing.JLabel p1;
