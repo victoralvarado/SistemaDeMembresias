@@ -22,7 +22,7 @@ public class ValidarCampos {
         }
     }
     
-    public void wordssOnly(KeyEvent evt) {
+    public void wordsOnly(KeyEvent evt) {
         if (!Character.isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_SPACE) {
             evt.consume();
         }

@@ -28,8 +28,10 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmProducto producto = new FrmProducto();
         FrmCarrito carrito = new FrmCarrito();
         FrmCategoria categoria=new FrmCategoria();
+        FrmMarca marca = new FrmMarca();
         FrmOrden orden=new FrmOrden();
-        
+        FrmPortada portada = new FrmPortada();
+        FrmProductoInicio productoI =new FrmProductoInicio();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -39,6 +41,9 @@ public class FrmAdministracion extends javax.swing.JFrame {
             carrito.setVisible(false);
             categoria.setVisible(false);
             orden.setVisible(false);
+            marca.setVisible(false);
+            productoI.setVisible(false);
+            portada.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -78,8 +83,12 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnProducto = new javax.swing.JMenuItem();
         btnCarrito = new javax.swing.JMenuItem();
         btnCategoria = new javax.swing.JMenuItem();
+        btnMarca = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnOrden = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        btnProductosI = new javax.swing.JMenuItem();
+        btnPortada = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,6 +144,16 @@ public class FrmAdministracion extends javax.swing.JFrame {
         });
         btnMenu.add(btnCategoria);
 
+        btnMarca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/marca.png"))); // NOI18N
+        btnMarca.setText("Marca");
+        btnMarca.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMarcaActionPerformed(evt);
+            }
+        });
+        btnMenu.add(btnMarca);
+
         menuPrincipal.add(btnMenu);
 
         jMenu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
@@ -152,6 +171,27 @@ public class FrmAdministracion extends javax.swing.JFrame {
         jMenu1.add(btnOrden);
 
         menuPrincipal.add(jMenu1);
+
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/inicio.png"))); // NOI18N
+        jMenu2.setText("INICIO");
+
+        btnProductosI.setText("Productos");
+        btnProductosI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosIActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnProductosI);
+
+        btnPortada.setText("Portada");
+        btnPortada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPortadaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnPortada);
+
+        menuPrincipal.add(jMenu2);
 
         setJMenuBar(menuPrincipal);
 
@@ -195,6 +235,21 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(orden);
     }//GEN-LAST:event_btnOrdenActionPerformed
 
+    private void btnMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcaActionPerformed
+        FrmMarca marca = new FrmMarca();
+        abrirFrm(marca);
+    }//GEN-LAST:event_btnMarcaActionPerformed
+
+    private void btnProductosIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosIActionPerformed
+        FrmProductoInicio productoI =new FrmProductoInicio();
+        abrirFrm(productoI);
+    }//GEN-LAST:event_btnProductosIActionPerformed
+
+    private void btnPortadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPortadaActionPerformed
+        FrmPortada portada = new FrmPortada();
+        abrirFrm(portada);
+    }//GEN-LAST:event_btnPortadaActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -232,11 +287,15 @@ public class FrmAdministracion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnCarrito;
     private javax.swing.JMenuItem btnCategoria;
+    private javax.swing.JMenuItem btnMarca;
     private javax.swing.JMenu btnMenu;
     private javax.swing.JMenuItem btnOrden;
+    private javax.swing.JMenuItem btnPortada;
     private javax.swing.JMenuItem btnProducto;
+    private javax.swing.JMenuItem btnProductosI;
     private javax.swing.JDesktopPane deskPnlContenedor;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 

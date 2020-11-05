@@ -13,6 +13,7 @@ public class Producto {
     private int idProducto;
     private int idCategoria;
     private int idMarca;
+    private String tipo;
     private String nombre;
     private String descripcion;
     private FileInputStream imagen;
@@ -23,10 +24,11 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(int idProducto, int idCategoria, int idMarca, String nombre, String descripcion, FileInputStream imagen, int stock, double precioVenta, String fecha) {
+    public Producto(int idProducto, int idCategoria, int idMarca, String tipo, String nombre, String descripcion, FileInputStream imagen, int stock, double precioVenta, String fecha) {
         this.idProducto = idProducto;
         this.idCategoria = idCategoria;
         this.idMarca = idMarca;
+        this.tipo = tipo;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.imagen = imagen;
@@ -57,6 +59,14 @@ public class Producto {
 
     public void setIdMarca(int idMarca) {
         this.idMarca = idMarca;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getNombre() {
@@ -106,5 +116,6 @@ public class Producto {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
     
 }

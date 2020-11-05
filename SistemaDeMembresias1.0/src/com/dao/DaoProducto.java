@@ -41,6 +41,7 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
                 p.setIdProducto(rs.getInt("idProducto"));
                 p.setIdCategoria(rs.getInt("idCategoria"));
                 p.setIdMarca(rs.getInt("idMarca"));
+                p.setTipo(rs.getString("tipo"));
                 p.setNombre(rs.getString("nombre"));
                 p.setDescripcion(rs.getString("descripcion"));
                 p.setStock(rs.getInt("stock"));
@@ -56,21 +57,49 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         }
         return lst;
     }
+    public List<Producto> mostrarVL(String tipo) throws Exception {
+        ResultSet rs;
+        List<Producto> lst = new ArrayList();
+        try {
+            this.conectar();
+            String sql = "select * from producto where tipo = '"+tipo+"';";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setIdCategoria(rs.getInt("idCategoria"));
+                p.setIdMarca(rs.getInt("idMarca"));
+                p.setTipo(rs.getString("tipo"));
+                p.setNombre(rs.getString("nombre"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setPrecioVenta(rs.getDouble("precioVenta"));
+                lst.add(p);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return lst;
+    }
 
     @Override
     public void insertarProducto(Producto p) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into producto(idCategoria, idMarca, nombre, descripcion, imagen, stock, precioVenta, fecha) values(?,?,?,?,?,?,?,?);";
+            String sql = "insert into producto(idCategoria, idMarca, tipo, nombre, descripcion, imagen, stock, precioVenta, fecha) values(?,?,?,?,?,?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, p.getIdCategoria());
             pre.setInt(2, p.getIdMarca());
-            pre.setString(3, p.getNombre());
-            pre.setString(4, p.getDescripcion());
-            pre.setBinaryStream(5, p.getImagen());
-            pre.setInt(6, p.getStock());
-            pre.setDouble(7, p.getPrecioVenta());
-            pre.setString(8, p.getFecha());
+            pre.setString(3, p.getTipo());
+            pre.setString(4, p.getNombre());
+            pre.setString(5, p.getDescripcion());
+            pre.setBinaryStream(6, p.getImagen());
+            pre.setInt(7, p.getStock());
+            pre.setDouble(8, p.getPrecioVenta());
+            pre.setString(9, p.getFecha());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
                     "Insertar", JOptionPane.INFORMATION_MESSAGE);
@@ -86,20 +115,38 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
     public void modificarProducto(Producto p) throws Exception {
         try {
             this.conectar();
-            String sql = "update producto set idCategoria = ?, idMarca = ?, nombre = ?, descripcion = ?, "
-                    + "imagen = ?, stock = ?, precioVenta = ?, "
-                    + "fecha = ? where idProducto = ?;";
-            PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, p.getIdCategoria());
-            pre.setInt(2, p.getIdMarca());
-            pre.setString(3, p.getNombre());
-            pre.setString(4, p.getDescripcion());
-            pre.setBinaryStream(5, p.getImagen());
-            pre.setInt(6, p.getStock());
-            pre.setDouble(7, p.getPrecioVenta());
-            pre.setString(8, p.getFecha());
-            pre.setInt(9, p.getIdProducto());
-            pre.executeUpdate();
+            if (p.getImagen() == null) {
+                String sql = "update producto set idCategoria = ?, idMarca = ?, tipo = ?, nombre = ?, descripcion = ?, "
+                        + "stock = ?, precioVenta = ?, "
+                        + "fecha = ? where idProducto = ?;";
+                PreparedStatement pre = this.getCon().prepareStatement(sql);
+                pre.setInt(1, p.getIdCategoria());
+                pre.setInt(2, p.getIdMarca());
+                pre.setString(3, p.getTipo());
+                pre.setString(4, p.getNombre());
+                pre.setString(5, p.getDescripcion());
+                pre.setInt(6, p.getStock());
+                pre.setDouble(7, p.getPrecioVenta());
+                pre.setString(8, p.getFecha());
+                pre.setInt(9, p.getIdProducto());
+                pre.executeUpdate();
+            } else {
+                String sql = "update producto set idCategoria = ?, idMarca = ?, tipo = ?, nombre = ?, descripcion = ?, "
+                        + "imagen = ?, stock = ?, precioVenta = ?, "
+                        + "fecha = ? where idProducto = ?;";
+                PreparedStatement pre = this.getCon().prepareStatement(sql);
+                pre.setInt(1, p.getIdCategoria());
+                pre.setInt(2, p.getIdMarca());
+                pre.setString(3, p.getTipo());
+                pre.setString(4, p.getNombre());
+                pre.setString(5, p.getDescripcion());
+                pre.setBinaryStream(6, p.getImagen());
+                pre.setInt(7, p.getStock());
+                pre.setDouble(8, p.getPrecioVenta());
+                pre.setString(9, p.getFecha());
+                pre.setInt(10, p.getIdProducto());
+                pre.executeUpdate();
+            }
             JOptionPane.showMessageDialog(null, "Dato modificado correctamente",
                     "Modificar", JOptionPane.INFORMATION_MESSAGE);
         } catch (HeadlessException | SQLException e) {
@@ -152,5 +199,52 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
             this.desconectar();
         }
         return ii;
+    }
+    
+    public Producto getProducto(int codigoProducto) throws Exception {
+        Producto pr = new Producto();
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "select * from producto where idProducto = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, codigoProducto);
+            rs = pre.executeQuery();
+            while(rs.next())
+            {
+                pr.setIdProducto(rs.getInt("idProducto"));
+                pr.setNombre(rs.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            this.desconectar();
+        }
+        return pr;
+    }
+    
+    
+    public String info(String campo, int codigo) {
+        String consulta ="";
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "select "+campo+" from producto where idProducto = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, codigo);
+            rs = pre.executeQuery();
+            while(rs.next())
+            {
+                consulta = rs.getString(campo);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }finally {
+            this.desconectar();
+        }
+        return consulta;
     }
 }

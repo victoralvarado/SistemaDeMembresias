@@ -2,6 +2,7 @@ package com.vistas;
 
 import com.dao.DaoProducto;
 import com.utilidades.CustomImageIcon;
+import java.awt.Color;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -17,7 +18,7 @@ public class FrmPnlProducto extends javax.swing.JPanel {
     public FrmPnlProducto() {
         initComponents();
     }
-    public void cargarProd(String id, String tooltip, String nombre, double precio) {
+    public void cargarProd(String id, String tooltip, String nombre, double precio, int stock) {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
         p1.setToolTipText(tooltip);
         lblNombre.setText(nombre);
@@ -27,6 +28,14 @@ public class FrmPnlProducto extends javax.swing.JPanel {
             CustomImageIcon imagen = daop.getImagen(Integer.parseInt(id));
             p1.setIcon(imagen);
             p1.updateUI();
+            if (stock == 0) {
+                p1.setText("AGOTADO");
+                addCart.setEnabled(false);
+            } else {
+                p1.setText("");
+                addCart.setEnabled(true);
+            }
+            
         } catch (Exception ex) {
             Logger.getLogger(FrmPnlProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -43,14 +52,21 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         lblNombre = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setBackground(new java.awt.Color(249, 235, 234));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p1.setBackground(new java.awt.Color(255, 255, 255));
+        p1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        p1.setForeground(new java.awt.Color(255, 0, 0));
+        p1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p1.setToolTipText("<html>Vino procedente de La Rioja Alta,<br>\ntiene un color granate con notas<br>\nvioláceas en el menisco.</html>");
-        p1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        p1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        addCart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
+        addCart.setBackground(new java.awt.Color(192, 57, 43));
+        addCart.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        addCart.setForeground(new java.awt.Color(255, 255, 255));
+        addCart.setText("Agregar al carrito");
         addCart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jSpinner4.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
@@ -74,13 +90,13 @@ public class FrmPnlProducto extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(51, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(p1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(93, 93, 93)
@@ -96,7 +112,7 @@ public class FrmPnlProducto extends javax.swing.JPanel {
                 .addComponent(lblNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblPrecio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addCart)

@@ -556,11 +556,11 @@ public class FrmSuscriptor extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        vc.wordssOnly(evt);
+        vc.wordsOnly(evt);
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
-        vc.wordssOnly(evt);
+        vc.wordsOnly(evt);
     }//GEN-LAST:event_txtApellidoKeyTyped
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost

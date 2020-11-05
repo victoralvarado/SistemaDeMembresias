@@ -48,7 +48,7 @@ public class DaoMarca extends Conexion implements OperacionesMarca {
     public void insertarMarca(Marca mar) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into marca values(?,?)";
+            String sql = "insert into marca values(?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, mar.getIdMarca());
             pre.setString(2, mar.getNombre());
@@ -93,5 +93,29 @@ public class DaoMarca extends Conexion implements OperacionesMarca {
         } finally {
             this.desconectar();
         }
-    }   
+    }
+    
+    public Marca getMarca(int codigoMarca) throws Exception {
+        Marca ma = new Marca();
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "select * from marca where idMarca = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, codigoMarca);
+            rs = pre.executeQuery();
+            while(rs.next())
+            {
+                ma.setIdMarca(rs.getInt("idMarca"));
+                ma.setNombre(rs.getString("nombre"));
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            this.desconectar();
+        }
+        return ma;
+    }
 }

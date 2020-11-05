@@ -1,9 +1,7 @@
 package com.dao;
 
 import com.conexion.Conexion;
-import com.interfaces.OperacionesCategoria;
-import com.modelo.Categoria;
-import java.awt.HeadlessException;
+import com.modelo.ProductoInicio;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,28 +10,26 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
- * Nombre de la clase: DaoCategoria
- * Fecha: 09-10-2020
+ * Nombre de la clase: DaoProductoInicio
+ * Fecha: 01-11-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author adrian luna
+ * @author victor alvarado
  */
-public class DaoCategoria extends Conexion implements OperacionesCategoria{
-
-    @Override
-    public List<Categoria> mostrarCategoria() throws Exception {
+public class DaoProductoInicio extends Conexion{
+    public List<ProductoInicio> mostrarPInicio() throws Exception {
         ResultSet rs;
-        List<Categoria> lst = new ArrayList();
+        List<ProductoInicio> lst = new ArrayList();
         try {
             this.conectar();
-            String sql = "select * from categoria;";
+            String sql = "select * from productoInicio;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             rs = pre.executeQuery();
             while (rs.next()) {                
-                Categoria cat= new Categoria();
-                cat.setIdCategoria(rs.getInt("idCategoria"));
-                cat.setCategoria(rs.getString("categoria"));
-                lst.add(cat);
+                ProductoInicio pi= new ProductoInicio();
+                pi.setCodigo(rs.getInt("codigo"));
+                pi.setIdProducto(rs.getInt("idProducto"));
+                lst.add(pi);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
@@ -45,20 +41,19 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
         }
         return lst;
     }
-
-    @Override
-    public void insertarCategoria(Categoria cat) throws Exception {
+    
+    public void insertarPInicio(ProductoInicio pi) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into categoria values(?,?);";
+            String sql = "insert into productoInicio values(?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1,cat.getIdCategoria());
-            pre.setString(2,cat.getCategoria());
+            pre.setInt(1,pi.getCodigo());
+            pre.setInt(2,pi.getIdProducto());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
                     "Insertar", JOptionPane.INFORMATION_MESSAGE);
             
-        } catch (HeadlessException | SQLException e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -67,21 +62,20 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
             this.desconectar();
         }
     }
-
-    @Override
-    public void modificarCategoria(Categoria cat) throws Exception {
+    
+    public void modificarPInicio(ProductoInicio pi) throws Exception {
         try {
             this.conectar();
-            String sql = "update categoria set categoria=? where idCategoria=?;";
+            String sql = "update productoInicio set idProducto = ? where codigo = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setString(1,cat.getCategoria());
-            pre.setInt(2,cat.getIdCategoria());
+            pre.setInt(1,pi.getIdProducto());
+            pre.setInt(2,pi.getCodigo());
             pre.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Dato modificado correctamente",
+            JOptionPane.showMessageDialog(null, "Datos modificados correctamente",
                     "Modificar", JOptionPane.INFORMATION_MESSAGE);
             
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar " + e.getMessage(),
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al Modificar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
         finally
@@ -89,48 +83,48 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
             this.desconectar();
         }
     }
-
-    @Override
-    public void eliminarCategoria(Categoria cat) throws Exception {
+    
+    public void eliminarPInicio(ProductoInicio pi) throws Exception {
         try {
             this.conectar();
-            String sql = "delete from categoria where idCategoria=?;";
+            String sql = "delete from productoInicio  where codigo = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, cat.getIdCategoria());
+            pre.setInt(1,pi.getCodigo());
             pre.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Dato eliminado correctamente",
+            JOptionPane.showMessageDialog(null, "Datos eliminados correctamente",
                     "Eliminar", JOptionPane.INFORMATION_MESSAGE);
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar " + e.getMessage(),
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al Eliminar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-        finally 
+        finally
         {
             this.desconectar();
         }
     }
     
-    public Categoria getCategoria(int codigoMarca) throws Exception {
-        Categoria ca = new Categoria();
+    public ProductoInicio getIdPrducto(int codigo) {
+        ProductoInicio pr = new ProductoInicio();
         ResultSet rs = null;
         try {
             this.conectar();
-            String sql = "select * from categoria where idCategoria = ?;";
+            String sql = "select * from productoInicio where codigo = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, codigoMarca);
+            pre.setInt(1, codigo);
             rs = pre.executeQuery();
             while(rs.next())
             {
-                ca.setIdCategoria(rs.getInt("idCategoria"));
-                ca.setCategoria(rs.getString("categoria"));
+                pr.setCodigo(rs.getInt("codigo"));
+                pr.setIdProducto(rs.getInt("idProducto"));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar" + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
         finally {
             this.desconectar();
         }
-        return ca;
+        return pr;
     }
 }
