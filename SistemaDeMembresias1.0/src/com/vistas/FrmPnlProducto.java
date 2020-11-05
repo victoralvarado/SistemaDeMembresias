@@ -18,7 +18,7 @@ public class FrmPnlProducto extends javax.swing.JPanel {
     public FrmPnlProducto() {
         initComponents();
     }
-    public void cargarProd(String id, String tooltip, String nombre, double precio) {
+    public void cargarProd(String id, String tooltip, String nombre, double precio, int stock) {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
         p1.setToolTipText(tooltip);
         lblNombre.setText(nombre);
@@ -28,7 +28,14 @@ public class FrmPnlProducto extends javax.swing.JPanel {
             CustomImageIcon imagen = daop.getImagen(Integer.parseInt(id));
             p1.setIcon(imagen);
             p1.updateUI();
-            p1.setText("AGOTADO");
+            if (stock == 0) {
+                p1.setText("AGOTADO");
+                addCart.setEnabled(false);
+            } else {
+                p1.setText("");
+                addCart.setEnabled(true);
+            }
+            
         } catch (Exception ex) {
             Logger.getLogger(FrmPnlProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -46,14 +53,14 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         lblPrecio = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(249, 235, 234));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p1.setBackground(new java.awt.Color(255, 255, 255));
         p1.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         p1.setForeground(new java.awt.Color(255, 0, 0));
         p1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p1.setToolTipText("<html>Vino procedente de La Rioja Alta,<br>\ntiene un color granate con notas<br>\nvioláceas en el menisco.</html>");
-        p1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        p1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         p1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         addCart.setBackground(new java.awt.Color(192, 57, 43));

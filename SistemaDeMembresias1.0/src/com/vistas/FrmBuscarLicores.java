@@ -1,5 +1,7 @@
 package com.vistas;
 
+import com.dao.DaoCategoria;
+import com.dao.DaoMarca;
 import com.dao.DaoProducto;
 import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
@@ -25,6 +27,8 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
     DaoProducto daop = new DaoProducto();
     Producto prod = new Producto();
     FrmPnlProducto panel = new FrmPnlProducto();
+    DaoMarca daom = new DaoMarca();
+    DaoCategoria daoc = new DaoCategoria();
     public FrmBuscarLicores() {
         initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -32,8 +36,8 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
     }
     public void mostrar(){
         try {
-            String[] Columnas = {"Código", "Categoria", "Nombre", "Descripcion", "Marca", "Stock",
-                 "Precio Venta", "Fecha", "Imagen"};
+            String[] Columnas = {"Código", "Categoria", "Nombre", "Descripcion", "Marca",
+                 "Precio Venta", "Imagen"};
             Object[] datos = new Object[9];
             tblProducto.getTableHeader().setReorderingAllowed(false) ;
             DefaultTableModel tabla = new DefaultTableModel(null, Columnas) {
@@ -56,10 +60,6 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
                         case 5:
                             return Object.class;
                         case 6:
-                            return Object.class;
-                        case 7:
-                            return Object.class;
-                        case 8:
                             return ImageIcon.class;
                         default:
                             return Object.class;
@@ -68,21 +68,19 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
             };
             
             List lst;
-            lst = daop.mostrarProducto();
+            lst = daop.mostrarVL("Licor");
              
             for (int i = 0; i < lst.size(); i++) {
                 prod = (Producto) lst.get(i);
                 String id = String.valueOf(prod.getIdProducto());
                 datos[0] = prod.getIdProducto();
-                datos[1] = prod.getIdCategoria();
+                datos[1] = daoc.getCategoria(prod.getIdCategoria()).getCategoria();
                 datos[2] = prod.getNombre();
                 datos[3] = prod.getDescripcion();
-                datos[4] = prod.getIdMarca();
-                datos[5] = prod.getStock();
-                datos[6] = prod.getPrecioVenta();
-                datos[7] = prod.getFecha();
+                datos[4] = daom.getMarca(prod.getIdMarca()).getNombre();
+                datos[5] = prod.getPrecioVenta();
                 CustomImageIcon imagen = daop.getImagen(Integer.parseInt(id));
-                datos[8] = imagen;
+                datos[6] = imagen;
                 tabla.addRow(datos);
             }
             this.tblProducto.setModel(tabla);
@@ -94,12 +92,14 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
     public void llenarTabla() {
         int fila = this.tblProducto.getSelectedRow();
         if (fila > -1) {
+            
             String id = tblProducto.getValueAt(fila, 0).toString();
             String categoria = tblProducto.getValueAt(fila, 1).toString();
             String nombre = tblProducto.getValueAt(fila, 2).toString();
             String tooltip = tblProducto.getValueAt(fila, 3).toString();
-            Double precio = Double.parseDouble(this.tblProducto.getValueAt(fila, 6).toString());
-            panel.cargarProd(id, tooltip, nombre, precio);
+            Double precio = Double.parseDouble(this.tblProducto.getValueAt(fila, 5).toString());
+            String stock = daop.info("stock", Integer.parseInt(id));
+            panel.cargarProd(id, tooltip, nombre, precio,Integer.parseInt(stock));
             JOptionPane.showOptionDialog(null, panel,categoria, JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, 
                     null, new Object[]{}, null);
             
@@ -114,8 +114,6 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProducto = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(250, 250, 250)));
@@ -144,43 +142,31 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Buscar");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel2.setText("Categoria");
-
         javax.swing.GroupLayout panelContenedorLayout = new javax.swing.GroupLayout(panelContenedor);
         panelContenedor.setLayout(panelContenedorLayout);
         panelContenedorLayout.setHorizontalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContenedorLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1314, Short.MAX_VALUE))
             .addGroup(panelContenedorLayout.createSequentialGroup()
                 .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelContenedorLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel2)
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel1))
-                    .addGroup(panelContenedorLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(987, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContenedorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1))
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelContenedorLayout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(jLabel1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelContenedorLayout.setVerticalGroup(
             panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelContenedorLayout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(15, 15, 15)
-                .addGroup(panelContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(48, 48, 48)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
                 .addGap(27, 27, 27))
         );
@@ -205,9 +191,7 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel panelContenedor;

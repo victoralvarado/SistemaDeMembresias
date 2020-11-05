@@ -57,6 +57,33 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         }
         return lst;
     }
+    public List<Producto> mostrarVL(String tipo) throws Exception {
+        ResultSet rs;
+        List<Producto> lst = new ArrayList();
+        try {
+            this.conectar();
+            String sql = "select * from producto where tipo = '"+tipo+"';";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setIdCategoria(rs.getInt("idCategoria"));
+                p.setIdMarca(rs.getInt("idMarca"));
+                p.setTipo(rs.getString("tipo"));
+                p.setNombre(rs.getString("nombre"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setPrecioVenta(rs.getDouble("precioVenta"));
+                lst.add(p);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return lst;
+    }
 
     @Override
     public void insertarProducto(Producto p) throws Exception {

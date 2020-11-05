@@ -123,6 +123,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/inicio.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="INICIO"/>
           </Properties>
           <SubComponents>
@@ -132,6 +135,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductosIActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="btnPortada">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Portada"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPortadaActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

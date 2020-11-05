@@ -30,6 +30,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmCategoria categoria=new FrmCategoria();
         FrmMarca marca = new FrmMarca();
         FrmOrden orden=new FrmOrden();
+        FrmPortada portada = new FrmPortada();
         FrmProductoInicio productoI =new FrmProductoInicio();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
@@ -42,6 +43,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             orden.setVisible(false);
             marca.setVisible(false);
             productoI.setVisible(false);
+            portada.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -86,6 +88,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnOrden = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnProductosI = new javax.swing.JMenuItem();
+        btnPortada = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -169,6 +172,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(jMenu1);
 
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/inicio.png"))); // NOI18N
         jMenu2.setText("INICIO");
 
         btnProductosI.setText("Productos");
@@ -178,6 +182,14 @@ public class FrmAdministracion extends javax.swing.JFrame {
             }
         });
         jMenu2.add(btnProductosI);
+
+        btnPortada.setText("Portada");
+        btnPortada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPortadaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(btnPortada);
 
         menuPrincipal.add(jMenu2);
 
@@ -233,6 +245,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(productoI);
     }//GEN-LAST:event_btnProductosIActionPerformed
 
+    private void btnPortadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPortadaActionPerformed
+        FrmPortada portada = new FrmPortada();
+        abrirFrm(portada);
+    }//GEN-LAST:event_btnPortadaActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -273,6 +290,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnMarca;
     private javax.swing.JMenu btnMenu;
     private javax.swing.JMenuItem btnOrden;
+    private javax.swing.JMenuItem btnPortada;
     private javax.swing.JMenuItem btnProducto;
     private javax.swing.JMenuItem btnProductosI;
     private javax.swing.JDesktopPane deskPnlContenedor;

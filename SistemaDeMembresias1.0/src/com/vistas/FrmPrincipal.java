@@ -8,7 +8,10 @@ import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 
 /**
  * Nombre de la clase: FrmPrincipal
@@ -22,6 +25,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     Image img;
     Icon iconoEsca;
     String frm;
+    JPopupMenu menu;
     public FrmPrincipal() {
         initComponents();
         btnBuscar.setVisible(false);
@@ -31,6 +35,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmPrincipalInicio inicio = new FrmPrincipalInicio();
         logo();
         abrirFrm(inicio);
+        lblUsuario.setText("Cerrar sesion");
+        
     }
     
     public final void logo() {
@@ -91,6 +97,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
         return false;
     }
+    
+    public void cerrar() {
+        System.exit(0);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -101,7 +111,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         btnInicio = new javax.swing.JLabel();
         btnVinos = new javax.swing.JLabel();
         btnLicores = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         pnlLogo = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
@@ -148,9 +158,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel4.setText(" Sobre nosotros ");
-        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUsuario.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        lblUsuario.setText(" Sobre nosotros ");
+        lblUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarioMouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         jLabel5.setText(" Club ");
@@ -202,9 +217,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addComponent(btnLicores)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblUsuario)
+                .addGap(12, 12, 12)
                 .addComponent(btnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -216,7 +231,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     .addComponent(btnInicio)
                     .addComponent(btnVinos)
                     .addComponent(btnLicores)
-                    .addComponent(jLabel4)
+                    .addComponent(lblUsuario)
                     .addComponent(jLabel5)
                     .addComponent(btnCarrito))
                 .addContainerGap(17, Short.MAX_VALUE))
@@ -398,6 +413,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnBuscarMouseClicked
 
+    private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
+        //        menu = new JPopupMenu();
+        //        menu.add(new JMenuItem());
+        //        add("Center",lblUsuario);
+        //        menu.setVisible(true);
+        //        menu.setLocation(evt.getLocationOnScreen());
+    }//GEN-LAST:event_lblUsuarioMouseClicked
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -469,13 +492,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel btnLicores;
     private javax.swing.JLabel btnVinos;
     private javax.swing.JDesktopPane deskPnlContenedor;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JPanel pnlLogo;
     private javax.swing.JPanel pnlPrincipal;
     // End of variables declaration//GEN-END:variables
