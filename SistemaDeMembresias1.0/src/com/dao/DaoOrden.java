@@ -55,7 +55,7 @@ public class DaoOrden extends Conexion implements OperacionesOrden{
     public void insertarOrden(Orden ord) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into orden values(?,?,?,?,?);";
+            String sql = "insert into orden(idOrden, idSuscriptor, idDetalle, total, idEnvio)  values(?,?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1,ord.getIdOrden());
             pre.setInt(2,ord.getIdSuscriptor());
