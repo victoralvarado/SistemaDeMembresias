@@ -55,13 +55,12 @@ public class DaoOrden extends Conexion implements OperacionesOrden{
     public void insertarOrden(Orden ord) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into orden values(?,?,?,?,?);";
+            String sql = "insert into orden(idSuscriptor, idDetalle, total, idEnvio)  values(?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1,ord.getIdOrden());
-            pre.setInt(2,ord.getIdSuscriptor());
-            pre.setInt(3,ord.getIdDetalle());
-            pre.setFloat(4,ord.getTotal());
-            pre.setInt(5,ord.getIdEnvio());
+            pre.setInt(1,ord.getIdSuscriptor());
+            pre.setInt(2,ord.getIdDetalle());
+            pre.setFloat(3,ord.getTotal());
+            pre.setInt(4,ord.getIdEnvio());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
                     "Insertar", JOptionPane.INFORMATION_MESSAGE);
