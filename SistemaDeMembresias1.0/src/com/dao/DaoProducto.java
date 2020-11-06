@@ -6,13 +6,11 @@ import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -62,8 +60,9 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         List<Producto> lst = new ArrayList();
         try {
             this.conectar();
-            String sql = "select * from producto where tipo = '"+tipo+"';";
+            String sql = "select * from producto where tipo = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setString(1, tipo);
             rs = pre.executeQuery();
             while (rs.next()) {
                 Producto p = new Producto();
@@ -182,8 +181,9 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         InputStream is = null;
         try {
             this.conectar();
-            String sql = "select imagen from producto where idProducto = " + id + ";";
+            String sql = "select imagen from producto where idProducto = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, id);
             rs = pre.executeQuery();
             if (rs.next()) {
                 is = rs.getBinaryStream(1);
@@ -231,9 +231,10 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         ResultSet rs = null;
         try {
             this.conectar();
-            String sql = "select "+campo+" from producto where idProducto = ?;";
+            String sql = "select ? from producto where idProducto = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, codigo);
+            pre.setString(1, campo);
+            pre.setInt(2, codigo);
             rs = pre.executeQuery();
             while(rs.next())
             {

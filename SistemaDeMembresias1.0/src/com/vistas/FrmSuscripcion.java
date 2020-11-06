@@ -1,5 +1,14 @@
 package com.vistas;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import javax.swing.JOptionPane;
+
 /**
  * Nombre de la clase: FrmSuscripcion
  * Fecha: 04-11-2020
@@ -8,11 +17,41 @@ package com.vistas;
  * @author victor alvarado
  */
 public class FrmSuscripcion extends javax.swing.JFrame {
-
+    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+    Date fechaActual = new Date();
+    int conta =0;
     public FrmSuscripcion() {
         initComponents();
+        dateNacimiento.setDate(fechaActual);
+        dateFechaActual.setDate(fechaActual);
     }
-
+    public void calcularEdad() {
+        int yearn = dateNacimiento.getCalendar().get(Calendar.YEAR);
+        int mesn = dateNacimiento.getCalendar().get(Calendar.MONTH);
+        int dayn = dateNacimiento.getCalendar().get(Calendar.DAY_OF_MONTH);
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int mes = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        for (int i = yearn; i < year; i++) {
+            conta++;
+        }
+        //JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse edad "+dayn);
+        if (conta < 18) {
+            JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse"); 
+        } else if (conta == 18 && mesn+1 >= mes+1 && dayn >= day) {
+            JOptionPane.showMessageDialog(this, "Usted es mayor de edad \nFecha Cumple"+yearn+"-"+mesn+"-"+dayn+
+                    "\n Fecha actual"+year+"-"+mes+"-"+day);
+        } else if (conta == 18 && mesn+1 >= mes+1 && dayn < day) {
+            JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse");
+        } else if (conta  == 18 && mesn+1 < mes+1) {
+            JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse");
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Su edad es"+conta);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -28,7 +67,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        dateNacimiento = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
@@ -43,7 +82,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         lblTotalSuscripcion = new javax.swing.JLabel();
         lblTotalTiempoSuscripcion = new javax.swing.JLabel();
         lblTotalTipoMasTiempo = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        dateFechaActual = new com.toedter.calendar.JDateChooser();
         jLabel11 = new javax.swing.JLabel();
         btnPagarSuscripción = new javax.swing.JButton();
         lblTotalSuscripcion1 = new javax.swing.JLabel();
@@ -82,6 +121,21 @@ public class FrmSuscripcion extends javax.swing.JFrame {
 
         jLabel5.setText("Telefono");
 
+        dateNacimiento.setDateFormatString("yyyy-MM-dd");
+        dateNacimiento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dateNacimientoFocusLost(evt);
+            }
+        });
+        dateNacimiento.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                dateNacimientoCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                dateNacimientoInputMethodTextChanged(evt);
+            }
+        });
+
         jLabel6.setText("Fecha de nacimiento");
 
         bgGenero.add(jRadioButton1);
@@ -114,12 +168,17 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         lblTotalTipoMasTiempo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblTotalTipoMasTiempo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jDateChooser2.setDateFormatString("yyyy-MMM-dd");
-        jDateChooser2.setEnabled(false);
+        dateFechaActual.setDateFormatString("yyyy-MM-dd");
+        dateFechaActual.setEnabled(false);
 
         jLabel11.setText("Fecha actual:");
 
         btnPagarSuscripción.setText("Pagar suscripción");
+        btnPagarSuscripción.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPagarSuscripciónMouseClicked(evt);
+            }
+        });
 
         lblTotalSuscripcion1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotalSuscripcion1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -164,7 +223,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel11)
                         .addGap(18, 18, 18)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(dateFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -224,7 +283,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                            .addComponent(dateNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                                             .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,7 +343,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                             .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(dateNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(22, 22, 22)))
                             .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel9)
@@ -299,7 +358,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(dateFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addComponent(jLabel19)
@@ -361,6 +420,23 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void dateNacimientoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateNacimientoFocusLost
+        
+    }//GEN-LAST:event_dateNacimientoFocusLost
+
+    private void btnPagarSuscripciónMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPagarSuscripciónMouseClicked
+        
+    }//GEN-LAST:event_btnPagarSuscripciónMouseClicked
+
+    private void dateNacimientoInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_dateNacimientoInputMethodTextChanged
+        
+    }//GEN-LAST:event_dateNacimientoInputMethodTextChanged
+
+    private void dateNacimientoCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_dateNacimientoCaretPositionChanged
+        calcularEdad();
+        conta = 0;
+    }//GEN-LAST:event_dateNacimientoCaretPositionChanged
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -397,12 +473,12 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgGenero;
     private javax.swing.JButton btnPagarSuscripción;
+    private com.toedter.calendar.JDateChooser dateFechaActual;
+    private com.toedter.calendar.JDateChooser dateNacimiento;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
