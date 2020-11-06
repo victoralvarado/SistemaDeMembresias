@@ -13,7 +13,10 @@ import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -117,6 +120,7 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
         try {
             this.conectar();
             if (u.getFoto() == null) {
+                JOptionPane.showMessageDialog(null, "Foto null");
                 if (u.getPassword() == null) {
                     String sql = "update  usuario set email = ?, nombre = ?, apellido = ?, TipoUsuario = ?,"
                             + "estado = ?, ultimoLogin = ?, fecha = ? where idUsuario = ?;";
@@ -213,9 +217,11 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
         int nivel = 0;
         FrmAdministracion adm= new FrmAdministracion();
         FrmPrincipal suscrip =  new FrmPrincipal();
+        Date date = new Date();
+        DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss yyyy-MM-dd");
         try {
             this.conectar();
-            String sql = "select * from usuario where  email= ? && password = ?";
+            String sql = "select * from usuario where  email= ? && password = MD5(?) && estado = 1";
             PreparedStatement pre = this.getCon().prepareCall(sql);
             pre.setString(1, us.getEmail());
             pre.setString(2, us.getPassword());
@@ -241,8 +247,12 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
                 JOptionPane.showMessageDialog(null, "UserName y/o password incorrectos",
                         "Login", JOptionPane.WARNING_MESSAGE);
             }
-
-        } catch (Exception e) {
+            String sqlM = "update usuario set ultimoLogin = ? where email = ?;";
+            PreparedStatement preM = this.getCon().prepareStatement(sqlM);
+            preM.setString(1, String.valueOf(hourdateFormat.format(date)));
+            preM.setString(2, us.getEmail());
+            preM.executeUpdate();
+        } catch (HeadlessException | SQLException e) {
             throw e;
         } finally {
             this.desconectar();
