@@ -15,4 +15,5 @@ public interface OperacionesUsuario {
     public void insertarUsuario(Usuario u) throws Exception;
     public void modificarUsuario(Usuario u) throws Exception;
     public void eliminarUsuario(Usuario u) throws Exception;
+    public boolean login(Usuario us) throws Exception ;
 }

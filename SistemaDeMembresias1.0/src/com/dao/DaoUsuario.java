@@ -4,6 +4,8 @@ import com.conexion.Conexion;
 import com.interfaces.OperacionesUsuario;
 import com.modelo.Usuario;
 import com.utilidades.CustomImageIcon;
+import com.vistas.FrmAdministracion;
+import com.vistas.FrmPrincipal;
 import java.awt.HeadlessException;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -203,4 +205,49 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
             this.desconectar();
         }
     }
+
+    @Override
+    public boolean login(Usuario us) throws Exception {
+        ResultSet rs;
+        boolean estado = false;
+        int nivel = 0;
+        FrmAdministracion adm= new FrmAdministracion();
+        FrmPrincipal suscrip =  new FrmPrincipal();
+        try {
+            this.conectar();
+            String sql = "select * from usuario where  email= ? && password = ?";
+            PreparedStatement pre = this.getCon().prepareCall(sql);
+            pre.setString(1, us.getEmail());
+            pre.setString(2, us.getPassword());
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                estado = true;
+                nivel = rs.getInt("tipoUsuario");
+            }
+            if (estado) {
+                if (nivel == 1) {
+                    //Administrador
+                    adm.setVisible(true);
+                }
+                if(nivel == 2){
+                    //Editor
+                    adm.setVisible(true);
+                }
+                if (nivel == 3) {
+                    //Suscriptor
+                    suscrip.setVisible(true);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "UserName y/o password incorrectos",
+                        "Login", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.desconectar();
+        }
+        return estado;
+    }
+    
 }

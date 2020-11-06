@@ -1,8 +1,13 @@
 package com.vistas;
 
+import com.dao.DaoUsuario;
+import com.modelo.Usuario;
 import java.awt.Image;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  * Nombre de la clase: FrmLogin
@@ -15,6 +20,8 @@ public class FrmLogin extends javax.swing.JFrame {
     ImageIcon fot;
     Image img;
     Icon iconoEsca;
+    Usuario us = new Usuario();
+    DaoUsuario daous = new DaoUsuario();
     
     public FrmLogin() {
         initComponents();
@@ -28,14 +35,38 @@ public class FrmLogin extends javax.swing.JFrame {
         lblLogo.setIcon(iconoEsca);
         lblLogo.repaint();
     }
+    
+    public void acceder() {
+        try {
+            us.setEmail(this.txtCorreo.getText());
+            us.setPassword(this.txtPassword.getText());
+            if (daous.login(us)) {
+                this.hide();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al ingresar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public boolean ValidarEmail (String email){
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^[\\w\\-\\_\\+]+(\\.[\\w\\-\\_]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
+        mat = pat.matcher(email);
+        if(mat.find()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtCorreo = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnAcceder = new javax.swing.JButton();
@@ -51,9 +82,14 @@ public class FrmLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(203, 243, 240));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(46, 196, 182), 2, true));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCorreoFocusLost(evt);
+            }
+        });
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtCorreoActionPerformed(evt);
             }
         });
 
@@ -66,6 +102,11 @@ public class FrmLogin extends javax.swing.JFrame {
         btnAcceder.setBackground(new java.awt.Color(6, 214, 160));
         btnAcceder.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         btnAcceder.setText("ACCEDER");
+        btnAcceder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAccederMouseClicked(evt);
+            }
+        });
         btnAcceder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAccederActionPerformed(evt);
@@ -113,8 +154,8 @@ public class FrmLogin extends javax.swing.JFrame {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, 0)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jPasswordField1)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtPassword)
+                                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnSuscripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -142,11 +183,11 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
@@ -175,9 +216,9 @@ public class FrmLogin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
         // TODO add your handling code here:
@@ -188,6 +229,22 @@ public class FrmLogin extends javax.swing.JFrame {
         FrmSuscripcion fs = new FrmSuscripcion();
         fs.show();
     }//GEN-LAST:event_btnSuscripcionMouseClicked
+
+    private void btnAccederMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAccederMouseClicked
+        if(txtCorreo.getText().isEmpty()||txtPassword.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Por favor ingrese datos","Advertencia",JOptionPane.WARNING_MESSAGE);
+        }else{
+            acceder();            
+        }
+
+    }//GEN-LAST:event_btnAccederMouseClicked
+
+    private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
+        if(!ValidarEmail(txtCorreo.getText())){
+            JOptionPane.showMessageDialog(null, "¡Ingrese una direccion de correo valida!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtCorreo.requestFocus();
+        }
+    }//GEN-LAST:event_txtCorreoFocusLost
 
 
     public static void main(String args[]) {
@@ -230,10 +287,10 @@ public class FrmLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lbluser;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 
 }

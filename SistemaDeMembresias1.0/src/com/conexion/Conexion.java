@@ -22,7 +22,7 @@ public class Conexion {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistemademembresias", "root", "Itca123!");
-            //Cambiar la contraseña del usuario root si es diferente
+            //Cambiar la contraseña del usuario root si es diferente 
             return true;
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null,"Error al conectar "+e.getMessage(),"Error",0);
