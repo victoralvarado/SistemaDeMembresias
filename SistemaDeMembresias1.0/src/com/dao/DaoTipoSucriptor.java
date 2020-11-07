@@ -150,4 +150,26 @@ public class DaoTipoSucriptor extends Conexion implements OperacionesTipoSucript
         return costo;
         
     }
+    
+    public String getDetalle(int id) {
+        String detalle = "";
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "select detalle from tiposus where tipoSuscriptor = ? ";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, id);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                detalle = rs.getString("detalle");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }finally {
+            this.desconectar();
+        }
+        return detalle;
+        
+    }
 }
