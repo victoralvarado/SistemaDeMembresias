@@ -32,6 +32,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmOrden orden=new FrmOrden();
         FrmPortada portada = new FrmPortada();
         FrmUsuario usuario = new FrmUsuario();
+        FrmTipoSuscriptor tiposuscriptor = new FrmTipoSuscriptor();
         FrmProductoInicio productoI =new FrmProductoInicio();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
@@ -46,6 +47,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             productoI.setVisible(false);
             portada.setVisible(false);
             usuario.setVisible(false);
+            tiposuscriptor.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -87,6 +89,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnCategoria = new javax.swing.JMenuItem();
         btnMarca = new javax.swing.JMenuItem();
         btnUsuario = new javax.swing.JMenuItem();
+        btnTipoSuscriptor = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         btnOrden = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -166,6 +169,16 @@ public class FrmAdministracion extends javax.swing.JFrame {
             }
         });
         btnMenu.add(btnUsuario);
+
+        btnTipoSuscriptor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/tiposus.png"))); // NOI18N
+        btnTipoSuscriptor.setText("Tipo Suscriptor");
+        btnTipoSuscriptor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnTipoSuscriptor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTipoSuscriptorActionPerformed(evt);
+            }
+        });
+        btnMenu.add(btnTipoSuscriptor);
 
         menuPrincipal.add(btnMenu);
 
@@ -268,6 +281,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(usuario);
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
+    private void btnTipoSuscriptorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTipoSuscriptorActionPerformed
+        FrmTipoSuscriptor tiposuscriptor = new FrmTipoSuscriptor();
+        abrirFrm(tiposuscriptor);
+    }//GEN-LAST:event_btnTipoSuscriptorActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -311,6 +329,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnPortada;
     private javax.swing.JMenuItem btnProducto;
     private javax.swing.JMenuItem btnProductosI;
+    private javax.swing.JMenuItem btnTipoSuscriptor;
     private javax.swing.JMenuItem btnUsuario;
     private javax.swing.JDesktopPane deskPnlContenedor;
     private javax.swing.JMenu jMenu1;

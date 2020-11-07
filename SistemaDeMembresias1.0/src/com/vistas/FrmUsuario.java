@@ -43,9 +43,9 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     
     public void mostrar() {
         try {
-            String[] Columnas = {"Código", "Correo", "Nombre", "Apellido", "tipo", "Password",
+            String[] Columnas = {"Código", "Correo", "Nombre", "Apellido", "tipo",
                 "estado", "Ultimo login", "Fecha de creacion"};
-            Object[] datos = new Object[9];
+            Object[] datos = new Object[8];
             tblUsuarios.getTableHeader().setReorderingAllowed(false) ;
             DefaultTableModel tabla = new DefaultTableModel(null, Columnas) {
                 @Override
@@ -73,17 +73,16 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
                         datos[4] = "Suscriptor";
                         break;
                 }
-                //datos[5] = u.getPassword();
                 switch (u.getEstado()) {
                     case 1:
-                        datos[6] = "Activo";
+                        datos[5] = "Activo";
                         break;
                     case 2:
-                        datos[6] = "Inactivo";
+                        datos[5] = "Inactivo";
                         break;
                 }
-                datos[7] = u.getUltimoLogin();
-                datos[8] = u.getFecha();
+                datos[6] = u.getUltimoLogin();
+                datos[7] = u.getFecha();
                 tabla.addRow(datos);
             }
             this.tblUsuarios.setModel(tabla);
@@ -124,9 +123,14 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
             u.setPassword(txtPassword.getText());
             u.setEstado(comboEstado.getSelectedIndex());
             u.setFecha(formatoFecha.format(this.dateCreacion.getDate()));
-            u.setFoto(fis);
+            if (this.fis != null) {
+              u.setFoto(fis);  
+            }
+            else {
+              u.setFoto(null);
+            }
             u.setUltimoLogin(txtUltimoLogin.getText());
-            daou.insertarUsuario(u);
+            daou.modificarUsuario(u);
             mostrar();
             limpiar();
         } catch (Exception e) {
@@ -136,7 +140,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     }
     
     public void limpiar() {
-        fis = null;
+        this.fis = null;
         txtApellido.setText("");
         txtCorreo.setText("");
         txtNombre.setText("");
@@ -178,10 +182,9 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
             this.txtNombre.setText(String.valueOf(this.tblUsuarios.getValueAt(fila, 2)));
             this.txtApellido.setText(String.valueOf(this.tblUsuarios.getValueAt(fila, 3)));
             this.comboTipoU.getModel().setSelectedItem(String.valueOf(this.tblUsuarios.getValueAt(fila, 4)));
-            //this.txtPassword.setText(String.valueOf(this.tblUsuarios.getValueAt(fila, 5)));
-            this.comboEstado.getModel().setSelectedItem(String.valueOf(this.tblUsuarios.getValueAt(fila, 6)));
-            this.txtUltimoLogin.setText(String.valueOf(this.tblUsuarios.getValueAt(fila, 7)));
-            this.dateCreacion.setDate(parseFecha(String.valueOf(this.tblUsuarios.getValueAt(fila, 8))));
+            this.comboEstado.getModel().setSelectedItem(String.valueOf(this.tblUsuarios.getValueAt(fila, 5)));
+            this.txtUltimoLogin.setText(String.valueOf(this.tblUsuarios.getValueAt(fila, 6)));
+            this.dateCreacion.setDate(parseFecha(String.valueOf(this.tblUsuarios.getValueAt(fila, 7))));
             try {
                 CustomImageIcon imagen = daou.getFoto(Integer.parseInt(id));
                 lblFoto.setIcon(imagen);

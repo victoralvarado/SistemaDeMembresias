@@ -36,6 +36,7 @@ public class DaoTipoSucriptor extends Conexion implements OperacionesTipoSucript
                 TipoSucriptor tSus = new TipoSucriptor();
                 tSus.setTipoSuscriptor(res.getInt("tipoSuscriptor"));
                 tSus.setNombre(res.getString("nombre"));
+                tSus.setCosto(res.getDouble("costo"));
                 tSus.setDetalle(res.getString("detalle"));
                 listaSus.add(tSus);
             }
@@ -57,11 +58,12 @@ public class DaoTipoSucriptor extends Conexion implements OperacionesTipoSucript
                 try
         {
             this.conectar();
-            String sql="insert into tipoSus values(?,?,?)";
+            String sql="insert into tipoSus values(?,?,?,?)";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, tSus.getTipoSuscriptor());
             pre.setString(2, tSus.getNombre());
-            pre.setString(3, tSus.getDetalle());
+            pre.setDouble(3, tSus.getCosto());
+            pre.setString(4, tSus.getDetalle());
             pre.executeUpdate();   
         }catch(SQLException e)
         {
@@ -75,11 +77,12 @@ public class DaoTipoSucriptor extends Conexion implements OperacionesTipoSucript
         try
         {
             this.conectar();
-            String sql="update tipoSus set nombre=?, detalle = ? where tipoSuscriptor=?";
+            String sql="update tipoSus set nombre=?, costo = ?, detalle = ? where tipoSuscriptor=?";
              PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setString(1, tSus.getNombre());
-            pre.setString(2, tSus.getDetalle());
-            pre.setInt(3, tSus.getTipoSuscriptor());
+            pre.setDouble(2, tSus.getCosto());
+            pre.setString(3, tSus.getDetalle());
+            pre.setInt(4, tSus.getTipoSuscriptor());
             pre.executeUpdate();
             
         }catch(SQLException e)
@@ -92,51 +95,81 @@ public class DaoTipoSucriptor extends Conexion implements OperacionesTipoSucript
 
     @Override
     public void eliminarTipoSus(TipoSucriptor tSus) throws Exception {
-                try
-        {
+        try {
             this.conectar();
             String sql = "delete from tipoSus where tipoSuscriptor=?";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, tSus.getTipoSuscriptor());
             pre.executeUpdate();
-        }catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(null, "Error al eliminar"+
-                    e.getMessage());
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar"
+                    + e.getMessage());
         }
-        
+
     }
     
-    public TipoSucriptor getTipoSus (int tipoSuscriptor)
-    {
+    public TipoSucriptor getTipoSus(int tipoSuscriptor) {
         TipoSucriptor tSus = new TipoSucriptor();
         ResultSet res = null;
-        
-        try
-        {
+        try {
             this.conectar();
             String sql = "select * from tiposus where tipoSuscriptor = ? ";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, tipoSuscriptor);
             res = pre.executeQuery();
-            
-             while(res.next())
-            {
+            while (res.next()) {
                 tSus.setTipoSuscriptor(res.getInt("tipoSuscriptor"));
                 tSus.setNombre(res.getString("nombre"));
-                
             }
-        }catch(SQLException e)
-        {
-            JOptionPane.showMessageDialog(null, "Error al mostrar datos"+e.getMessage());
-        }
-        finally
-        {
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar datos" + e.getMessage());
+        } finally {
             this.desconectar();
         }
         return tSus;
-         
     }
     
+    public double getCosto(int id) {
+        double costo = 0;
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "select costo from tiposus where tipoSuscriptor = ? ";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, id);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                costo = rs.getDouble("costo");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }finally {
+            this.desconectar();
+        }
+        return costo;
+        
+    }
     
+    public String getDetalle(int id) {
+        String detalle = "";
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "select detalle from tiposus where tipoSuscriptor = ? ";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, id);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                detalle = rs.getString("detalle");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }finally {
+            this.desconectar();
+        }
+        return detalle;
+        
+    }
 }

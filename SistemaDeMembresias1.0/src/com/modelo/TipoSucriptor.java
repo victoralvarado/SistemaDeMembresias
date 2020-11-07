@@ -9,14 +9,16 @@ public class TipoSucriptor {
     
     private int tipoSuscriptor;
     private String nombre;
+    private double costo;
     private String detalle;
 
     public TipoSucriptor() {
     }
 
-    public TipoSucriptor(int tipoSuscriptor, String nombre, String detalle) {
+    public TipoSucriptor(int tipoSuscriptor, String nombre, double costo, String detalle) {
         this.tipoSuscriptor = tipoSuscriptor;
         this.nombre = nombre;
+        this.costo = costo;
         this.detalle = detalle;
     }
 
@@ -36,6 +38,14 @@ public class TipoSucriptor {
         this.nombre = nombre;
     }
 
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
+
     public String getDetalle() {
         return detalle;
     }
@@ -43,10 +53,4 @@ public class TipoSucriptor {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
-
-    
-    
-    
-    
-    
 }

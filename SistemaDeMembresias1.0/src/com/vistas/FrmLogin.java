@@ -22,7 +22,7 @@ public class FrmLogin extends javax.swing.JFrame {
     Icon iconoEsca;
     Usuario us = new Usuario();
     DaoUsuario daous = new DaoUsuario();
-    
+    JOptionPane j = new JOptionPane();
     public FrmLogin() {
         initComponents();
         logo();
@@ -225,14 +225,18 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAccederActionPerformed
 
     private void btnSuscripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuscripcionMouseClicked
+        FrmFechaNacimiento fecha = new FrmFechaNacimiento();
+        fecha.show();
         this.hide();
-        FrmSuscripcion fs = new FrmSuscripcion();
-        fs.show();
     }//GEN-LAST:event_btnSuscripcionMouseClicked
 
     private void btnAccederMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAccederMouseClicked
-        if(txtCorreo.getText().isEmpty()||txtPassword.getText().isEmpty()){
+        if(!ValidarEmail(txtCorreo.getText())){
+            JOptionPane.showMessageDialog(null, "¡Ingrese una direccion de correo valida!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtCorreo.requestFocus();
+        }else if(txtCorreo.getText().isEmpty()||txtPassword.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Por favor ingrese datos","Advertencia",JOptionPane.WARNING_MESSAGE);
+            txtPassword.requestFocus();
         }else{
             acceder();            
         }
@@ -240,10 +244,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAccederMouseClicked
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
-        if(!ValidarEmail(txtCorreo.getText())){
-            JOptionPane.showMessageDialog(null, "¡Ingrese una direccion de correo valida!", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            txtCorreo.requestFocus();
-        }
+        
     }//GEN-LAST:event_txtCorreoFocusLost
 
 
