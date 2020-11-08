@@ -119,46 +119,52 @@ public class FrmProductoInicio extends javax.swing.JInternalFrame {
     
     public void agregar() {
         try {
-            pi.setCodigo(comboPanel.getSelectedIndex());
-            pi.setIdProducto(Integer.parseInt(this.txtCodigo.getText()));
-            daopi.modificarPInicio(pi);
-            if (this.comboPanel.getSelectedIndex() == 1) {
-                try {
-                    CustomImageIcon imagen = daop.getImagen(Integer.parseInt(this.txtCodigo.getText()));
-                    lbl1.setIcon(imagen);
-                    lbl1.updateUI();
-                } catch (Exception ex) {
-                    Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
+            
+                pi.setCodigo(comboPanel.getSelectedIndex());
+                pi.setIdProducto(Integer.parseInt(this.txtCodigo.getText()));
+                if (tblInicio.getRowCount() == 4) {
+                     daopi.modificarPInicio(pi);
+                     JOptionPane.showMessageDialog(this, "Modificar");
+                } else {
+                    daopi.insertarPInicio(pi);
+                    JOptionPane.showMessageDialog(this, "Insertar");
                 }
-            }
-            if (this.comboPanel.getSelectedIndex() == 2) {
-                try {
-                    CustomImageIcon imagen = daop.getImagen(Integer.parseInt(this.txtCodigo.getText()));
-                    lbl2.setIcon(imagen);
-                    lbl2.updateUI();
-                } catch (Exception ex) {
-                    Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
+                if (this.comboPanel.getSelectedIndex() == 1) {
+                    try {
+                        CustomImageIcon imagen = daop.getImagen(Integer.parseInt(this.txtCodigo.getText()));
+                        lbl1.setIcon(imagen);
+                        lbl1.updateUI();
+                    } catch (Exception ex) {
+                        Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-            if (this.comboPanel.getSelectedIndex() == 3) {
-                try {
-                    CustomImageIcon imagen = daop.getImagen(Integer.parseInt(this.txtCodigo.getText()));
-                    lbl3.setIcon(imagen);
-                    lbl3.updateUI();
-                } catch (Exception ex) {
-                    Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
+                if (this.comboPanel.getSelectedIndex() == 2) {
+                    try {
+                        CustomImageIcon imagen = daop.getImagen(Integer.parseInt(this.txtCodigo.getText()));
+                        lbl2.setIcon(imagen);
+                        lbl2.updateUI();
+                    } catch (Exception ex) {
+                        Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-            if (this.comboPanel.getSelectedIndex() == 4) {
-                try {
-                    CustomImageIcon imagen = daop.getImagen(Integer.parseInt(this.txtCodigo.getText()));
-                    lbl4.setIcon(imagen);
-                    lbl4.updateUI();
-                } catch (Exception ex) {
-                    Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
+                if (this.comboPanel.getSelectedIndex() == 3) {
+                    try {
+                        CustomImageIcon imagen = daop.getImagen(Integer.parseInt(this.txtCodigo.getText()));
+                        lbl3.setIcon(imagen);
+                        lbl3.updateUI();
+                    } catch (Exception ex) {
+                        Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }
-
+                if (this.comboPanel.getSelectedIndex() == 4) {
+                    try {
+                        CustomImageIcon imagen = daop.getImagen(Integer.parseInt(this.txtCodigo.getText()));
+                        lbl4.setIcon(imagen);
+                        lbl4.updateUI();
+                    } catch (Exception ex) {
+                        Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             limpiarP();
             mostrarPI();
         } catch (Exception e) {
