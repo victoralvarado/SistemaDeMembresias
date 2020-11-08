@@ -231,10 +231,9 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         ResultSet rs = null;
         try {
             this.conectar();
-            String sql = "select ? from producto where idProducto = ?;";
+            String sql = "select "+campo+" from producto where idProducto = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setString(1, campo);
-            pre.setInt(2, codigo);
+            pre.setInt(1, codigo);
             rs = pre.executeQuery();
             while(rs.next())
             {

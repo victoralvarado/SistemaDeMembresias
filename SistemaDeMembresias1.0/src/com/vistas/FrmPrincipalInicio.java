@@ -43,6 +43,15 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         cargarProducto();
         mostrarP();
+        logo();
+    }
+    
+    public final void logo() {
+        fot = new ImageIcon(getClass().getResource("/com/media/ejep1.png"));
+        img = fot.getImage().getScaledInstance(188, 242, Image.SCALE_SMOOTH);
+        iconoEsca = new ImageIcon(img);
+        lblPublicidad1.setIcon(iconoEsca);
+        lblPublicidad1.repaint();
     }
     
     public void cargarProducto() {

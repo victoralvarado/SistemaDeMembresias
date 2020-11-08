@@ -34,6 +34,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmUsuario usuario = new FrmUsuario();
         FrmTipoSuscriptor tiposuscriptor = new FrmTipoSuscriptor();
         FrmProductoInicio productoI =new FrmProductoInicio();
+        FrmVino vino = new FrmVino();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -48,6 +49,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             portada.setVisible(false);
             usuario.setVisible(false);
             tiposuscriptor.setVisible(false);
+            vino.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -95,6 +97,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         btnProductosI = new javax.swing.JMenuItem();
         btnPortada = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        btnVino = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -219,6 +223,18 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(jMenu2);
 
+        jMenu3.setText("PRODUCTOS");
+
+        btnVino.setText("Vino");
+        btnVino.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVinoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnVino);
+
+        menuPrincipal.add(jMenu3);
+
         setJMenuBar(menuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -286,6 +302,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(tiposuscriptor);
     }//GEN-LAST:event_btnTipoSuscriptorActionPerformed
 
+    private void btnVinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVinoActionPerformed
+        FrmVino vino = new FrmVino();
+        abrirFrm(vino);
+    }//GEN-LAST:event_btnVinoActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -331,9 +352,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnProductosI;
     private javax.swing.JMenuItem btnTipoSuscriptor;
     private javax.swing.JMenuItem btnUsuario;
+    private javax.swing.JMenuItem btnVino;
     private javax.swing.JDesktopPane deskPnlContenedor;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 
