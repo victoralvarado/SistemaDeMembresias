@@ -76,6 +76,12 @@ public class FrmPublicidad extends javax.swing.JInternalFrame {
             pub.setFoto(fis);
             pub.setUrl(txtUrl.getText());
             daopub.insertarPublicidad(pub);
+            if(tblPublicidad.getRowCount()==10)
+            {
+                daopub.modificarPublicidad(pub);
+            }else{
+                daopub.insertarPublicidad(pub);
+            }
             mostrar();
             limpiar();
         } catch (NumberFormatException e) {
