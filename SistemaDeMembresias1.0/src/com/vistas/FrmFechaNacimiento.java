@@ -1,5 +1,6 @@
 package com.vistas;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,13 +43,29 @@ public class FrmFechaNacimiento extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse");
         } else if (conta == 18 && mesn+1 >= mes+1 && dayn >= day) {
             this.dispose();
-            FrmSuscripcion suscripcion = new FrmSuscripcion();
+            FrmSuscripcion suscripcion = new FrmSuscripcion(String.valueOf(formatoFecha.format(this.dateNacimiento.getDate())));
+            JOptionPane.showMessageDialog(this, dateNacimiento.getDate());
             suscripcion.show();
         } else {
             this.dispose();
-            FrmSuscripcion suscripcion = new FrmSuscripcion();
+            FrmSuscripcion suscripcion = new FrmSuscripcion(String.valueOf(formatoFecha.format(this.dateNacimiento.getDate())));
+            JOptionPane.showMessageDialog(this, dateNacimiento.getDate());
             suscripcion.show();
         }
+    }
+    
+    public static Date parseFecha(String fecha)
+    {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaDate = null;
+        try {
+            fechaDate = formato.parse(fecha);
+        } 
+        catch (ParseException ex) 
+        {
+            System.out.println(ex);
+        }
+        return fechaDate;
     }
 
     @SuppressWarnings("unchecked")

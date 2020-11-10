@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  * Nombre de la clase: FrmVino
@@ -31,6 +33,7 @@ public class FrmVino extends javax.swing.JInternalFrame {
     public FrmVino() {
         initComponents();
         mostrar();
+        mostrarV();
     }
     
     public void mostrar() {
@@ -69,16 +72,15 @@ public class FrmVino extends javax.swing.JInternalFrame {
     
     public void mostrarV() {
         try {
-            String[] Columnas = {"Código","Codigo Producto", "Categoria", "Nombre", "Descripcion", "Marca",
-                 "Precio Venta"};
-            Object[] datos = new Object[8];
+            String[] Columnas = {"Código","Codigo Producto","Nombre", "imagen"};
+            Object[] datos = new Object[4];
             tblVino.getTableHeader().setReorderingAllowed(false) ;
             DefaultTableModel tabla = new DefaultTableModel(null, Columnas) {
                 @Override
                 public boolean isCellEditable(int row, int col) {
                     return false;
                 }
-
+                
                 @Override //Redefinimos el método getColumnClass
                 public Class getColumnClass(int column) {
                     switch (column) {
@@ -88,13 +90,7 @@ public class FrmVino extends javax.swing.JInternalFrame {
                             return Object.class;
                         case 2:
                             return Object.class;
-                        case 4:
-                            return Object.class;
-                        case 5:
-                            return Object.class;
-                        case 6:
-                            return Object.class;
-                        case 7:
+                        case 3:
                             return ImageIcon.class;
                         default:
                             return Object.class;
@@ -107,12 +103,17 @@ public class FrmVino extends javax.swing.JInternalFrame {
                 vi = (Vino) lst.get(i);
                 String id = String.valueOf(prod.getIdProducto());
                 datos[0] = vi.getIdVino();
-                datos[1] = daop.getProducto(vi.getIdProducto()).getNombre();
+                datos[1] = vi.getIdProducto();
+                datos[2] = daop.getProducto(vi.getIdProducto()).getNombre();
                 CustomImageIcon imagen = daop.getImagen(vi.getIdProducto());
-                datos[2] = imagen;
+                datos[3] = imagen;
                 tabla.addRow(datos);
             }
             this.tblVino.setModel(tabla);
+            int[] anchos = {114, 114, 513,115};
+                for(int i = 0;i< tblVino.getColumnCount();i++) {
+                    tblVino.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+                }
         } catch (Exception e) {
         }
     }
@@ -122,7 +123,7 @@ public class FrmVino extends javax.swing.JInternalFrame {
             
                 vi.setIdVino(comboPanel.getSelectedIndex());
                 vi.setIdProducto(Integer.parseInt(this.txtCodigoV.getText()));
-                if (tblVino.getRowCount() == 13) {
+                if (tblVino.getRowCount() == 12) {
                      daovi.modificarVino(vi);
                 } else {
                     daovi.insertarVino(vi);
@@ -196,7 +197,7 @@ public class FrmVino extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblVino.setRowHeight(150);
+        tblVino.setRowHeight(115);
         jScrollPane1.setViewportView(tblVino);
 
         tblProductoVino.setModel(new javax.swing.table.DefaultTableModel(
@@ -222,17 +223,31 @@ public class FrmVino extends javax.swing.JInternalFrame {
 
         comboPanel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --", "Panel 1", "Panel 2", "Panel 3", "Panel 4", "Panel 5", "Panel 6", "Panel 7", "Panel 8", "Panel 9", "Panel 10", "Panel 11", "Panel 12" }));
 
+        txtCodigoV.setEnabled(false);
+
         jLabel2.setText("Panel");
 
         jLabel3.setText("Codigo Vino");
 
         lblImagen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
+        txtNombreVino.setEnabled(false);
+
         jLabel5.setText("Nombre Vino");
 
         btnAgregar.setText("Agregar");
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -252,7 +267,6 @@ public class FrmVino extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -276,7 +290,8 @@ public class FrmVino extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -335,6 +350,14 @@ public class FrmVino extends javax.swing.JInternalFrame {
     private void tblProductoVinoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductoVinoMouseClicked
         llenarTabla();
     }//GEN-LAST:event_tblProductoVinoMouseClicked
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        agregar();
+    }//GEN-LAST:event_btnAgregarMouseClicked
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        limpiar();
+    }//GEN-LAST:event_btnCancelarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -43,8 +43,7 @@ public class DaoSuscriptor extends Conexion implements OperacionesSuscriptor {
                 sus.setDireccion(res.getString("direccion"));
                 sus.setGenero(res.getString("genero"));
                 sus.setTipoSuscriptor(res.getInt("tipoSuscriptor"));
-                sus.setTiempoSus(res.getString("tiempoSus"));
-                sus.setCostoSus(res.getDouble("costoSus"));
+                sus.setTiempoSus(res.getString("tiempoSuscripcion"));
                 sus.setFechaNacimiento(res.getString("fechaNacimiento"));
                 sus.setTotalCompra(res.getDouble("totalCompras"));
                 sus.setFecha(res.getString("fecha"));
@@ -63,21 +62,21 @@ public class DaoSuscriptor extends Conexion implements OperacionesSuscriptor {
         try
         {
             this.conectar();
-            String sql="insert into suscriptor values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql="insert into suscriptor(nombre, apellido, email, telefono, direccion, "
+                    + "tipoSuscriptor, fechaNacimiento, totalCompras, fecha, genero, tiempoSuscripcion) values "
+                    + "(?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, sus.getIdSuscriptor());
-            pre.setString(2, sus.getNombre());
-            pre.setString(3, sus.getApellido());
-            pre.setString(4, sus.getEmail());
-            pre.setString(5, sus.getTelefono());
-            pre.setString(6, sus.getDireccion());
-            pre.setString(7, sus.getGenero());
-            pre.setInt(8, sus.getTipoSuscriptor());
-            pre.setString(9, sus.getTiempoSus());
-            pre.setDouble(10, sus.getCostoSus());
-            pre.setString(11, sus.getFechaNacimiento());
-            pre.setDouble(12, sus.getTotalCompra());
-            pre.setString(13, sus.getFecha());
+            pre.setString(1, sus.getNombre());
+            pre.setString(2, sus.getApellido());
+            pre.setString(3, sus.getEmail());
+            pre.setString(4, sus.getTelefono());
+            pre.setString(5, sus.getDireccion());
+            pre.setInt(6, sus.getTipoSuscriptor());
+            pre.setString(7, sus.getFechaNacimiento());
+            pre.setDouble(8, sus.getTotalCompra());
+            pre.setString(9, sus.getFecha());
+            pre.setString(10, sus.getGenero());
+            pre.setString(11, sus.getTiempoSus());
             pre.executeUpdate();
            
         }catch(SQLException e)
@@ -93,21 +92,20 @@ public class DaoSuscriptor extends Conexion implements OperacionesSuscriptor {
         try
        {
            this.conectar();
-           String sql="update suscriptor set nombre=?, apellido=?, email=?, telefono=?, direccion=?, genero =?, tipoSuscriptor=?,tiempoSus =?,costoSus=?, fechaNacimiento=?, totalCompras=?, fecha=? where idSuscriptor=?";
+           String sql="update suscriptor set nombre=?, apellido=?, email=?, telefono=?, direccion=?, tipoSuscriptor=?, fechaNacimiento=?, totalCompras=?, fecha=?, genero, tiempoSuscripcion =? where idSuscriptor=?";
            PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setString(1, sus.getNombre());
             pre.setString(2, sus.getApellido());
             pre.setString(3, sus.getEmail());
             pre.setString(4, sus.getTelefono());
             pre.setString(5, sus.getDireccion());
-            pre.setString(6, sus.getGenero());
-            pre.setInt(7, sus.getTipoSuscriptor());
-            pre.setString(8, sus.getTiempoSus());
-            pre.setDouble(9, sus.getCostoSus());
-            pre.setString(10, sus.getFechaNacimiento());
-            pre.setDouble(11, sus.getTotalCompra());
-            pre.setString(12, sus.getFecha());
-            pre.setInt(13, sus.getIdSuscriptor());
+            pre.setInt(6, sus.getTipoSuscriptor());
+            pre.setString(7, sus.getFechaNacimiento());
+            pre.setDouble(8, sus.getTotalCompra());
+            pre.setString(9, sus.getFecha());
+            pre.setString(10, sus.getGenero());
+            pre.setString(11, sus.getTiempoSus());
+            pre.setInt(12, sus.getIdSuscriptor());
             pre.executeUpdate();
            
            

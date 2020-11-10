@@ -1,17 +1,23 @@
 package com.vistas;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Label;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import javax.swing.Timer;
 
 /**
  * Nombre de la clase: FrmPrincipal
@@ -25,8 +31,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
     Image img;
     Icon iconoEsca;
     String frm;
-    JPopupMenu menu;
     public FrmPrincipal() {
+        initComponents();
+    }
+    
+    
+    public FrmPrincipal(String email) {
         initComponents();
         btnBuscar.setVisible(false);
         //Iniciar maximixado FrmAdministracion
@@ -35,8 +45,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmPrincipalInicio inicio = new FrmPrincipalInicio();
         logo();
         abrirFrm(inicio);
-        lblUsuario.setText("Cerrar sesion");
-        
+        lblUsuario.setText(email);
+        lblUsuario.setToolTipText(email);
     }
     
     public final void logo() {
@@ -53,6 +63,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmPrincipalVino vino = new FrmPrincipalVino();
         FrmPrincipalLicor  licor = new FrmPrincipalLicor();
         FrmBuscarLicores  licores = new FrmBuscarLicores();
+        FrmBuscarVinos vinos = new FrmBuscarVinos();
         FrmCarrito carrito = new FrmCarrito();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
@@ -64,6 +75,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             licor.setVisible(false);
             carrito.setVisible(false);
             licores.setVisible(false);
+            vinos.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -101,18 +113,28 @@ public class FrmPrincipal extends javax.swing.JFrame {
     public void cerrar() {
         System.exit(0);
     }
+    
+    Timer timer = new Timer(4000, new ActionListener(){
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    menuUsuario.setVisible(false);
+                }
+            });
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuUsuario = new javax.swing.JPopupMenu();
+        menuModificar = new javax.swing.JMenuItem();
+        menuCerrarSesion = new javax.swing.JMenuItem();
         pnlPrincipal = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnInicio = new javax.swing.JLabel();
         btnVinos = new javax.swing.JLabel();
         btnLicores = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         pnlLogo = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         btnCarrito = new javax.swing.JLabel();
@@ -121,6 +143,26 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
+
+        menuUsuario.setInheritsPopupMenu(true);
+
+        menuModificar.setText("Modificar mis datos");
+        menuModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuModificarActionPerformed(evt);
+            }
+        });
+        menuUsuario.add(menuModificar);
+
+        menuCerrarSesion.setText("Cerrar Secion");
+        menuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCerrarSesionActionPerformed(evt);
+            }
+        });
+        menuUsuario.add(menuCerrarSesion);
+
+        menuUsuario.getAccessibleContext().setAccessibleParent(lblUsuario);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,16 +174,31 @@ public class FrmPrincipal extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         btnInicio.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btnInicio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnInicio.setText(" Inicio ");
+        btnInicio.setToolTipText("Inicio");
         btnInicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInicio.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnInicioMouseMoved(evt);
+            }
+        });
         btnInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnInicioMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnInicioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnInicioMouseExited(evt);
+            }
         });
 
         btnVinos.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btnVinos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnVinos.setText(" Vinos ");
+        btnVinos.setToolTipText("Vinos");
         btnVinos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnVinos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -150,7 +207,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         btnLicores.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        btnLicores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnLicores.setText(" Licores ");
+        btnLicores.setToolTipText("Licores");
         btnLicores.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLicores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -159,17 +218,23 @@ public class FrmPrincipal extends javax.swing.JFrame {
         });
 
         lblUsuario.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        lblUsuario.setText(" Sobre nosotros ");
+        lblUsuario.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/desplegar.png"))); // NOI18N
+        lblUsuario.setText("Usuario@usuario");
         lblUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        lblUsuario.setIconTextGap(5);
         lblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUsuarioMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsuarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsuarioMouseExited(evt);
+            }
         });
-
-        jLabel5.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jLabel5.setText(" Club ");
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         pnlLogo.setBackground(new java.awt.Color(245, 245, 245));
 
@@ -216,9 +281,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnLicores)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblUsuario)
+                .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(btnCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -232,7 +295,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     .addComponent(btnVinos)
                     .addComponent(btnLicores)
                     .addComponent(lblUsuario)
-                    .addComponent(jLabel5)
                     .addComponent(btnCarrito))
                 .addContainerGap(17, Short.MAX_VALUE))
             .addComponent(pnlLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -407,19 +469,56 @@ public class FrmPrincipal extends javax.swing.JFrame {
             btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
         }
         if (frm.equalsIgnoreCase("vinos")) {
-            JOptionPane.showMessageDialog(null, "No hay vinos");
-            //Falta codificacion
+            FrmBuscarVinos vino = new FrmBuscarVinos();
+            abrirFrm(vino);
+            lblTitulo.setText("VINOS");
+            btnBuscar.setVisible(false);
+
+            //Borde al color del fondo
+            btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+            btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+            btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+            btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
         }
         
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
-        //        menu = new JPopupMenu();
-        //        menu.add(new JMenuItem());
-        //        add("Center",lblUsuario);
-        //        menu.setVisible(true);
-        //        menu.setLocation(evt.getLocationOnScreen());
+        menuUsuario.setLocation(evt.getLocationOnScreen());
+        menuUsuario.setVisible(true); 
+        timer.start();
     }//GEN-LAST:event_lblUsuarioMouseClicked
+
+    private void btnInicioMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseMoved
+        
+    }//GEN-LAST:event_btnInicioMouseMoved
+
+    private void btnInicioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseEntered
+        
+    }//GEN-LAST:event_btnInicioMouseEntered
+
+    private void btnInicioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseExited
+        
+    }//GEN-LAST:event_btnInicioMouseExited
+    
+    private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
+        JOptionPane.showMessageDialog(this, "Modificar");
+    }//GEN-LAST:event_menuModificarActionPerformed
+
+    private void lblUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseEntered
+        
+    }//GEN-LAST:event_lblUsuarioMouseEntered
+
+    private void lblUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseExited
+        
+    }//GEN-LAST:event_lblUsuarioMouseExited
+
+    private void menuCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCerrarSesionActionPerformed
+        FrmLogin login = new FrmLogin();
+        login.show();
+        this.hide();
+        menuUsuario.setVisible(false); 
+    }//GEN-LAST:event_menuCerrarSesionActionPerformed
 
 
     public static void main(String args[]) {
@@ -446,36 +545,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+       
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -492,13 +562,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel btnLicores;
     private javax.swing.JLabel btnVinos;
     private javax.swing.JDesktopPane deskPnlContenedor;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JMenuItem menuCerrarSesion;
+    private javax.swing.JMenuItem menuModificar;
+    private javax.swing.JPopupMenu menuUsuario;
     private javax.swing.JPanel pnlLogo;
     private javax.swing.JPanel pnlPrincipal;
     // End of variables declaration//GEN-END:variables
