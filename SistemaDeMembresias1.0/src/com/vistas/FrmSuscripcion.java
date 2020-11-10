@@ -7,8 +7,11 @@ import com.modelo.Suscriptor;
 import com.modelo.TipoSucriptor;
 import com.modelo.Usuario;
 import com.utilidades.ComboItem;
+import java.awt.Image;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,8 +19,14 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Nombre de la clase: FrmSuscripcion
@@ -36,12 +45,18 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     FileInputStream fis;
     int longitudBytes;
     SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+    FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagen","jpg","png","jpeg");
     Date fechaActual = new Date();
     int conta =0;
     NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
     public FrmSuscripcion() {
         initComponents();
-        dateNacimiento.setDate(fechaActual);
+        
+    }
+    
+    public FrmSuscripcion(String fechaN){
+        initComponents();
+        dateNacimiento.setDate(parseFecha(fechaN));
         dateFechaActual.setDate(fechaActual);
         try {
             llenarCombo(comboSuscripcion, (ArrayList<TipoSucriptor>)daots.mostrarTipoSus());
@@ -74,6 +89,19 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         else {
             JOptionPane.showMessageDialog(this, "Su edad es"+conta);
         }
+    }
+    public static Date parseFecha(String fecha)
+    {
+        SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaDate = null;
+        try {
+            fechaDate = formato.parse(fecha);
+        } 
+        catch (ParseException ex) 
+        {
+            System.out.println(ex);
+        }
+        return fechaDate;
     }
     
     public void llenarCombo(JComboBox combo, ArrayList<TipoSucriptor> list) {
@@ -120,18 +148,41 @@ public class FrmSuscripcion extends javax.swing.JFrame {
             s.setTipoSuscriptor(this.comboSuscripcion.getSelectedIndex());
             s.setFechaNacimiento(formatoFecha.format(dateNacimiento.getDate()));
             s.setTotalCompra(calcularPago());
+            switch (comboTiempoSus.getSelectedIndex()) {
+                case 1:
+                    s.setTiempoSus("3");
+                    break;
+                case 2:
+                    s.setTiempoSus("6");
+                    break;
+                case 3:
+                    s.setTiempoSus("9");
+                    break;
+                case 4:
+                    s.setTiempoSus("12");
+                    break;
+                default:
+                    break;
+            }
+            if (this.radioFemenino.isSelected()) {
+                s.setGenero("Femenino");
+            } else {
+                s.setGenero("Maculino");
+            }
+            
             s.setFecha(formatoFecha.format(dateFechaActual.getDate()));
             daos.insertarSuscriptor(s);
             
-            u.setNombre(this.txtNombre.getText());
-            u.setApellido(this.txtApellido.getText());
-            u.setEmail(this.txtCorreo.getText());
-            u.setTipoUsuario(3);
-            u.setPassword(this.txtPassword.getText());
-            u.setEstado(1);
-            u.setFoto(fis);
-            u.setUltimoLogin("No logueado");
-            u.setFecha(formatoFecha.format(dateFechaActual.getDate()));
+//            u.setNombre(this.txtNombre.getText());
+//            u.setApellido(this.txtApellido.getText());
+//            u.setEmail(this.txtCorreo.getText());
+//            u.setTipoUsuario(3);
+//            u.setPassword(this.txtPassword.getText());
+//            u.setEstado(1);
+//            u.setFoto(fis);
+//            u.setUltimoLogin("No logueado");
+//            u.setFecha(formatoFecha.format(dateFechaActual.getDate()));
+//            daou.insertarUsuario(u);
         } catch (Exception e) {
         }
     }
@@ -143,11 +194,79 @@ public class FrmSuscripcion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Selecciona una foto",
                     "Validacion", JOptionPane.WARNING_MESSAGE);
             val = true;
-        }else {
+        } else if (this.txtNombre.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Igrese un nombre",
+                    "Validacion", JOptionPane.WARNING_MESSAGE);
+            this.txtNombre.requestFocus();
+            val = true;
+        } else if (this.txtApellido.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Igrese un apellido",
+                    "Validacion", JOptionPane.WARNING_MESSAGE);
+            this.txtApellido.requestFocus();
+            val = true;
+        } else if (validarCorreo(txtCorreo.getText())==false) {
+            JOptionPane.showMessageDialog(null, "Igrese un correo valido",
+                    "Validacion", JOptionPane.WARNING_MESSAGE);
+            this.txtCorreo.requestFocus();
+            val = true;
+        } else if (validarTel(txtTelefono.getText())== false) {
+            JOptionPane.showMessageDialog(null, "Igrese un telefono valido",
+                    "Validacion", JOptionPane.WARNING_MESSAGE);
+            this.txtTelefono.requestFocus();
+            val = true;
+        } else if (!radioFemenino.isSelected() && !radioMasculino.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Seleccione un genero", "VALIDACIÓN",
+                    JOptionPane.WARNING_MESSAGE);
+            val = true;
+        } else if (this.txtDireccion.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Igrese una direccion",
+                    "Validacion", JOptionPane.WARNING_MESSAGE);
+            this.txtApellido.requestFocus();
+            val = true;
+        } else if (this.comboSuscripcion.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un tipo se suscripcion", "VALIDACIÓN",
+                    JOptionPane.WARNING_MESSAGE);
+            comboSuscripcion.requestFocus();
+            val = true;
+        } else if (this.comboTiempoSus.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un tiempo de suscripcion", "VALIDACIÓN",
+                    JOptionPane.WARNING_MESSAGE);
+            comboTiempoSus.requestFocus();
+            val = true;
+        } else if (this.txtPassword.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Igrese una contraseña",
+                    "Validacion", JOptionPane.WARNING_MESSAGE);
+            this.txtApellido.requestFocus();
+            val = true;
+        } else if (this.comboBanco.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un banco", "VALIDACIÓN",
+                    JOptionPane.WARNING_MESSAGE);
+            comboBanco.requestFocus();
+            val = true;
+        } else if (this.comboTipoTargeta.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un tipo de targeta", "VALIDACIÓN",
+                    JOptionPane.WARNING_MESSAGE);
+            comboTipoTargeta.requestFocus();
+            val = true;
+        } else {
             val = false;
         }
         return val;
         
+    }
+    
+    public boolean validarTel(String tel) {
+        //Validacion de numero telefonico
+        Pattern patternTel = Pattern.compile("^[6-7-2{1}]+([0-9]{3})(\\-[0-9]{4})$");
+        Matcher mather = patternTel.matcher(tel);
+        return mather.find();
+    }
+    
+    public boolean validarCorreo(String correo) {
+        Pattern patternE = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]"
+                + "+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+        Matcher mather = patternE.matcher(correo);
+        return mather.find();
     }
     
     @SuppressWarnings("unchecked")
@@ -310,6 +429,11 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         jLabel19.setText("Ingrese una contraseña");
 
         btnSeleccionar.setText("Seleccionar");
+        btnSeleccionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSeleccionarMouseClicked(evt);
+            }
+        });
 
         comboTipoTargeta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --", "Debito", "Credito" }));
 
@@ -548,8 +672,9 @@ public class FrmSuscripcion extends javax.swing.JFrame {
 
     private void btnPagarSuscripciónMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPagarSuscripciónMouseClicked
         if (!validar()) {
-            insertar();
+            
         }
+        insertar();
     }//GEN-LAST:event_btnPagarSuscripciónMouseClicked
 
     private void comboSuscripcionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboSuscripcionItemStateChanged
@@ -579,6 +704,30 @@ public class FrmSuscripcion extends javax.swing.JFrame {
             lblresivira.setText("");
         }
     }//GEN-LAST:event_comboTiempoSusItemStateChanged
+
+    private void btnSeleccionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSeleccionarMouseClicked
+        try {
+            JFileChooser se = new JFileChooser();
+            se.setFileFilter(filter);
+            
+            int estado = se.showOpenDialog(null);
+            if (estado == JFileChooser.APPROVE_OPTION) {
+                fis = new FileInputStream(se.getSelectedFile());
+                longitudBytes = (int) se.getSelectedFile().length();
+
+                Image icono = ImageIO.read(se.getSelectedFile()).getScaledInstance(lblFoto.getWidth(), lblFoto.getHeight(), Image.SCALE_DEFAULT);
+                lblFoto.setIcon(new ImageIcon(icono));
+                lblFoto.updateUI();
+                lblFoto.setText("");
+            }
+            else {
+                fis = new FileInputStream(se.getSelectedFile());
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error al seleccionar la imagen " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSeleccionarMouseClicked
 
 
     public static void main(String args[]) {

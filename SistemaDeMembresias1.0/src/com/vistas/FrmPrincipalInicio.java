@@ -601,7 +601,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
 
     private void btnVisitar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisitar1MouseClicked
         try {
-                Desktop.getDesktop().browse(new URI("https://www.soriana.com/"));
+                Desktop.getDesktop().browse(new URI("https://www.mistervinosv.com/"));
         } catch (IOException | URISyntaxException e) {
             JOptionPane.showMessageDialog(null,"Ocurrio un error: "+ e.getMessage());
         }

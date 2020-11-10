@@ -124,10 +124,8 @@ public class FrmProductoInicio extends javax.swing.JInternalFrame {
                 pi.setIdProducto(Integer.parseInt(this.txtCodigo.getText()));
                 if (tblInicio.getRowCount() == 4) {
                      daopi.modificarPInicio(pi);
-                     JOptionPane.showMessageDialog(this, "Modificar");
                 } else {
                     daopi.insertarPInicio(pi);
-                    JOptionPane.showMessageDialog(this, "Insertar");
                 }
                 if (this.comboPanel.getSelectedIndex() == 1) {
                     try {

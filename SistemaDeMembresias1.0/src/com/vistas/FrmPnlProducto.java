@@ -1,12 +1,16 @@
 package com.vistas;
 
+import com.dao.DaoCarrito;
 import com.dao.DaoProducto;
+import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
 import java.awt.Color;
+import java.sql.PreparedStatement;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +19,10 @@ import java.util.logging.Logger;
 public class FrmPnlProducto extends javax.swing.JPanel {
 
     DaoProducto daop = new DaoProducto();
+    Producto p = new Producto();
+    DaoCarrito daoc = new DaoCarrito();
+    int idP = 0;
+    int nst = 0;
     public FrmPnlProducto() {
         initComponents();
     }
@@ -24,6 +32,7 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         lblNombre.setText(nombre);
         lblNombre.setToolTipText(nombre);
         lblPrecio.setText(String.valueOf(nf.format(precio)));
+        idP = Integer.parseInt(id);
         try {
             CustomImageIcon imagen = daop.getImagen(Integer.parseInt(id));
             p1.setIcon(imagen);
@@ -41,6 +50,17 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         }
         
     }
+    
+    public void agregarAlCarrito() {
+        int sp = Integer.parseInt(String.valueOf(spCantidad.getValue()));
+        nst = daop.stock(2) - sp;
+    }
+    
+    public void modificarStock(int nstock, int idProducto) {
+        p.setStock(nstock);
+        p.setIdProducto(idProducto);
+        daop.modificarStock(p);
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -48,7 +68,7 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         p1 = new javax.swing.JLabel();
         addCart = new javax.swing.JButton();
-        jSpinner4 = new javax.swing.JSpinner();
+        spCantidad = new javax.swing.JSpinner();
         lblNombre = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
 
@@ -68,8 +88,13 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         addCart.setForeground(new java.awt.Color(255, 255, 255));
         addCart.setText("Agregar al carrito");
         addCart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addCart.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addCartMouseClicked(evt);
+            }
+        });
 
-        jSpinner4.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        spCantidad.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         lblNombre.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -100,7 +125,7 @@ public class FrmPnlProducto extends javax.swing.JPanel {
                         .addComponent(p1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(93, 93, 93)
-                        .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(54, 54, 54))
         );
         jPanel2Layout.setVerticalGroup(
@@ -113,7 +138,7 @@ public class FrmPnlProducto extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblPrecio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(spCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addCart)
                 .addContainerGap())
@@ -131,13 +156,19 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCartMouseClicked
+        agregarAlCarrito();
+        modificarStock(nst, idP);
+        spCantidad.setValue(1);
+    }//GEN-LAST:event_addCartMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addCart;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner jSpinner4;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel p1;
+    private javax.swing.JSpinner spCantidad;
     // End of variables declaration//GEN-END:variables
 }

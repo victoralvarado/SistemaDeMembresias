@@ -247,4 +247,106 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         }
         return consulta;
     }
+    
+    public List<Producto> buscarV(String por) throws Exception {
+        ResultSet rs;
+        List<Producto> lst = new ArrayList();
+        try {
+            this.conectar();
+            String sql = "select * from producto where tipo = 'Vino' && nombre like ? or precioVenta like ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setString(1, por);
+            pre.setString(2, por);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setIdCategoria(rs.getInt("idCategoria"));
+                p.setIdMarca(rs.getInt("idMarca"));
+                p.setTipo(rs.getString("tipo"));
+                p.setNombre(rs.getString("nombre"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setPrecioVenta(rs.getDouble("precioVenta"));
+                lst.add(p);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return lst;
+    }
+    
+    public List<Producto> buscarVP(double inicio, double fin) throws Exception {
+        ResultSet rs;
+        List<Producto> lst = new ArrayList();
+        try {
+            this.conectar();
+            String sql = "select * from producto where precioVenta Between ? And ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setDouble(1, inicio);
+            pre.setDouble(2, fin);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setIdCategoria(rs.getInt("idCategoria"));
+                p.setIdMarca(rs.getInt("idMarca"));
+                p.setTipo(rs.getString("tipo"));
+                p.setNombre(rs.getString("nombre"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setPrecioVenta(rs.getDouble("precioVenta"));
+                lst.add(p);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return lst;
+    }
+    
+    public int stock(int idProducto) {
+        int stockP = 0;
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "select stock from producto where idProducto = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idProducto);
+            rs = pre.executeQuery();
+            while (rs.next()) {                
+                stockP = rs.getInt("stock");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return stockP;
+        
+    }
+    
+    public void modificarStock(Producto p) {
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "update producto set stock = ? where idProducto = ?;";
+                PreparedStatement pre = this.getCon().prepareStatement(sql);
+                pre.setInt(1, p.getStock());
+                pre.setInt(2, p.getIdProducto());
+                pre.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Producto agregado al carrito",
+                    "Carrito", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        
+    }
 }
