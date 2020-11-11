@@ -120,7 +120,6 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
         try {
             this.conectar();
             if (u.getFoto() == null) {
-                JOptionPane.showMessageDialog(null, "Foto null");
                 if (u.getPassword() == null) {
                     String sql = "update  usuario set email = ?, nombre = ?, apellido = ?, TipoUsuario = ?,"
                             + "estado = ?, ultimoLogin = ?, fecha = ? where idUsuario = ?;";
@@ -195,13 +194,18 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
     @Override
     public void eliminarUsuario(Usuario u) throws Exception {
         try {
-            this.conectar();
-            String sql = "delete from  usuario where idUsuario = ?;";
-            PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, u.getIdUsuario());
-            pre.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Datos eliminados correctamente",
-                    "Eliminar", JOptionPane.INFORMATION_MESSAGE);
+            if (u.getIdUsuario() == 1) {
+                JOptionPane.showMessageDialog(null, "No se puede eliminar el administrador principal",
+                        "Eliminar", JOptionPane.WARNING_MESSAGE);
+            } else {
+                this.conectar();
+                String sql = "delete from  usuario where idUsuario = ?;";
+                PreparedStatement pre = this.getCon().prepareStatement(sql);
+                pre.setInt(1, u.getIdUsuario());
+                pre.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Datos eliminados correctamente",
+                        "Eliminar", JOptionPane.INFORMATION_MESSAGE);
+            }
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al eliminar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -211,53 +215,99 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
     }
 
     @Override
-    public boolean login(Usuario us) throws Exception {
+    public boolean login(Usuario us) {
         ResultSet rs;
         boolean estado = false;
         int nivel = 0;
+        int es = 0;
         FrmAdministracion adm= new FrmAdministracion();
-        FrmPrincipal suscrip =  new FrmPrincipal();
         Date date = new Date();
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss yyyy-MM-dd");
         try {
             this.conectar();
-            String sql = "select * from usuario where  email= ? && password = MD5(?) && estado = 1";
+            String sql = "select * from usuario where  email= ? && password = MD5(?)";
             PreparedStatement pre = this.getCon().prepareCall(sql);
             pre.setString(1, us.getEmail());
             pre.setString(2, us.getPassword());
             rs = pre.executeQuery();
             while (rs.next()) {
                 estado = true;
+                es = rs.getInt("estado");
                 nivel = rs.getInt("tipoUsuario");
             }
-            if (estado) {
-                if (nivel == 1) {
-                    //Administrador
-                    adm.setVisible(true);
-                }
-                if(nivel == 2){
-                    //Editor
-                    adm.setVisible(true);
-                }
-                if (nivel == 3) {
-                    //Suscriptor
-                    suscrip.setVisible(true);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "UserName y/o password incorrectos",
-                        "Login", JOptionPane.WARNING_MESSAGE);
+            switch (es) {
+                case 1:
+                    if (nivel == 1) {
+                        //Administrador
+                        String sqlM = "update usuario set ultimoLogin = ? where email = ?;";
+                        PreparedStatement preM = this.getCon().prepareStatement(sqlM);
+                        preM.setString(1, String.valueOf(hourdateFormat.format(date)));
+                        preM.setString(2, us.getEmail());
+                        preM.executeUpdate();
+                        adm.show();
+                    }
+                    if (nivel == 2) {
+                        //Editor
+                        String sqlM = "update usuario set ultimoLogin = ? where email = ?;";
+                        PreparedStatement preM = this.getCon().prepareStatement(sqlM);
+                        preM.setString(1, String.valueOf(hourdateFormat.format(date)));
+                        preM.setString(2, us.getEmail());
+                        preM.executeUpdate();
+                        adm.show();
+                    }
+                    if (nivel == 3) {
+                        //Suscriptor
+                        String sqlM = "update usuario set ultimoLogin = ? where email = ?;";
+                        PreparedStatement preM = this.getCon().prepareStatement(sqlM);
+                        preM.setString(1, String.valueOf(hourdateFormat.format(date)));
+                        preM.setString(2, us.getEmail());
+                        preM.executeUpdate();
+                        FrmPrincipal suscrip = new FrmPrincipal(us.getEmail(), consultarId(us.getEmail()));
+                        suscrip.show();
+                    }
+                    break;
+                case 2:
+                    if (nivel == 1 || nivel == 2) {
+                        JOptionPane.showMessageDialog(null, "Su cuenta se encuentra inactiva.\n"
+                                + "Comuniquese con el administrador para volver a activarla",
+                                "Login", JOptionPane.WARNING_MESSAGE);
+                    }
+                    if (nivel == 3) {
+                        //Suscriptor
+                    }
+                    break;
+                default:
+                    estado = false;
+                    JOptionPane.showMessageDialog(null, "Correo y/o password incorrectos",
+                            "Login", JOptionPane.WARNING_MESSAGE);
+                    break;
             }
-            String sqlM = "update usuario set ultimoLogin = ? where email = ?;";
-            PreparedStatement preM = this.getCon().prepareStatement(sqlM);
-            preM.setString(1, String.valueOf(hourdateFormat.format(date)));
-            preM.setString(2, us.getEmail());
-            preM.executeUpdate();
+            
         } catch (HeadlessException | SQLException e) {
-            throw e;
+            JOptionPane.showMessageDialog(null, "Error login " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
         } finally {
             this.desconectar();
         }
         return estado;
+    }
+    
+    public int consultarId(String email) throws SQLException{
+        ResultSet rs;
+        int id = 0;
+        try {
+            String sql2 = "select idSuscriptor from suscriptor where email= ?";
+            PreparedStatement pre = this.getCon().prepareCall(sql2);
+            pre.setString(1, email);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("idSuscriptor");
+            }
+        } catch (SQLException e) {
+           JOptionPane.showMessageDialog(null, "Error login idSuscriptor " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return id;
     }
     
 }

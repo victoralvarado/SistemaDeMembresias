@@ -1,8 +1,11 @@
 package com.vistas;
 
+import com.dao.DaoCarrito;
 import com.dao.DaoPortada;
 import com.dao.DaoProducto;
 import com.dao.DaoProductoInicio;
+import com.modelo.Carrito;
+import com.modelo.Producto;
 import com.modelo.ProductoInicio;
 import com.utilidades.CargarImagen;
 import com.utilidades.CustomImageIcon;
@@ -20,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -38,12 +42,27 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     DaoProductoInicio daopi = new DaoProductoInicio();
     ProductoInicio pi = new ProductoInicio();
     DaoPortada daopt = new DaoPortada();
+    JLabel lbl = new JLabel();
+    Producto p = new Producto();
+    DaoCarrito daoc = new DaoCarrito();
+    Carrito car = new Carrito();
+    int id1 = 0;
+    int id2 = 0;
+    int id3 = 0;
+    int id4 = 0;
+    int nst = 0;
+
     public FrmPrincipalInicio() {
+        initComponents();
+    }
+    
+    public FrmPrincipalInicio(int idSuscriptor) {
         initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         cargarProducto();
         mostrarP();
         logo();
+        lbl.setText(String.valueOf(idSuscriptor));
     }
     
     public final void logo() {
@@ -56,10 +75,10 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     
     public void cargarProducto() {
 
-        int id1 = daopi.getIdPrducto(1).getIdProducto();
-        int id2 = daopi.getIdPrducto(2).getIdProducto();
-        int id3 = daopi.getIdPrducto(3).getIdProducto();
-        int id4 = daopi.getIdPrducto(4).getIdProducto();
+        id1 = daopi.getIdPrducto(1).getIdProducto();
+        id2 = daopi.getIdPrducto(2).getIdProducto();
+        id3 = daopi.getIdPrducto(3).getIdProducto();
+        id4 = daopi.getIdPrducto(4).getIdProducto();
 
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
 
@@ -130,13 +149,18 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         CustomImageIcon imagen;
         try {
             imagen = daopt.getImagen(1);
-            lblPortada.setIcon(imagen); 
+            lblPortada.setIcon(imagen);
             //lblPortada.updateUI();
         } catch (Exception ex) {
             Logger.getLogger(FrmPortada.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        }
     }
     
+    public void modificarStock(int nstock, int idProducto) {
+        p.setStock(nstock);
+        p.setIdProducto(idProducto);
+        daop.modificarStock(p);
+    }
 
 
     @SuppressWarnings("unchecked")
@@ -147,25 +171,25 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         p1 = new javax.swing.JLabel();
         btn1 = new javax.swing.JButton();
-        jSpinner4 = new javax.swing.JSpinner();
+        sp1 = new javax.swing.JSpinner();
         lblNombre = new javax.swing.JLabel();
         lblPrecio = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         p2 = new javax.swing.JLabel();
         btn2 = new javax.swing.JButton();
-        jSpinner3 = new javax.swing.JSpinner();
+        sp2 = new javax.swing.JSpinner();
         lblPrecio1 = new javax.swing.JLabel();
         lblNombre1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         p3 = new javax.swing.JLabel();
         btn3 = new javax.swing.JButton();
-        jSpinner2 = new javax.swing.JSpinner();
+        sp3 = new javax.swing.JSpinner();
         lblNombre2 = new javax.swing.JLabel();
         lblPrecio2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         p4 = new javax.swing.JLabel();
         btn4 = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        sp4 = new javax.swing.JSpinner();
         lblPrecio3 = new javax.swing.JLabel();
         lblNombre3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
@@ -202,7 +226,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner4.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         lblNombre.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -225,7 +249,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                         .addComponent(p1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(sp1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -244,7 +268,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPrecio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn1)
                 .addContainerGap())
@@ -268,7 +292,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp2.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         lblPrecio1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPrecio1.setText("Precio");
@@ -294,7 +318,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                                     .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(65, 65, 65)
-                                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(sp2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -313,7 +337,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPrecio1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn2)
                 .addContainerGap())
@@ -337,7 +361,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp3.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         lblNombre2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         lblNombre2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -368,7 +392,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                                         .addComponent(p3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(26, 26, 26))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sp3, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(60, 60, 60)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addComponent(lblNombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -384,7 +408,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPrecio2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn3)
                 .addContainerGap())
@@ -408,7 +432,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp4.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         lblPrecio3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPrecio3.setText("Precio");
@@ -433,7 +457,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
@@ -452,7 +476,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblPrecio3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn4)
                 .addContainerGap())
@@ -584,19 +608,91 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        // TODO add your handling code here:
+        if (btn2.isEnabled()) {
+            int sp = Integer.parseInt(String.valueOf(sp2.getValue()));
+            nst = daop.stock(id2) - sp;
+            if (nst < 0) {
+                JOptionPane.showMessageDialog(this, "Hay " + daop.stock(id1) + " en estock");
+                sp2.setValue(1);
+            } else {
+                modificarStock(nst, id2);
+                car.setIdProducto(id2);
+                car.setCantidad(Integer.parseInt(String.valueOf(sp2.getValue())));
+                car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
+                try {
+                    daoc.insertarCarrito(car);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmPnlProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                sp2.setValue(1);
+            }
+        }
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        // TODO add your handling code here:
+        if (btn3.isEnabled()) {
+            int sp = Integer.parseInt(String.valueOf(sp3.getValue()));
+            nst = daop.stock(id3) - sp;
+            if (nst < 0) {
+                JOptionPane.showMessageDialog(this, "Hay " + daop.stock(id3) + " en estock");
+                sp3.setValue(1);
+            } else {
+                modificarStock(nst, id3);
+                car.setIdProducto(id3);
+                car.setCantidad(Integer.parseInt(String.valueOf(sp3.getValue())));
+                car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
+                try {
+                    daoc.insertarCarrito(car);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmPnlProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                sp3.setValue(1);
+            }
+        }
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        // TODO add your handling code here:
+        if (btn4.isEnabled()) {
+            int sp = Integer.parseInt(String.valueOf(sp4.getValue()));
+            nst = daop.stock(id4) - sp;
+            if (nst < 0) {
+                JOptionPane.showMessageDialog(this, "Hay " + daop.stock(id4) + " en estock");
+                sp4.setValue(1);
+            } else {
+                modificarStock(nst, id4);
+                car.setIdProducto(id4);
+                car.setCantidad(Integer.parseInt(String.valueOf(sp4.getValue())));
+                car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
+                try {
+                    daoc.insertarCarrito(car);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmPnlProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                sp4.setValue(1);
+            }
+        }
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        
+        if (btn1.isEnabled()) {
+            int sp = Integer.parseInt(String.valueOf(sp1.getValue()));
+            nst = daop.stock(id1) - sp;
+            if (nst < 0) {
+                JOptionPane.showMessageDialog(this, "Hay " + daop.stock(id1) + " en estock");
+                sp1.setValue(1);
+            } else {
+                modificarStock(nst, id1);
+                car.setIdProducto(id1);
+                car.setCantidad(Integer.parseInt(String.valueOf(sp1.getValue())));
+                car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
+                try {
+                    daoc.insertarCarrito(car);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmPnlProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                sp1.setValue(1);
+            }
+        }
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btnVisitar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisitar1MouseClicked
@@ -621,10 +717,6 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
-    private javax.swing.JSpinner jSpinner4;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblNombre1;
     private javax.swing.JLabel lblNombre2;
@@ -641,6 +733,10 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     private javax.swing.JLabel p3;
     private javax.swing.JLabel p4;
     private javax.swing.JPanel pnlInicio;
+    private javax.swing.JSpinner sp1;
+    private javax.swing.JSpinner sp2;
+    private javax.swing.JSpinner sp3;
+    private javax.swing.JSpinner sp4;
     // End of variables declaration//GEN-END:variables
 
 }

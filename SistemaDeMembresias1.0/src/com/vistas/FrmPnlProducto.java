@@ -2,6 +2,7 @@ package com.vistas;
 
 import com.dao.DaoCarrito;
 import com.dao.DaoProducto;
+import com.modelo.Carrito;
 import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
 import java.awt.Color;
@@ -10,7 +11,10 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -21,10 +25,17 @@ public class FrmPnlProducto extends javax.swing.JPanel {
     DaoProducto daop = new DaoProducto();
     Producto p = new Producto();
     DaoCarrito daoc = new DaoCarrito();
+    Carrito car = new Carrito();
     int idP = 0;
     int nst = 0;
+    JLabel lbl = new JLabel();
     public FrmPnlProducto() {
         initComponents();
+    }
+    
+    public FrmPnlProducto(int idSuscriptor) {
+        initComponents();
+        lbl.setText(String.valueOf(idSuscriptor));
     }
     public void cargarProd(String id, String tooltip, String nombre, double precio, int stock) {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
@@ -33,6 +44,15 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         lblNombre.setToolTipText(nombre);
         lblPrecio.setText(String.valueOf(nf.format(precio)));
         idP = Integer.parseInt(id);
+        lbl.getText();
+        int st = daop.stock(idP);
+        if (st < 1) {
+            SpinnerModel sm = new SpinnerNumberModel(1, 1, 1, 1);
+            spCantidad.setModel(sm);
+        } else {
+            SpinnerModel sm = new SpinnerNumberModel(1, 1, st, 1);
+            spCantidad.setModel(sm);
+        }
         try {
             CustomImageIcon imagen = daop.getImagen(Integer.parseInt(id));
             p1.setIcon(imagen);
@@ -51,9 +71,9 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         
     }
     
-    public void agregarAlCarrito() {
+    public void getStock() {
         int sp = Integer.parseInt(String.valueOf(spCantidad.getValue()));
-        nst = daop.stock(2) - sp;
+        nst = daop.stock(idP) - sp;
     }
     
     public void modificarStock(int nstock, int idProducto) {
@@ -157,9 +177,22 @@ public class FrmPnlProducto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addCartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addCartMouseClicked
-        agregarAlCarrito();
-        modificarStock(nst, idP);
-        spCantidad.setValue(1);
+        getStock();
+        if (nst < 0) {
+            JOptionPane.showMessageDialog(this, "Hay " + daop.stock(idP) + " en estock");
+            spCantidad.setValue(1);
+        } else {
+            modificarStock(nst, idP);
+            car.setIdProducto(idP);
+            car.setCantidad(Integer.parseInt(String.valueOf(spCantidad.getValue())));
+            car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
+            try {
+                daoc.insertarCarrito(car);
+            } catch (Exception ex) {
+                Logger.getLogger(FrmPnlProducto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            spCantidad.setValue(1);
+        }
     }//GEN-LAST:event_addCartMouseClicked
 
 

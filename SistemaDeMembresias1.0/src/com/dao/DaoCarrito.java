@@ -45,6 +45,27 @@ public class DaoCarrito extends Conexion implements OperacionesCarrito{
             desconectar();
         }
     }
+    
+    public int contarProdCar(int idSuscriptor) {
+        ResultSet rs;
+        int filas = 0;
+        try {
+            this.conectar();
+            String sql = "select count(*) from carrito where idSuscriptor = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idSuscriptor);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                filas = rs.getInt("count(*)");
+            }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al contar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            desconectar();
+        }
+        return filas;
+    }
 
     @Override
     public void modificarCarrito(Carrito car) throws Exception {

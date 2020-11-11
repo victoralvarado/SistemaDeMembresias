@@ -339,8 +339,6 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
                 pre.setInt(1, p.getStock());
                 pre.setInt(2, p.getIdProducto());
                 pre.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Producto agregado al carrito",
-                    "Carrito", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al modificar" + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);

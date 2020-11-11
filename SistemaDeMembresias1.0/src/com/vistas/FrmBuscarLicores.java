@@ -31,9 +31,14 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
     DaoCategoria daoc = new DaoCategoria();
     public FrmBuscarLicores() {
         initComponents();
+    }
+    
+    public FrmBuscarLicores(int idSsucriptor) {
+        initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         mostrar();
     }
+    
     public void mostrar(){
         try {
             String[] Columnas = {"Código", "Categoria", "Nombre", "Descripcion", "Marca",
