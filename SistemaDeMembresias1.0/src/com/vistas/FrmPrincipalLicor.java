@@ -13,6 +13,10 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
     public FrmPrincipalLicor() {
         initComponents();
+    }
+    
+    public FrmPrincipalLicor(int idSuscriptor) {
+        initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
 

@@ -124,6 +124,8 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="pnlLogo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lblIdSuscriptor" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
                       <Component id="btnInicio" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnVinos" min="-2" max="-2" attributes="0"/>
@@ -147,6 +149,7 @@
                           <Component id="btnLicores" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lblUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnCarrito" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblIdSuscriptor" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="17" max="32767" attributes="0"/>
                   </Group>
@@ -290,6 +293,11 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCarritoMouseClicked"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JLabel" name="lblIdSuscriptor">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="idSuscriptor"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">
@@ -305,8 +313,10 @@
                   <Component id="deskPnlContenedor" max="32767" attributes="0"/>
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="602" max="-2" attributes="0"/>
-                      <Component id="btnBuscar" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="lblCopyright" min="-2" pref="315" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="579" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -319,7 +329,10 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="deskPnlContenedor" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnBuscar" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnBuscar" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                          <Component id="lblCopyright" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -397,6 +410,13 @@
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBuscarMouseClicked"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="lblCopyright">
+              <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="jLabel1"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

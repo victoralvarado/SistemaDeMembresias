@@ -34,7 +34,7 @@ public class FrmPortada extends javax.swing.JInternalFrame {
     }
     
     public void modificar() {
-        if (fis == null) {
+        if (lblPortada.getIcon() == null) {
             JOptionPane.showMessageDialog(null, "Seleecione una imagen",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {

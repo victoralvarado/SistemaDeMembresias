@@ -26,13 +26,18 @@ import javax.swing.table.DefaultTableModel;
 public class FrmBuscarVinos extends javax.swing.JInternalFrame {
     DaoProducto daop = new DaoProducto();
     Producto prod = new Producto();
-    FrmPnlProducto panel = new FrmPnlProducto();
     DaoMarca daom = new DaoMarca();
     DaoCategoria daoc = new DaoCategoria();
+    JLabel lbl = new JLabel();
     public FrmBuscarVinos() {
+        initComponents();
+    }
+    
+    public FrmBuscarVinos(int idSuscriptor) {
         initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         mostrar();
+        lbl.setText(String.valueOf(idSuscriptor));
     }
     public void mostrar(){
         try {
@@ -211,6 +216,7 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
             String tooltip = tblProducto.getValueAt(fila, 3).toString();
             Double precio = Double.parseDouble(this.tblProducto.getValueAt(fila, 5).toString());
             String stock = daop.info("stock", Integer.parseInt(id));
+            FrmPnlProducto panel = new FrmPnlProducto(Integer.parseInt(lbl.getText()));
             panel.cargarProd(id, tooltip, nombre, precio,Integer.parseInt(stock));
             JOptionPane.showOptionDialog(null, panel,categoria, JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, 
                     null, new Object[]{}, null);

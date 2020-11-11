@@ -6,9 +6,12 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.Icon;
@@ -37,7 +40,6 @@ public class FrmLogin extends javax.swing.JFrame {
         initComponents();
         logo();
         lblCargando.setVisible(false);
-//        progresBar.setVisible(false);
     }
     
     public final void logo() {
@@ -61,23 +63,25 @@ public class FrmLogin extends javax.swing.JFrame {
     
     
     public void acceder() {
-        
-//        try {
-//            us.setEmail(this.txtCorreo.getText());
-//            us.setPassword(this.txtPassword.getText());
-//            if (daous.login(us)) {
-//                this.hide();
-//            }
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Error al ingresar " + e.getMessage(),
-//                    "Error", JOptionPane.ERROR_MESSAGE);
-//        }
-    
-
-        FrmPrincipal p = new FrmPrincipal(txtCorreo.getText());
-        p.show();
-        this.hide();
-    
+        try {
+            us.setEmail(this.txtCorreo.getText());
+            us.setPassword(this.txtPassword.getText());
+            if (daous.login(us)) {
+                this.hide();
+            } else {
+                lblCargando.setVisible(false);
+                lblCargando.repaint();
+                lblLogin.setIcon(null);
+                lblLogin.setText("LOGIN");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al ingresar " + e,
+                    "Error", JOptionPane.ERROR_MESSAGE);
+            lblCargando.setVisible(false);
+            lblCargando.repaint();
+            lblLogin.setIcon(null);
+            lblLogin.setText("LOGIN");
+        }
     }
 
     public boolean ValidarEmail (String email){
@@ -91,7 +95,75 @@ public class FrmLogin extends javax.swing.JFrame {
             return false;
         }
     }
+    
+    public void login(){
+        if (!ValidarEmail(txtCorreo.getText())) {
+            JOptionPane.showMessageDialog(null, "¡Ingrese una direccion de correo valida!", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtCorreo.requestFocus();
+        } else if (txtCorreo.getText().isEmpty() || txtPassword.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor ingrese datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtPassword.requestFocus();
+        } else {
+            cargando();
+            lblCargando.setVisible(true);
+            lblCargando.repaint();
+            TimerTask tarea1 = new TimerTask() {
+                @Override
+                public void run() {
+                    
+                    switch (n1) {
+                        case 0:
+                            n1++;
+                            lblCargando.setText("C");
+                            break;
+                        case 1:
+                            n1++;
+                            lblCargando.setText("CA");
+                            break;
+                        case 2:
+                            lblCargando.setText("CAR");
+                            n1++;
+                            break;
+                        case 3:
+                            lblCargando.setText("CARG");
+                            n1++;
+                            break;
+                        case 4:
+                            lblCargando.setText("CARGA");
+                            n1++;
+                            break;
+                        case 5:
+                            lblCargando.setText("CARGAN");
+                            n1++;
+                            break;
+                        case 6:
+                            lblCargando.setText("CARGAND");
+                            n1++;
+                            break;
+                        case 7:
+                            lblCargando.setText("CARGANDO");
+                            n1++;
+                            break;
+                        case 8:
+                            lblCargando.setText("");
+                            n1 = 0;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            };
+            timer1.schedule(tarea1, 1000, 300);
+            TimerTask tarea = new TimerTask() {
+                @Override
+                public void run() {
+                        acceder();
+                }
+            };
+            timer.schedule(tarea, 2000);
 
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -123,6 +195,17 @@ public class FrmLogin extends javax.swing.JFrame {
         txtCorreo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCorreoActionPerformed(evt);
+            }
+        });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyPressed(evt);
+            }
+        });
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
             }
         });
 
@@ -261,86 +344,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnAccederActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccederActionPerformed
-        if (!ValidarEmail(txtCorreo.getText())) {
-            JOptionPane.showMessageDialog(null, "¡Ingrese una direccion de correo valida!", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            txtCorreo.requestFocus();
-        } else if (txtCorreo.getText().isEmpty() || txtPassword.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor ingrese datos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            txtPassword.requestFocus();
-        } else {
-            cargando();
-//            progresBar.setVisible(true);
-//            progresBar.repaint();
-            lblCargando.setVisible(true);
-            lblCargando.repaint();
-            DecimalFormat df = new DecimalFormat("##");
-            TimerTask tarea1 = new TimerTask() {
-                @Override
-                public void run() {
-                    
-                    switch (n1) {
-                        case 0:
-                            n1++;
-                            lblCargando.setText("C");
-                            break;
-                        case 1:
-                            n1++;
-                            lblCargando.setText("CA");
-                            break;
-                        case 2:
-                            lblCargando.setText("CAR");
-                            n1++;
-                            break;
-                        case 3:
-                            lblCargando.setText("CARG");
-                            n1++;
-                            break;
-                        case 4:
-                            lblCargando.setText("CARGA");
-                            n1++;
-                            break;
-                        case 5:
-                            lblCargando.setText("CARGAN");
-                            n1++;
-                            break;
-                        case 6:
-                            lblCargando.setText("CARGAND");
-                            n1++;
-                            break;
-                        case 7:
-                            lblCargando.setText("CARGANDO");
-                            n1++;
-                            break;
-                        case 8:
-                            lblCargando.setText("");
-                            n1 = 0;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            };
-            timer1.schedule(tarea1, 1000, 300);
-//            TimerTask tarea2 = new TimerTask() {
-//                @Override
-//                public void run() {
-//                    int n = progresBar.getValue();
-//                    if (n <= 21) {
-//                        n++;
-//                        progresBar.setValue(n);
-//                    }
-//                }
-//            };
-//            timer2.schedule(tarea2, 1000, 1000);
-            TimerTask tarea = new TimerTask() {
-                @Override
-                public void run() {
-                    acceder();
-                }
-            };
-            timer.schedule(tarea, 2000);
-
-        }
+        
     }//GEN-LAST:event_btnAccederActionPerformed
 
     private void btnSuscripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuscripcionMouseClicked
@@ -350,12 +354,32 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSuscripcionMouseClicked
 
     private void btnAccederMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAccederMouseClicked
-        
+        login();
     }//GEN-LAST:event_btnAccederMouseClicked
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
         
     }//GEN-LAST:event_txtCorreoFocusLost
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                login();
+            } catch (Exception ex) {
+                Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
+
+    private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                login();
+            } catch (Exception ex) {
+                Logger.getLogger(FrmLogin.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_txtCorreoKeyPressed
 
 
     public static void main(String args[]) {

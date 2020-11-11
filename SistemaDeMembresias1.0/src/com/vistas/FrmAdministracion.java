@@ -99,6 +99,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnPortada = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         btnVino = new javax.swing.JMenuItem();
+        btnCerrarSesion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -235,6 +236,15 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(jMenu3);
 
+        btnCerrarSesion.setText("CERRAR SESION");
+        btnCerrarSesion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCerrarSesionMouseClicked(evt);
+            }
+        });
+        menuPrincipal.add(btnCerrarSesion);
+
         setJMenuBar(menuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -307,6 +317,12 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(vino);
     }//GEN-LAST:event_btnVinoActionPerformed
 
+    private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
+        FrmLogin login = new FrmLogin();
+        login.show();
+        this.hide();
+    }//GEN-LAST:event_btnCerrarSesionMouseClicked
+
 
 
     public static void main(String args[]) {
@@ -344,6 +360,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem btnCarrito;
     private javax.swing.JMenuItem btnCategoria;
+    private javax.swing.JMenu btnCerrarSesion;
     private javax.swing.JMenuItem btnMarca;
     private javax.swing.JMenu btnMenu;
     private javax.swing.JMenuItem btnOrden;

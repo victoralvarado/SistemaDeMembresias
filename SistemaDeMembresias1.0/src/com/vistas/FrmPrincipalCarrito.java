@@ -16,6 +16,11 @@ public class FrmPrincipalCarrito extends javax.swing.JInternalFrame {
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
     }
     
+    public FrmPrincipalCarrito(int idSuscriptor) {
+        initComponents();
+        ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

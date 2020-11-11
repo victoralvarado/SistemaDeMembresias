@@ -116,6 +116,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     
     public void modificar() {
         try {
+            u.setIdUsuario(Integer.parseInt(lblCodigo.getText()));
             u.setNombre(txtNombre.getText());
             u.setApellido(txtApellido.getText());
             u.setEmail(txtCorreo.getText());
@@ -173,10 +174,15 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
             this.fis = null;
             //Habilitar botones
             btnModificar.setEnabled(true);
-            btnEliminar.setEnabled(true);
+            
             //deshabilitar boton y codigo
             btnInsertar.setEnabled(false);
             String id = String.valueOf(this.tblUsuarios.getValueAt(fila, 0));
+            if (Integer.parseInt(id) == 1) {
+                btnEliminar.setEnabled(false);
+            } else {
+                btnEliminar.setEnabled(true);
+            }
             this.lblCodigo.setText(String.valueOf(this.tblUsuarios.getValueAt(fila, 0)));
             this.txtCorreo.setText(String.valueOf(this.tblUsuarios.getValueAt(fila, 1)));
             this.txtNombre.setText(String.valueOf(this.tblUsuarios.getValueAt(fila, 2)));

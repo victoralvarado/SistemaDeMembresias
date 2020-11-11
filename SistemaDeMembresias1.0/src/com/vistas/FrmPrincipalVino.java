@@ -12,6 +12,8 @@ import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
@@ -29,7 +31,12 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
     DaoVino daovi = new DaoVino();
     DaoCategoria daoc = new DaoCategoria();
     DaoMarca daom = new DaoMarca();
+    JLabel lbl = new JLabel();
     public FrmPrincipalVino() {
+        initComponents();
+    }
+
+    public FrmPrincipalVino(int idSuscriptor) {
         initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         try {
@@ -37,7 +44,10 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(FrmPrincipalVino.class.getName()).log(Level.SEVERE, null, ex);
         }
+        lbl.setText(String.valueOf(idSuscriptor));
     }
+    
+    
     
     public void cargarVino() throws Exception{
          int id1 = daovi.getIdVino(1).getIdProducto();
