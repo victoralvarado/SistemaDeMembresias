@@ -35,6 +35,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmTipoSuscriptor tiposuscriptor = new FrmTipoSuscriptor();
         FrmProductoInicio productoI =new FrmProductoInicio();
         FrmVino vino = new FrmVino();
+        FrmPublicidad publicidad = new FrmPublicidad();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -50,6 +51,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             usuario.setVisible(false);
             tiposuscriptor.setVisible(false);
             vino.setVisible(false);
+            publicidad.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -100,6 +102,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         btnVino = new javax.swing.JMenuItem();
         btnCerrarSesion = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        btnPublicidad = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -109,7 +113,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         deskPnlContenedor.setLayout(deskPnlContenedorLayout);
         deskPnlContenedorLayout.setHorizontalGroup(
             deskPnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 794, Short.MAX_VALUE)
+            .addGap(0, 927, Short.MAX_VALUE)
         );
         deskPnlContenedorLayout.setVerticalGroup(
             deskPnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,13 +241,25 @@ public class FrmAdministracion extends javax.swing.JFrame {
         menuPrincipal.add(jMenu3);
 
         btnCerrarSesion.setText("CERRAR SESION");
-        btnCerrarSesion.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        btnCerrarSesion.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCerrarSesionMouseClicked(evt);
             }
         });
         menuPrincipal.add(btnCerrarSesion);
+
+        jMenu4.setText("PUBLICIDAD");
+
+        btnPublicidad.setText("Plubicidad");
+        btnPublicidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPublicidadActionPerformed(evt);
+            }
+        });
+        jMenu4.add(btnPublicidad);
+
+        menuPrincipal.add(jMenu4);
 
         setJMenuBar(menuPrincipal);
 
@@ -323,6 +339,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         this.hide();
     }//GEN-LAST:event_btnCerrarSesionMouseClicked
 
+    private void btnPublicidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPublicidadActionPerformed
+        FrmPublicidad publicidad = new FrmPublicidad();
+        abrirFrm(publicidad);
+    }//GEN-LAST:event_btnPublicidadActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -367,6 +388,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnPortada;
     private javax.swing.JMenuItem btnProducto;
     private javax.swing.JMenuItem btnProductosI;
+    private javax.swing.JMenuItem btnPublicidad;
     private javax.swing.JMenuItem btnTipoSuscriptor;
     private javax.swing.JMenuItem btnUsuario;
     private javax.swing.JMenuItem btnVino;
@@ -374,6 +396,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 

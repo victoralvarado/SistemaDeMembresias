@@ -4,6 +4,7 @@ import com.dao.DaoCarrito;
 import com.dao.DaoPortada;
 import com.dao.DaoProducto;
 import com.dao.DaoProductoInicio;
+import com.dao.DaoPublicidad;
 import com.modelo.Carrito;
 import com.modelo.Producto;
 import com.modelo.ProductoInicio;
@@ -51,6 +52,10 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     int id3 = 0;
     int id4 = 0;
     int nst = 0;
+    
+    DaoPublicidad daopu = new DaoPublicidad();
+    String urlp1 = "";
+    String urlp2 = "";
 
     public FrmPrincipalInicio() {
         initComponents();
@@ -58,23 +63,32 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     
     public FrmPrincipalInicio(int idSuscriptor) {
         initComponents();
+
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         cargarProducto();
         mostrarP();
-        logo();
         lbl.setText(String.valueOf(idSuscriptor));
+        cargarPublicidad();
     }
     
-    public final void logo() {
-        fot = new ImageIcon(getClass().getResource("/com/media/ejep1.png"));
-        img = fot.getImage().getScaledInstance(188, 242, Image.SCALE_SMOOTH);
-        iconoEsca = new ImageIcon(img);
-        lblPublicidad1.setIcon(iconoEsca);
-        lblPublicidad1.repaint();
+    public void cargarPublicidad() {
+        urlp1 = daopu.getUrl(1);
+        urlp2 = daopu.getUrl(2);
+        try {
+            CustomImageIcon imagenp1 = daopu.getFoto(1);
+            lblPublicidad1.setIcon(imagenp1);
+            lblPublicidad1.updateUI();
+            
+            CustomImageIcon imagenp2 = daopu.getFoto(2);
+            lblPublicidad2.setIcon(imagenp2);
+            lblPublicidad2.updateUI();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipalInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void cargarProducto() {
-
+        
         id1 = daopi.getIdPrducto(1).getIdProducto();
         id2 = daopi.getIdPrducto(2).getIdProducto();
         id3 = daopi.getIdPrducto(3).getIdProducto();
@@ -520,6 +534,11 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         lblPublicidad2.setText("PUBLICIDAD");
 
         btnVisitar2.setText("Visitar");
+        btnVisitar2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnVisitar2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -617,7 +636,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             } else {
                 modificarStock(nst, id2);
                 car.setIdProducto(id2);
-                car.setCantidad(Integer.parseInt(String.valueOf(sp2.getValue())));
+                car.setCantidad(Integer.parseInt(sp2.getValue().toString()));
                 car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
                 try {
                     daoc.insertarCarrito(car);
@@ -639,7 +658,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             } else {
                 modificarStock(nst, id3);
                 car.setIdProducto(id3);
-                car.setCantidad(Integer.parseInt(String.valueOf(sp3.getValue())));
+                car.setCantidad(Integer.parseInt(sp3.getValue().toString()));
                 car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
                 try {
                     daoc.insertarCarrito(car);
@@ -661,7 +680,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             } else {
                 modificarStock(nst, id4);
                 car.setIdProducto(id4);
-                car.setCantidad(Integer.parseInt(String.valueOf(sp4.getValue())));
+                car.setCantidad(Integer.parseInt(sp4.getValue().toString()));
                 car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
                 try {
                     daoc.insertarCarrito(car);
@@ -683,7 +702,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             } else {
                 modificarStock(nst, id1);
                 car.setIdProducto(id1);
-                car.setCantidad(Integer.parseInt(String.valueOf(sp1.getValue())));
+                car.setCantidad(Integer.parseInt(sp1.getValue().toString()));
                 car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
                 try {
                     daoc.insertarCarrito(car);
@@ -697,11 +716,19 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
 
     private void btnVisitar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisitar1MouseClicked
         try {
-                Desktop.getDesktop().browse(new URI("https://www.mistervinosv.com/"));
+                Desktop.getDesktop().browse(new URI(urlp1));
         } catch (IOException | URISyntaxException e) {
             JOptionPane.showMessageDialog(null,"Ocurrio un error: "+ e.getMessage());
         }
     }//GEN-LAST:event_btnVisitar1MouseClicked
+
+    private void btnVisitar2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVisitar2MouseClicked
+        try {
+                Desktop.getDesktop().browse(new URI(urlp2));
+        } catch (IOException | URISyntaxException e) {
+            JOptionPane.showMessageDialog(null,"Ocurrio un error: "+ e.getMessage());
+        }
+    }//GEN-LAST:event_btnVisitar2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

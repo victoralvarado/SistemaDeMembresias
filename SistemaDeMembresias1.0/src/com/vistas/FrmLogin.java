@@ -35,6 +35,7 @@ public class FrmLogin extends javax.swing.JFrame {
     Timer timer1 = new Timer();
     Timer timer2 = new Timer();
     Timer timer = new Timer();
+    int segundos = 0;
     int n1 = 0;
     public FrmLogin() {
         initComponents();
@@ -110,7 +111,6 @@ public class FrmLogin extends javax.swing.JFrame {
             TimerTask tarea1 = new TimerTask() {
                 @Override
                 public void run() {
-                    
                     switch (n1) {
                         case 0:
                             n1++;
@@ -153,7 +153,10 @@ public class FrmLogin extends javax.swing.JFrame {
                     }
                 }
             };
-            timer1.schedule(tarea1, 1000, 300);
+            timer1.cancel();
+            timer1 = new Timer();
+            timer1.schedule(tarea1,0,300);
+            
             TimerTask tarea = new TimerTask() {
                 @Override
                 public void run() {

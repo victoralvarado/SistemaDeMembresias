@@ -17,8 +17,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 /**
- * Nombre de la clase: Publicidad
- * Fecha: 08/11/2020
+ * Nombre de la clase: DaoPublicidad
+ * Fecha: 08-11-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
  * @author adrian luna
@@ -149,5 +149,26 @@ public class DaoPublicidad extends Conexion implements OperacionesPublicidad{
         }
     }
     
-    
+    public String getUrl(int idPublicidad) {
+        String url = "";
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "select url from publicidad where idPublicidad = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idPublicidad);
+            rs = pre.executeQuery();
+            while(rs.next())
+            {
+                url = rs.getString("url");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        finally {
+            this.desconectar();
+        }
+        return url;
+    }
 }

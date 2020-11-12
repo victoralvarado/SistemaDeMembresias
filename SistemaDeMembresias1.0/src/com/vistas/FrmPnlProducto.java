@@ -184,7 +184,7 @@ public class FrmPnlProducto extends javax.swing.JPanel {
         } else {
             modificarStock(nst, idP);
             car.setIdProducto(idP);
-            car.setCantidad(Integer.parseInt(String.valueOf(spCantidad.getValue())));
+            car.setCantidad(Integer.parseInt(spCantidad.getValue().toString()));
             car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
             try {
                 daoc.insertarCarrito(car);

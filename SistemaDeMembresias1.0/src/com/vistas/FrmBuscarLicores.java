@@ -43,7 +43,7 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
         try {
             String[] Columnas = {"Código", "Categoria", "Nombre", "Descripcion", "Marca",
                  "Precio Venta", "Imagen"};
-            Object[] datos = new Object[9];
+            Object[] datos = new Object[7];
             tblProducto.getTableHeader().setReorderingAllowed(false) ;
             DefaultTableModel tabla = new DefaultTableModel(null, Columnas) {
                 @Override
@@ -59,6 +59,8 @@ public class FrmBuscarLicores extends javax.swing.JInternalFrame {
                         case 1:
                             return Object.class;
                         case 2:
+                            return Object.class;
+                        case 3:
                             return Object.class;
                         case 4:
                             return Object.class;

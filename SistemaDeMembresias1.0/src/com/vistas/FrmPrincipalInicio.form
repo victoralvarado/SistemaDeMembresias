@@ -679,6 +679,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visitar"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnVisitar2MouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
