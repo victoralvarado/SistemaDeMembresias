@@ -28,7 +28,10 @@ public class FrmPrincipal extends javax.swing.JFrame {
     Icon iconoEsca;
     String frm;
     java.util.Timer timer2 = new java.util.Timer();
+    java.util.Timer timer3 = new java.util.Timer();
+    java.util.Timer timer4 = new java.util.Timer();
     DaoCarrito daoc = new DaoCarrito();
+    int n1 = 0;
     public FrmPrincipal() {
         initComponents();
     }
@@ -42,6 +45,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmPrincipalInicio inicio = new FrmPrincipalInicio(Integer.parseInt(lblIdSuscriptor.getText()));
         logo();
         abrirFrm(inicio);
+        lblLoading.setVisible(false);
         lblUsuario.setText(email);
         lblUsuario.setToolTipText(email);
         lblIdSuscriptor.setVisible(false);
@@ -73,7 +77,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmPrincipalLicor  licor = new FrmPrincipalLicor(id);
         FrmBuscarLicores  licores = new FrmBuscarLicores(id);
         FrmBuscarVinos vinos = new FrmBuscarVinos(id);
-        FrmPrincipalCarrito carrito = new FrmPrincipalCarrito(id);
+        FrmCarrito carrito = new FrmCarrito(id);
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -130,6 +134,60 @@ public class FrmPrincipal extends javax.swing.JFrame {
         }
     });
     
+    public void cargando() {
+        lblLoading.setVisible(true);
+        lblLoading.repaint();
+        TimerTask tarea1 = new TimerTask() {
+                @Override
+                public void run() {
+                    
+                    switch (n1) {
+                        case 0:
+                            n1++;
+                            lblLoading.setText("C");
+                            break;
+                        case 1:
+                            n1++;
+                            lblLoading.setText("CA");
+                            break;
+                        case 2:
+                            lblLoading.setText("CAR");
+                            n1++;
+                            break;
+                        case 3:
+                            lblLoading.setText("CARG");
+                            n1++;
+                            break;
+                        case 4:
+                            lblLoading.setText("CARGA");
+                            n1++;
+                            break;
+                        case 5:
+                            lblLoading.setText("CARGAN");
+                            n1++;
+                            break;
+                        case 6:
+                            lblLoading.setText("CARGAND");
+                            n1++;
+                            break;
+                        case 7:
+                            lblLoading.setText("CARGANDO");
+                            n1++;
+                            break;
+                        case 8:
+                            lblLoading.setText("");
+                            n1 = 0;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            };
+        timer4.cancel();
+        timer4 = new java.util.Timer();
+        timer4.schedule(tarea1, 0, 300);
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -148,6 +206,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lblLogo = new javax.swing.JLabel();
         btnCarrito = new javax.swing.JLabel();
         lblIdSuscriptor = new javax.swing.JLabel();
+        lblLoading = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         deskPnlContenedor = new javax.swing.JDesktopPane();
         jPanel2 = new javax.swing.JPanel();
@@ -281,15 +340,21 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         lblIdSuscriptor.setText("idSuscriptor");
 
+        lblLoading.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        lblLoading.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLoading.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(pnlLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
                 .addComponent(lblIdSuscriptor)
-                .addGap(125, 125, 125)
+                .addGap(283, 283, 283)
+                .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnInicio)
                 .addGap(18, 18, 18)
                 .addComponent(btnVinos)
@@ -303,17 +368,22 @@ public class FrmPrincipal extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(13, 13, 13)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInicio)
-                    .addComponent(btnVinos)
-                    .addComponent(btnLicores)
-                    .addComponent(lblUsuario)
-                    .addComponent(btnCarrito)
-                    .addComponent(lblIdSuscriptor))
-                .addContainerGap(17, Short.MAX_VALUE))
             .addComponent(pnlLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnInicio)
+                            .addComponent(btnVinos)
+                            .addComponent(btnLicores)
+                            .addComponent(lblUsuario)
+                            .addComponent(btnCarrito)
+                            .addComponent(lblIdSuscriptor)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblLoading, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(250, 250, 250));
@@ -361,9 +431,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        lblCopyright.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblCopyright.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         lblCopyright.setText("jLabel1");
-        lblCopyright.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblCopyright.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -372,9 +442,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addComponent(deskPnlContenedor)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblCopyright, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
                 .addGap(579, 579, 579))
         );
@@ -428,88 +497,136 @@ public class FrmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInicioMouseClicked
-        FrmPrincipalInicio inicio = new FrmPrincipalInicio(Integer.parseInt(lblIdSuscriptor.getText()));
-        abrirFrm(inicio);
-        lblTitulo.setText("INICIO");
-        btnBuscar.setVisible(false);
-        lblCopyright.setVisible(true);
-        lblCopyright.setText(" Copyright 2020-2020 Amantes del Vino y Licores");
-        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
-        //Borde al color del fondo
-        btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-        btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-        btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+        cargando();
+        TimerTask tarea2 = new TimerTask() {
+            @Override
+            public void run() {
+
+                FrmPrincipalInicio inicio = new FrmPrincipalInicio(Integer.parseInt(lblIdSuscriptor.getText()));
+                abrirFrm(inicio);
+                lblTitulo.setText("INICIO");
+                btnBuscar.setVisible(false);
+                lblCopyright.setVisible(true);
+                lblCopyright.setText(" Copyright 2020-2020 Amantes del Vino y Licores");
+                btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
+                //Borde al color del fondo
+                btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                lblLoading.setVisible(false);
+            }
+        };
+        timer3.schedule(tarea2, 1000);
     }//GEN-LAST:event_btnInicioMouseClicked
 
     private void btnVinosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnVinosMouseClicked
-        FrmPrincipalVino vino = new FrmPrincipalVino(Integer.parseInt(lblIdSuscriptor.getText()));
-        abrirFrm(vino);
-        lblTitulo.setText("VINOS");
-        btnBuscar.setVisible(true);
-        btnBuscar.setText("Buscar mas Vinos");
-        lblCopyright.setVisible(false);
-        frm = "vinos";
-        btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
-        //Borde al color del fondo
-        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-        btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-        btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+        cargando();
+        TimerTask tarea2 = new TimerTask() {
+            @Override
+            public void run() {
+                FrmPrincipalVino vino = new FrmPrincipalVino(Integer.parseInt(lblIdSuscriptor.getText()));
+                abrirFrm(vino);
+                lblTitulo.setText("VINOS");
+                btnBuscar.setVisible(true);
+                btnBuscar.setText("Buscar mas Vinos");
+                lblCopyright.setVisible(false);
+                frm = "vinos";
+                btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
+                //Borde al color del fondo
+                btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                lblLoading.setVisible(false);
+            }
+        };
+        timer3.schedule(tarea2, 1000);
     }//GEN-LAST:event_btnVinosMouseClicked
 
     private void btnLicoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLicoresMouseClicked
-        FrmPrincipalLicor  licor = new FrmPrincipalLicor(Integer.parseInt(lblIdSuscriptor.getText()));
-        abrirFrm(licor);
-        lblTitulo.setText("LICORES");
-        btnBuscar.setVisible(true);
-        btnBuscar.setText("Buscar mas Licores");
-        lblCopyright.setVisible(false);
-        frm = "licores";
-        btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
-        //Borde al color del fondo
-        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-        btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-        btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+        cargando();
+        TimerTask tarea2 = new TimerTask() {
+            @Override
+            public void run() {
+                FrmPrincipalLicor licor = new FrmPrincipalLicor(Integer.parseInt(lblIdSuscriptor.getText()));
+                abrirFrm(licor);
+                lblTitulo.setText("LICORES");
+                btnBuscar.setVisible(true);
+                btnBuscar.setText("Buscar mas Licores");
+                lblCopyright.setVisible(false);
+                frm = "licores";
+                btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
+                //Borde al color del fondo
+                btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                lblLoading.setVisible(false);
+            }
+        };
+        timer3.schedule(tarea2, 1000);
     }//GEN-LAST:event_btnLicoresMouseClicked
 
     private void btnCarritoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCarritoMouseClicked
-        FrmPrincipalCarrito carrito = new FrmPrincipalCarrito(Integer.parseInt(lblIdSuscriptor.getText()));
-        abrirFrm(carrito);
-        lblTitulo.setText("CARRITO");
-        btnBuscar.setVisible(false);
-        lblCopyright.setVisible(false);
-        btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 1));
-        //Borde al color del fondo
-        btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-        btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-        btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+        cargando();
+        TimerTask tarea2 = new TimerTask() {
+            @Override
+            public void run() {
+                FrmCarrito carrito = new FrmCarrito(Integer.parseInt(lblIdSuscriptor.getText()));
+                abrirFrm(carrito);
+                lblTitulo.setText("CARRITO");
+                btnBuscar.setVisible(false);
+                lblCopyright.setVisible(false);
+                btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 1));
+                //Borde al color del fondo
+                btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                lblLoading.setVisible(false);
+            }
+        };
+        timer3.schedule(tarea2, 1000);
     }//GEN-LAST:event_btnCarritoMouseClicked
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         if (frm.equalsIgnoreCase("licores")) {
-            FrmBuscarLicores licor = new FrmBuscarLicores(Integer.parseInt(lblIdSuscriptor.getText()));
-            abrirFrm(licor);
-            lblTitulo.setText("LICORES");
-            btnBuscar.setVisible(false);
-            lblCopyright.setVisible(true);
-            //Borde al color del fondo
-            btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-            btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-            btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-            btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+            cargando();
+            TimerTask tarea2 = new TimerTask() {
+                @Override
+                public void run() {
+                    FrmBuscarLicores licor = new FrmBuscarLicores(Integer.parseInt(lblIdSuscriptor.getText()));
+                    abrirFrm(licor);
+                    lblTitulo.setText("LICORES");
+                    btnBuscar.setVisible(false);
+                    lblCopyright.setVisible(true);
+                    //Borde al color del fondo
+                    btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    lblLoading.setVisible(false);
+                }
+            };
+            timer3.schedule(tarea2, 1000);
         }
         if (frm.equalsIgnoreCase("vinos")) {
-            FrmBuscarVinos vino = new FrmBuscarVinos(Integer.parseInt(lblIdSuscriptor.getText()));
-            abrirFrm(vino);
-            lblTitulo.setText("VINOS");
-            btnBuscar.setVisible(false);
-            lblCopyright.setVisible(true);
-            //Borde al color del fondo
-            btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-            btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-            btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
-            btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+            cargando();
+            TimerTask tarea2 = new TimerTask() {
+                @Override
+                public void run() {
+                    FrmBuscarVinos vino = new FrmBuscarVinos(Integer.parseInt(lblIdSuscriptor.getText()));
+                    abrirFrm(vino);
+                    lblTitulo.setText("VINOS");
+                    btnBuscar.setVisible(false);
+                    lblCopyright.setVisible(true);
+                    //Borde al color del fondo
+                    btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    lblLoading.setVisible(false);
+                }
+            };
+            timer3.schedule(tarea2, 1000);
         }
-        
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
@@ -596,6 +713,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel lblCopyright;
     private javax.swing.JLabel lblIdSuscriptor;
+    public javax.swing.JLabel lblLoading;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuario;

@@ -29,8 +29,8 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
             String sql = "select * from categoria;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             rs = pre.executeQuery();
-            while (rs.next()) {                
-                Categoria cat= new Categoria();
+            while (rs.next()) {
+                Categoria cat = new Categoria();
                 cat.setIdCategoria(rs.getInt("idCategoria"));
                 cat.setCategoria(rs.getString("categoria"));
                 lst.add(cat);
@@ -38,9 +38,7 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        finally 
-        {
+        } finally {
             this.desconectar();
         }
         return lst;
@@ -52,18 +50,16 @@ public class DaoCategoria extends Conexion implements OperacionesCategoria{
             this.conectar();
             String sql = "insert into categoria values(?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1,cat.getIdCategoria());
-            pre.setString(2,cat.getCategoria());
+            pre.setInt(1, cat.getIdCategoria());
+            pre.setString(2, cat.getCategoria());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
                     "Insertar", JOptionPane.INFORMATION_MESSAGE);
-            
+
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        finally
-        {
+        } finally {
             this.desconectar();
         }
     }

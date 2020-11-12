@@ -123,15 +123,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="pnlLogo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                       <Component id="lblIdSuscriptor" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="125" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="283" max="-2" attributes="0"/>
+                      <Component id="lblLoading" min="-2" pref="99" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnInicio" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="btnVinos" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="btnLicores" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                       <Component id="lblUsuario" min="-2" pref="135" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Component id="btnCarrito" min="-2" pref="58" max="-2" attributes="0"/>
@@ -141,19 +143,27 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnInicio" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnVinos" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnLicores" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnCarrito" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblIdSuscriptor" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="17" max="32767" attributes="0"/>
-                  </Group>
                   <Component id="pnlLogo" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="btnInicio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnVinos" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnLicores" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnCarrito" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblIdSuscriptor" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="lblLoading" min="-2" pref="46" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -298,6 +308,18 @@
                 <Property name="text" type="java.lang.String" value="idSuscriptor"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JLabel" name="lblLoading">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="sansserif" size="14" style="1"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="horizontalTextPosition" type="int" value="0"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel3">
@@ -313,9 +335,8 @@
                   <Component id="deskPnlContenedor" max="32767" attributes="0"/>
                   <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblCopyright" min="-2" pref="315" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="579" max="-2" attributes="0"/>
                   </Group>
@@ -413,9 +434,11 @@
             </Component>
             <Component class="javax.swing.JLabel" name="lblCopyright">
               <Properties>
-                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="sansserif" size="12" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
-                <Property name="horizontalTextPosition" type="int" value="0"/>
+                <Property name="horizontalTextPosition" type="int" value="10"/>
               </Properties>
             </Component>
           </SubComponents>
