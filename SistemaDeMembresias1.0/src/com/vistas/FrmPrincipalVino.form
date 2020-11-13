@@ -1399,8 +1399,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton2" min="-2" pref="140" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Component id="btnp4" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Component id="btnp3" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                           <Component id="lblPublicidad3" min="-2" pref="140" max="-2" attributes="0"/>
                           <Component id="lblPublicidad4" min="-2" pref="140" max="-2" attributes="0"/>
                       </Group>
@@ -1414,11 +1414,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblPublicidad3" min="-2" pref="186" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnp3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblPublicidad4" min="-2" pref="186" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnp4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1443,15 +1443,21 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnp3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visitar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnp3ActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="btnp4">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visitar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnp4ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1463,8 +1469,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton5" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
-                          <Component id="jButton3" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Component id="btnp6" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Component id="btnp5" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                           <Component id="lblPublicidad5" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                           <Component id="lblPublicidad6" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
                       </Group>
@@ -1478,11 +1484,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="lblPublicidad5" min="-2" pref="186" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnp5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="lblPublicidad6" min="-2" pref="186" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnp6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1498,10 +1504,13 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="btnp5">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visitar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnp5ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPublicidad6">
               <Properties>
@@ -1512,10 +1521,13 @@
                 <Property name="opaque" type="boolean" value="true"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton5">
+            <Component class="javax.swing.JButton" name="btnp6">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Visitar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnp6ActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

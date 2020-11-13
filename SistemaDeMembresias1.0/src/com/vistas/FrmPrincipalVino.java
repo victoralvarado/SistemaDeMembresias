@@ -4,12 +4,17 @@ import com.dao.DaoCarrito;
 import com.dao.DaoCategoria;
 import com.dao.DaoMarca;
 import com.dao.DaoProducto;
+import com.dao.DaoPublicidad;
 import com.dao.DaoVino;
 import com.modelo.Carrito;
 import com.modelo.Producto;
 import com.modelo.Vino;
 import com.utilidades.CustomImageIcon;
+import java.awt.Desktop;
 import java.awt.Label;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -51,7 +56,13 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
     int id11 = 0;
     int id12 = 0;
     int nst = 0;
-
+    
+    DaoPublicidad daopu = new DaoPublicidad();
+    String urlp3 = "";
+    String urlp4 = "";
+    String urlp5 = "";
+    String urlp6 = "";
+    
     public FrmPrincipalVino() {
         initComponents();
     }
@@ -65,9 +76,34 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             Logger.getLogger(FrmPrincipalVino.class.getName()).log(Level.SEVERE, null, ex);
         }
         lbl.setText(String.valueOf(idSuscriptor));
+        cargarPublicidad();
     }
     
-    
+    public void cargarPublicidad() {
+        urlp3 = daopu.getUrl(3);
+        urlp4 = daopu.getUrl(4);
+        urlp5 = daopu.getUrl(5);
+        urlp6 = daopu.getUrl(6);
+        try {
+            CustomImageIcon imagenp3 = daopu.getFoto(3);
+            lblPublicidad3.setIcon(imagenp3);
+            lblPublicidad3.updateUI();
+            
+            CustomImageIcon imagenp4 = daopu.getFoto(4);
+            lblPublicidad4.setIcon(imagenp4);
+            lblPublicidad4.updateUI();
+            
+            CustomImageIcon imagenp5 = daopu.getFoto(5);
+            lblPublicidad5.setIcon(imagenp5);
+            lblPublicidad5.updateUI();
+            
+            CustomImageIcon imagenp6 = daopu.getFoto(6);
+            lblPublicidad6.setIcon(imagenp6);
+            lblPublicidad6.updateUI();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipalInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void cargarVino() throws Exception{
          id1 = daovi.getIdVino(1).getIdProducto();
@@ -308,6 +344,18 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         }
     }
+    
+    public void cargarUrl(String url) {
+        if (url.trim().length() > 0) {
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (IOException | URISyntaxException e) {
+                System.err.println(e);
+            }
+        } else {
+            System.out.println("No hay link");
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -388,13 +436,13 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
         jPanel4 = new javax.swing.JPanel();
         lblPublicidad4 = new javax.swing.JLabel();
         lblPublicidad3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnp3 = new javax.swing.JButton();
+        btnp4 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         lblPublicidad5 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnp5 = new javax.swing.JButton();
         lblPublicidad6 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        btnp6 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(250, 250, 250)));
         setTitle("VINOS");
@@ -1123,9 +1171,19 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
         lblPublicidad3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblPublicidad3.setOpaque(true);
 
-        jButton1.setText("Visitar");
+        btnp3.setText("Visitar");
+        btnp3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp3ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Visitar");
+        btnp4.setText("Visitar");
+        btnp4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1134,8 +1192,8 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPublicidad3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPublicidad4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -1146,11 +1204,11 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(lblPublicidad3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnp3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblPublicidad4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnp4)
                 .addGap(17, 17, 17))
         );
 
@@ -1160,7 +1218,12 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
         lblPublicidad5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblPublicidad5.setOpaque(true);
 
-        jButton3.setText("Visitar");
+        btnp5.setText("Visitar");
+        btnp5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp5ActionPerformed(evt);
+            }
+        });
 
         lblPublicidad6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPublicidad6.setText("PUBLICIDAD");
@@ -1168,7 +1231,12 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
         lblPublicidad6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblPublicidad6.setOpaque(true);
 
-        jButton5.setText("Visitar");
+        btnp6.setText("Visitar");
+        btnp6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1177,8 +1245,8 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPublicidad5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPublicidad6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -1189,11 +1257,11 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(lblPublicidad5, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnp5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblPublicidad6, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(btnp6)
                 .addGap(17, 17, 17))
         );
 
@@ -1323,6 +1391,22 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
     private void btn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11ActionPerformed
         cargarCar(btn11, sp11, id11);
     }//GEN-LAST:event_btn11ActionPerformed
+
+    private void btnp3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp3ActionPerformed
+        cargarUrl(urlp3);
+    }//GEN-LAST:event_btnp3ActionPerformed
+
+    private void btnp4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp4ActionPerformed
+        cargarUrl(urlp4);
+    }//GEN-LAST:event_btnp4ActionPerformed
+
+    private void btnp5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp5ActionPerformed
+        cargarUrl(urlp5);
+    }//GEN-LAST:event_btnp5ActionPerformed
+
+    private void btnp6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp6ActionPerformed
+        cargarUrl(urlp6);
+    }//GEN-LAST:event_btnp6ActionPerformed
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1338,10 +1422,10 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn7;
     private javax.swing.JButton btn8;
     private javax.swing.JButton btn9;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnp3;
+    private javax.swing.JButton btnp4;
+    private javax.swing.JButton btnp5;
+    private javax.swing.JButton btnp6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;

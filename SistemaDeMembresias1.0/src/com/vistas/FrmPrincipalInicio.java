@@ -718,7 +718,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         try {
                 Desktop.getDesktop().browse(new URI(urlp1));
         } catch (IOException | URISyntaxException e) {
-            JOptionPane.showMessageDialog(null,"Ocurrio un error: "+ e.getMessage());
+            System.err.println("No hay link: " + e);
         }
     }//GEN-LAST:event_btnVisitar1MouseClicked
 
@@ -726,7 +726,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         try {
                 Desktop.getDesktop().browse(new URI(urlp2));
         } catch (IOException | URISyntaxException e) {
-            JOptionPane.showMessageDialog(null,"Ocurrio un error: "+ e.getMessage());
+            System.err.println("No hay link: " + e);
         }
     }//GEN-LAST:event_btnVisitar2MouseClicked
 
