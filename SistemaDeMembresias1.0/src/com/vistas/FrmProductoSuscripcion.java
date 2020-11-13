@@ -16,7 +16,7 @@ public class FrmProductoSuscripcion extends javax.swing.JFrame {
     
     public FrmProductoSuscripcion() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+        //this.setExtendedState(MAXIMIZED_BOTH);
         Timer timer = new Timer();
         TimerTask tarea = new TimerTask() {
             @Override
@@ -31,13 +31,13 @@ public class FrmProductoSuscripcion extends javax.swing.JFrame {
                 oro.setVisible(true);
             }
         };
-        timer.schedule(tarea, 1000);
+        timer.schedule(tarea, 0000);
 
     }
     
     public FrmProductoSuscripcion(int idSuscriptor) {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+        //this.setExtendedState(MAXIMIZED_BOTH);
         
     }
     
@@ -50,15 +50,17 @@ public class FrmProductoSuscripcion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
+        dpContenedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 0, 0), 3));
+
         javax.swing.GroupLayout dpContenedorLayout = new javax.swing.GroupLayout(dpContenedor);
         dpContenedor.setLayout(dpContenedorLayout);
         dpContenedorLayout.setHorizontalGroup(
             dpContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 925, Short.MAX_VALUE)
+            .addGap(0, 1237, Short.MAX_VALUE)
         );
         dpContenedorLayout.setVerticalGroup(
             dpContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 592, Short.MAX_VALUE)
+            .addGap(0, 587, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

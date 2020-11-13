@@ -123,7 +123,20 @@ public class DaoCarrito extends Conexion implements OperacionesCarrito{
 
     @Override
     public void eliminarCarrito(Carrito car) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            this.conectar();
+            String sql = "delete from carrito where idCarrito=?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, car.getIdCarrito());
+            pre.executeUpdate();
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        finally 
+        {
+            this.desconectar();
+        }
     }
     
     public void eliminarTodo(int idSuscriptor) {

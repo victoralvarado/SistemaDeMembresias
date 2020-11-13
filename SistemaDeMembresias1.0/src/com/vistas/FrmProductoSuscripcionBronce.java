@@ -59,7 +59,7 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         btnFinalizarPedido = new javax.swing.JButton();
 
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
+        setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
