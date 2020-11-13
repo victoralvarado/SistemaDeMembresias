@@ -310,4 +310,28 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
         return id;
     }
     
+    public boolean email(String email) {
+        boolean filas = false;
+        ResultSet rs;
+        try {
+            this.conectar();
+            String sql = "select * from usuario where email = ?;";
+            PreparedStatement pre = this.getCon().prepareCall(sql);
+            pre.setString(1, email);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                filas = true;
+            }
+            if (filas) {
+                JOptionPane.showMessageDialog(null, "Ya hay una cuenta activa con el correo electronico ingresado",
+                    "Email", JOptionPane.WARNING_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error consulta email" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return filas;
+        
+    }
+    
 }
