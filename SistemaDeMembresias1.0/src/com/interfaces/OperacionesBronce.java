@@ -1,20 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package com.interfaces;
 
 import com.modelo.Bronce;
 import java.util.List;
 
 /**
-* Nombre de la clase: OperacionesBronce
+* Nombre de la interface: OperacionesBronce
 * Fecha: 11-12-2020 
 * CopyRigh: ROKE
 * Versión: 1.0
-* Autor: Roberto Aguillón
+* Autor: Aguillon, Alvarado, Luna, Rosales y Vasquez
 */
 public interface OperacionesBronce {
     public List<Bronce> mostrarSuscipcionBronce() throws Exception;

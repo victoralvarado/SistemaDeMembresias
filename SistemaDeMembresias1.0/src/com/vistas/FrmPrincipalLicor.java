@@ -8,7 +8,15 @@ import com.dao.DaoProducto;
 import com.modelo.Carrito;
 import com.modelo.Licor;
 import com.modelo.Producto;
+import com.utilidades.CustomImageIcon;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -48,9 +56,255 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
     
     public FrmPrincipalLicor(int idSuscriptor) {
         initComponents();
+        lbl.setText(String.valueOf(idSuscriptor));
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
+        try {
+            cargarLicor();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipalLicor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
+    public void cargarLicor() throws Exception{
+         id1 = daoli.getIdLicor(1).getIdProducto();
+         id2 = daoli.getIdLicor(2).getIdProducto();
+         id3 = daoli.getIdLicor(3).getIdProducto();
+         id4 = daoli.getIdLicor(4).getIdProducto();
+         id5 = daoli.getIdLicor(5).getIdProducto();
+         id6 = daoli.getIdLicor(6).getIdProducto();
+         id7 = daoli.getIdLicor(7).getIdProducto();
+         id8= daoli.getIdLicor(8).getIdProducto();
+         id9 = daoli.getIdLicor(9).getIdProducto();
+         id10 = daoli.getIdLicor(10).getIdProducto();
+         id11 = daoli.getIdLicor(11).getIdProducto();
+         id12 = daoli.getIdLicor(12).getIdProducto();
+         
+         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
+         try {
+             
+            CustomImageIcon imagen1 = daop.getImagen(id1);
+            p1.setIcon(imagen1);
+            p1.updateUI();
+            p1.setToolTipText(daop.info("descripcion", id1));
+            nom1.setText(daop.info("nombre", id1));
+            nom1.setToolTipText(daop.info("nombre", id1));
+            pre1.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id1))));
 
+            if (Integer.parseInt(daop.info("stock", id1)) == 0) {
+                p1.setText("AGOTADO");
+                btn1.setEnabled(false);
+            } else {
+                p1.setText("");
+                btn1.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen2 = daop.getImagen(id2);
+            p2.setIcon(imagen2);
+            p2.updateUI();
+            p2.setToolTipText(daop.info("descripcion", id2));
+            nom2.setText(daop.info("nombre", id2));
+            nom2.setToolTipText(daop.info("nombre", id2));
+            pre2.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id2))));
+
+            if (Integer.parseInt(daop.info("stock", id2)) == 0) {
+                p2.setText("AGOTADO");
+                btn2.setEnabled(false);
+            } else {
+                p2.setText("");
+                btn2.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen3 = daop.getImagen(id3);
+            p3.setIcon(imagen3);
+            p3.updateUI();
+            p3.setToolTipText(daop.info("descripcion", id3));
+            nom3.setText(daop.info("nombre", id3));
+            nom3.setToolTipText(daop.info("nombre", id3));
+            pre3.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id3))));
+
+            if (Integer.parseInt(daop.info("stock", id3)) == 0) {
+                p3.setText("AGOTADO");
+                btn3.setEnabled(false);
+            } else {
+                p3.setText("");
+                btn3.setEnabled(true);
+            }
+            CustomImageIcon imagen4 = daop.getImagen(id4);
+            p4.setIcon(imagen4);
+            p4.updateUI();
+            p4.setToolTipText(daop.info("descripcion", id4));
+            nom4.setText(daop.info("nombre", id4));
+            nom4.setToolTipText(daop.info("nombre", id4));
+            pre4.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id4))));
+
+            if (Integer.parseInt(daop.info("stock", id4)) == 0) {
+                p3.setText("AGOTADO");
+                btn3.setEnabled(false);
+            } else {
+                p3.setText("");
+                btn3.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen5 = daop.getImagen(id5);
+            p5.setIcon(imagen5);
+            p5.updateUI();
+            p5.setToolTipText(daop.info("descripcion", id5));
+            nom5.setText(daop.info("nombre", id5));
+            nom5.setToolTipText(daop.info("nombre", id5));
+            pre5.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id5))));
+
+            if (Integer.parseInt(daop.info("stock", id5)) == 0) {
+                p5.setText("AGOTADO");
+                btn5.setEnabled(false);
+            } else {
+                p5.setText("");
+                btn5.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen6 = daop.getImagen(id6);
+            p6.setIcon(imagen6);
+            p6.updateUI();
+            p6.setToolTipText(daop.info("descripcion", id6));
+            nom6.setText(daop.info("nombre", id6));
+            nom6.setToolTipText(daop.info("nombre", id6));
+            pre6.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id6))));
+
+            if (Integer.parseInt(daop.info("stock", id6)) == 0) {
+                p6.setText("AGOTADO");
+                btn6.setEnabled(false);
+            } else {
+                p6.setText("");
+                btn6.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen7 = daop.getImagen(id7);
+            p7.setIcon(imagen7);
+            p7.updateUI();
+            p7.setToolTipText(daop.info("descripcion", id7));
+            nom7.setText(daop.info("nombre", id7));
+            nom7.setToolTipText(daop.info("nombre", id7));
+            pre7.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id7))));
+
+            if (Integer.parseInt(daop.info("stock", id7)) == 0) {
+                p7.setText("AGOTADO");
+                btn7.setEnabled(false);
+            } else {
+                p7.setText("");
+                btn7.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen8 = daop.getImagen(id8);
+            p8.setIcon(imagen8);
+            p8.updateUI();
+            p8.setToolTipText(daop.info("descripcion", id8));
+            nom8.setText(daop.info("nombre", id8));
+            nom8.setToolTipText(daop.info("nombre", id8));
+            pre8.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id8))));
+
+            if (Integer.parseInt(daop.info("stock", id8)) == 0) {
+                p8.setText("AGOTADO");
+                btn8.setEnabled(false);
+            } else {
+                p8.setText("");
+                btn8.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen9 = daop.getImagen(id9);
+            p9.setIcon(imagen9);
+            p9.updateUI();
+            p9.setToolTipText(daop.info("descripcion", id9));
+            nom9.setText(daop.info("nombre", id9));
+            nom9.setToolTipText(daop.info("nombre", id9));
+            pre9.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id9))));
+
+            if (Integer.parseInt(daop.info("stock", id9)) == 0) {
+                p9.setText("AGOTADO");
+                btn9.setEnabled(false);
+            } else {
+                p9.setText("");
+                btn9.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen10 = daop.getImagen(id10);
+            p10.setIcon(imagen10);
+            p10.updateUI();
+            p10.setToolTipText(daop.info("descripcion", id10));
+            nom10.setText(daop.info("nombre", id10));
+            nom10.setToolTipText(daop.info("nombre", id10));
+            pre10.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id10))));
+
+            if (Integer.parseInt(daop.info("stock", id10)) == 0) {
+                p10.setText("AGOTADO");
+                btn10.setEnabled(false);
+            } else {
+                p10.setText("");
+                btn10.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen11 = daop.getImagen(id11);
+            p11.setIcon(imagen11);
+            p11.updateUI();
+            p11.setToolTipText(daop.info("descripcion", id11));
+            nom11.setText(daop.info("nombre", id11));
+            nom11.setToolTipText(daop.info("nombre", id11));
+            pre11.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id11))));
+
+            if (Integer.parseInt(daop.info("stock", id11)) == 0) {
+                p11.setText("AGOTADO");
+                btn11.setEnabled(false);
+            } else {
+                p11.setText("");
+                btn11.setEnabled(true);
+            }
+            
+            CustomImageIcon imagen12 = daop.getImagen(id12);
+            p12.setIcon(imagen12);
+            p12.updateUI();
+            p12.setToolTipText(daop.info("descripcion", id12));
+            nom12.setText(daop.info("nombre", id12));
+            nom12.setToolTipText(daop.info("nombre", id12));
+            pre12.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id12))));
+
+            if (Integer.parseInt(daop.info("stock", id12)) == 0) {
+                p12.setText("AGOTADO");
+                btn12.setEnabled(false);
+            } else {
+                p12.setText("");
+                btn12.setEnabled(true);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipalInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
+    public void modificarStock(int nstock, int idProducto) {
+        p.setStock(nstock);
+        p.setIdProducto(idProducto);
+        daop.modificarStock(p);
+    }
+    
+    public void cargarCar(JButton btn, JSpinner spi, int id ){
+        if (btn.isEnabled()) {
+            int sp = Integer.parseInt(String.valueOf(spi.getValue()));
+            nst = daop.stock(id) - sp;
+            if (nst < 0) {
+                JOptionPane.showMessageDialog(this, "Hay " + daop.stock(id) + " en estock");
+                spi.setValue(1);
+            } else {
+                modificarStock(nst, id);
+                car.setIdProducto(id);
+                car.setCantidad(Integer.parseInt(spi.getValue().toString()));
+                car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
+                try {
+                    daocar.insertarCarrito(car);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmPnlProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                spi.setValue(1);
+            }
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -63,67 +317,67 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         pre1 = new javax.swing.JLabel();
         nom1 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
-        jLabel19 = new javax.swing.JLabel();
+        p2 = new javax.swing.JLabel();
         btn2 = new javax.swing.JButton();
         sp2 = new javax.swing.JSpinner();
         nom2 = new javax.swing.JLabel();
         pre2 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
+        p4 = new javax.swing.JLabel();
         btn4 = new javax.swing.JButton();
         sp4 = new javax.swing.JSpinner();
         nom4 = new javax.swing.JLabel();
         pre4 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
+        p5 = new javax.swing.JLabel();
         btn5 = new javax.swing.JButton();
         sp5 = new javax.swing.JSpinner();
         pre5 = new javax.swing.JLabel();
         nom5 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
+        p3 = new javax.swing.JLabel();
         btn3 = new javax.swing.JButton();
         sp3 = new javax.swing.JSpinner();
         nom3 = new javax.swing.JLabel();
         pre3 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
+        p6 = new javax.swing.JLabel();
         btn6 = new javax.swing.JButton();
         sp6 = new javax.swing.JSpinner();
         pre6 = new javax.swing.JLabel();
         nom6 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
-        jLabel41 = new javax.swing.JLabel();
+        p7 = new javax.swing.JLabel();
         btn7 = new javax.swing.JButton();
         sp7 = new javax.swing.JSpinner();
         pre7 = new javax.swing.JLabel();
         nom7 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
-        jLabel43 = new javax.swing.JLabel();
+        p8 = new javax.swing.JLabel();
         btn8 = new javax.swing.JButton();
         sp8 = new javax.swing.JSpinner();
         pre8 = new javax.swing.JLabel();
         nom8 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
-        jLabel45 = new javax.swing.JLabel();
+        p10 = new javax.swing.JLabel();
         btn10 = new javax.swing.JButton();
         sp10 = new javax.swing.JSpinner();
         pre10 = new javax.swing.JLabel();
         nom10 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
-        jLabel47 = new javax.swing.JLabel();
+        p9 = new javax.swing.JLabel();
         btn9 = new javax.swing.JButton();
         sp9 = new javax.swing.JSpinner();
         pre9 = new javax.swing.JLabel();
         nom9 = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
-        jLabel49 = new javax.swing.JLabel();
+        p12 = new javax.swing.JLabel();
         btn12 = new javax.swing.JButton();
         sp12 = new javax.swing.JSpinner();
         pre12 = new javax.swing.JLabel();
         nom12 = new javax.swing.JLabel();
         jPanel29 = new javax.swing.JPanel();
-        jLabel51 = new javax.swing.JLabel();
+        p11 = new javax.swing.JLabel();
         btn11 = new javax.swing.JButton();
         sp11 = new javax.swing.JSpinner();
         pre11 = new javax.swing.JLabel();
@@ -149,7 +403,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p1.setBackground(new java.awt.Color(255, 255, 255));
-        p1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -210,8 +464,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel13.setBackground(new java.awt.Color(255, 255, 255));
         jPanel13.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel19.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p2.setBackground(new java.awt.Color(255, 255, 255));
+        p2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -245,10 +499,10 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                                 .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                         .addGroup(jPanel13Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(pre2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+                            .addComponent(pre2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanel13Layout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(p2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(nom2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -258,7 +512,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nom2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -273,8 +527,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
         jPanel14.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel21.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p4.setBackground(new java.awt.Color(255, 255, 255));
+        p4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -300,19 +554,18 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel14Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel14Layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(sp4)
-                                .addComponent(btn4, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(p4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sp4)
+                            .addComponent(btn4, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nom4, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(nom4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pre4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -320,7 +573,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(nom4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -335,8 +588,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel15.setBackground(new java.awt.Color(255, 255, 255));
         jPanel15.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel23.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p5.setBackground(new java.awt.Color(255, 255, 255));
+        p5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -364,7 +617,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(p5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -373,7 +626,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nom5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nom5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pre5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -381,7 +634,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(nom5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -396,8 +649,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel16.setBackground(new java.awt.Color(255, 255, 255));
         jPanel16.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel25.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel25.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p3.setBackground(new java.awt.Color(255, 255, 255));
+        p3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -427,7 +680,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel16Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(p3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel16Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -437,7 +690,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pre3, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                            .addComponent(pre3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(nom3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
@@ -445,7 +698,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(nom3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -460,8 +713,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel29.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel29.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p6.setBackground(new java.awt.Color(255, 255, 255));
+        p6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -495,16 +748,16 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(nom6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nom6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(pre6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(p6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(nom6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -518,8 +771,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel24.setBackground(new java.awt.Color(255, 255, 255));
         jPanel24.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel41.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel41.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p7.setBackground(new java.awt.Color(255, 255, 255));
+        p7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -547,7 +800,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel24Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(p7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel24Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -556,7 +809,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel24Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nom7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nom7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pre7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -564,7 +817,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel24Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(nom7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -579,8 +832,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel25.setBackground(new java.awt.Color(255, 255, 255));
         jPanel25.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel43.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel43.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p8.setBackground(new java.awt.Color(255, 255, 255));
+        p8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -608,7 +861,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel25Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(p8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel25Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -617,7 +870,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel25Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nom8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nom8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pre8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -625,7 +878,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel25Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(nom8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -640,8 +893,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel26.setBackground(new java.awt.Color(255, 255, 255));
         jPanel26.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel45.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel45.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p10.setBackground(new java.awt.Color(255, 255, 255));
+        p10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -669,7 +922,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel26Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(p10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel26Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -678,7 +931,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel26Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nom10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nom10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pre10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -686,7 +939,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel26Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(nom10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -701,8 +954,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel27.setBackground(new java.awt.Color(255, 255, 255));
         jPanel27.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel47.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel47.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p9.setBackground(new java.awt.Color(255, 255, 255));
+        p9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -730,7 +983,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel27Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(p9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel27Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -739,7 +992,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel27Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nom9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nom9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pre9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -747,7 +1000,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel27Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(nom9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -762,8 +1015,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel28.setBackground(new java.awt.Color(255, 255, 255));
         jPanel28.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel49.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel49.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p12.setBackground(new java.awt.Color(255, 255, 255));
+        p12.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -797,16 +1050,16 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(nom12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nom12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(pre12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(p12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel28Layout.setVerticalGroup(
             jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel49, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(nom12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -821,8 +1074,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel29.setBackground(new java.awt.Color(255, 255, 255));
         jPanel29.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        jLabel51.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel51.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p11.setBackground(new java.awt.Color(255, 255, 255));
+        p11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -850,7 +1103,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(p11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -859,7 +1112,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nom11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nom11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(pre11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
@@ -867,7 +1120,7 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel29Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p11, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(nom11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1041,51 +1294,51 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        
+         cargarCar(btn1, sp1, id1);
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        
+        cargarCar(btn2, sp2, id2);
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        
+        cargarCar(btn4, sp4, id4);
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        
+        cargarCar(btn5, sp5, id5);
     }//GEN-LAST:event_btn5ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        
+        cargarCar(btn3, sp3, id3);
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
-        
+        cargarCar(btn6, sp6, id6);
     }//GEN-LAST:event_btn6ActionPerformed
 
     private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn7, sp7, id7);
     }//GEN-LAST:event_btn7ActionPerformed
 
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn8, sp8, id8);
     }//GEN-LAST:event_btn8ActionPerformed
 
     private void btn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn10, sp10, id10);
     }//GEN-LAST:event_btn10ActionPerformed
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn9, sp9, id9);
     }//GEN-LAST:event_btn9ActionPerformed
 
     private void btn12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn12ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn12, sp12, id12);
     }//GEN-LAST:event_btn12ActionPerformed
 
     private void btn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn11, sp11, id11);
     }//GEN-LAST:event_btn11ActionPerformed
   
 
@@ -1106,17 +1359,6 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel41;
-    private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel47;
-    private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel51;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
@@ -1149,6 +1391,17 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel nom8;
     private javax.swing.JLabel nom9;
     private javax.swing.JLabel p1;
+    private javax.swing.JLabel p10;
+    private javax.swing.JLabel p11;
+    private javax.swing.JLabel p12;
+    private javax.swing.JLabel p2;
+    private javax.swing.JLabel p3;
+    private javax.swing.JLabel p4;
+    private javax.swing.JLabel p5;
+    private javax.swing.JLabel p6;
+    private javax.swing.JLabel p7;
+    private javax.swing.JLabel p8;
+    private javax.swing.JLabel p9;
     private javax.swing.JLabel pre1;
     private javax.swing.JLabel pre10;
     private javax.swing.JLabel pre11;

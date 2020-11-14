@@ -9,7 +9,7 @@ import java.util.List;
  * Fecha: 9-10-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author adrian luna
+ * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesCategoria {
     public List<Categoria>mostrarCategoria() throws Exception;

@@ -35,6 +35,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmTipoSuscriptor tiposuscriptor = new FrmTipoSuscriptor();
         FrmProductoInicio productoI =new FrmProductoInicio();
         FrmVino vino = new FrmVino();
+        FrmLicor licor = new FrmLicor();
         FrmPublicidad publicidad = new FrmPublicidad();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
@@ -52,6 +53,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             tiposuscriptor.setVisible(false);
             vino.setVisible(false);
             publicidad.setVisible(false);
+            licor.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -101,6 +103,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnPortada = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         btnVino = new javax.swing.JMenuItem();
+        btnLicor = new javax.swing.JMenuItem();
         btnCerrarSesion = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         btnPublicidad = new javax.swing.JMenuItem();
@@ -238,6 +241,14 @@ public class FrmAdministracion extends javax.swing.JFrame {
         });
         jMenu3.add(btnVino);
 
+        btnLicor.setText("Licor");
+        btnLicor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLicorActionPerformed(evt);
+            }
+        });
+        jMenu3.add(btnLicor);
+
         menuPrincipal.add(jMenu3);
 
         btnCerrarSesion.setText("CERRAR SESION");
@@ -344,6 +355,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(publicidad);
     }//GEN-LAST:event_btnPublicidadActionPerformed
 
+    private void btnLicorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicorActionPerformed
+        FrmLicor licor = new FrmLicor();
+        abrirFrm(licor);
+    }//GEN-LAST:event_btnLicorActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -382,6 +398,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnCarrito;
     private javax.swing.JMenuItem btnCategoria;
     private javax.swing.JMenu btnCerrarSesion;
+    private javax.swing.JMenuItem btnLicor;
     private javax.swing.JMenuItem btnMarca;
     private javax.swing.JMenu btnMenu;
     private javax.swing.JMenuItem btnOrden;

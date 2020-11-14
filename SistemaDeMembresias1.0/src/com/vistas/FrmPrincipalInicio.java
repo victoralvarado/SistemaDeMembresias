@@ -20,6 +20,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.NumberFormat;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Icon;
@@ -56,20 +58,25 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     DaoPublicidad daopu = new DaoPublicidad();
     String urlp1 = "";
     String urlp2 = "";
-
+    public Timer tim = new Timer();
     public FrmPrincipalInicio() {
         initComponents();
     }
     
     public FrmPrincipalInicio(int idSuscriptor) {
         initComponents();
-
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         cargarProducto();
-        mostrarP();
         lbl.setText(String.valueOf(idSuscriptor));
         cargarPublicidad();
     }
+    
+    public TimerTask tarea1 = new TimerTask() {
+            @Override
+            public void run() {
+                mostrarP();
+            }
+        };
     
     public void cargarPublicidad() {
         urlp1 = daopu.getUrl(1);
@@ -88,7 +95,6 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     }
     
     public void cargarProducto() {
-        
         id1 = daopi.getIdPrducto(1).getIdProducto();
         id2 = daopi.getIdPrducto(2).getIdProducto();
         id3 = daopi.getIdPrducto(3).getIdProducto();
@@ -160,11 +166,11 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     }
     
     public void mostrarP() {
-        CustomImageIcon imagen;
         try {
-            imagen = daopt.getImagen(1);
-            lblPortada.setIcon(imagen);
-            //lblPortada.updateUI();
+            CustomImageIcon imagen = daopt.getImagen(1);
+            ImageIcon imagenF = new ImageIcon(imagen.getImage().getScaledInstance(lblPortada.getWidth(), lblPortada.getHeight(), Image.SCALE_SMOOTH));
+            lblPortada.setIcon(imagenF);
+            lblPortada.repaint();
         } catch (Exception ex) {
             Logger.getLogger(FrmPortada.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -259,7 +265,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btn1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                         .addComponent(p1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
@@ -335,7 +341,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                                 .addComponent(sp2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 2, Short.MAX_VALUE)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPrecio1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -391,7 +397,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(8, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel5Layout.createSequentialGroup()
@@ -478,7 +484,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblPrecio3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblNombre3, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -563,8 +569,9 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblPortada.setBackground(new java.awt.Color(0, 51, 51));
         lblPortada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPortada.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray, java.awt.Color.darkGray));
+        lblPortada.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblPortada.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout pnlInicioLayout = new javax.swing.GroupLayout(pnlInicio);
@@ -586,10 +593,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(32, 32, 32)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInicioLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblPortada, javax.swing.GroupLayout.PREFERRED_SIZE, 1295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)))
+                    .addComponent(lblPortada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlInicioLayout.setVerticalGroup(

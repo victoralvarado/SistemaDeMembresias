@@ -117,7 +117,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         tbCarrito = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        btnPagar = new javax.swing.JButton();
+        btnRPedido = new javax.swing.JButton();
         btnEliminarTodo = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -175,10 +175,10 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         jPanel4.setBackground(new java.awt.Color(250, 250, 250));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btnPagar.setText("Pagar");
-        btnPagar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRPedido.setText("Realizar Pedido");
+        btnRPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPagarMouseClicked(evt);
+                btnRPedidoMouseClicked(evt);
             }
         });
 
@@ -202,7 +202,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -214,7 +214,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -321,14 +321,14 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarTodoMouseClicked
 
-    private void btnPagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPagarMouseClicked
+    private void btnRPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRPedidoMouseClicked
         if (tbCarrito.getRowCount() > 0) {
             //Codigo
         } else {
             JOptionPane.showMessageDialog(null, "El carrito se encuentra vacio",
                     "Carrito", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_btnPagarMouseClicked
+    }//GEN-LAST:event_btnRPedidoMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = this.tbCarrito.getSelectedRow();
@@ -361,7 +361,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarTodo;
-    private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnRPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

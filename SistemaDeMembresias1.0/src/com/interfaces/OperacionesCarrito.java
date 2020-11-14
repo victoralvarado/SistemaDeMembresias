@@ -8,11 +8,14 @@ import java.util.List;
  * Fecha: 10-10-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author ever vasquez
+ * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesCarrito {
     public List<Carrito> mostrarCarrito() throws Exception;
     public void insertarCarrito(Carrito car) throws Exception;
-    public void modificarCarrito(Carrito car) throws Exception;
+    //public void modificarCarrito(Carrito car) throws Exception;
     public void eliminarCarrito(Carrito car) throws Exception;
+    public List<Carrito> mostrarCarritoId(int idSuscriptor) throws Exception;
+    public int contarProdCar(int idSuscriptor);
+    public void eliminarTodo(int idSuscriptor);
 }
