@@ -1,31 +1,21 @@
 package com.vistas;
 
-import com.conexion.Conexion;
 import com.dao.DaoCarrito;
 import com.dao.DaoProducto;
 import com.modelo.Carrito;
 import com.modelo.Producto;
 import com.modelo.Suscriptor;
 import com.utilidades.CustomImageIcon;
-import com.utilidades.GenerarNumeross;
-import com.utilidades.Render;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 /**
  * Nombre de la clase: FrmCarrito
@@ -127,7 +117,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         tbCarrito = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        btnPagar = new javax.swing.JButton();
+        btnRPedido = new javax.swing.JButton();
         btnEliminarTodo = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -156,7 +146,9 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
 
             }
         ));
+        tbCarrito.setDragEnabled(true);
         tbCarrito.setRowHeight(155);
+        tbCarrito.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbCarrito.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbCarrito);
 
@@ -183,10 +175,10 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         jPanel4.setBackground(new java.awt.Color(250, 250, 250));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        btnPagar.setText("Pagar");
-        btnPagar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRPedido.setText("Realizar Pedido");
+        btnRPedido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnPagarMouseClicked(evt);
+                btnRPedidoMouseClicked(evt);
             }
         });
 
@@ -197,18 +189,23 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
             }
         });
 
-        btnEliminar.setText("Eliminar ");
+        btnEliminar.setText("Eliminar Producto Seleccionado");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addContainerGap()
+                .addComponent(btnRPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnEliminarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -217,7 +214,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -308,8 +305,8 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
                         daop.modificarStock(prod);
                     }
                     daoc.eliminarTodo(Integer.parseInt(lbl.getText()));
-                    mostrarCarrito();
                     totalPagar = 0;
+                    mostrarCarrito();
                 } else {
                     mostrarCarrito();
                 }
@@ -324,19 +321,47 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarTodoMouseClicked
 
-    private void btnPagarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPagarMouseClicked
+    private void btnRPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRPedidoMouseClicked
         if (tbCarrito.getRowCount() > 0) {
             //Codigo
         } else {
             JOptionPane.showMessageDialog(null, "El carrito se encuentra vacio",
                     "Carrito", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_btnPagarMouseClicked
+    }//GEN-LAST:event_btnRPedidoMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int fila = this.tbCarrito.getSelectedRow();
+        if (fila > -1) {
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea eliminar el "
+                    + "producto seleccionado?", "Eliminar", JOptionPane.YES_NO_OPTION);
+            if (respuesta == JOptionPane.OK_OPTION) {
+                
+                try {
+                    int st = Integer.parseInt(daop.info("stock", (Integer.parseInt(this.tbCarrito.getValueAt(fila, 1).toString()))));
+                    int cant = (Integer.parseInt(this.tbCarrito.getValueAt(fila, 4).toString()));
+                    prod.setStock(st + cant);
+                    prod.setIdProducto((Integer.parseInt(this.tbCarrito.getValueAt(fila, 1).toString())));
+                    daop.modificarStock(prod);
+                    JOptionPane.showMessageDialog(null, "Se eliminó el producto del carrito",
+                            "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    car.setIdCarrito((Integer.parseInt(this.tbCarrito.getValueAt(fila, 0).toString())));
+                    daoc.eliminarCarrito(car);
+                    totalPagar = 0;
+                    mostrarCarrito();
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmCarrito.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                mostrarCarrito();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarTodo;
-    private javax.swing.JButton btnPagar;
+    private javax.swing.JButton btnRPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

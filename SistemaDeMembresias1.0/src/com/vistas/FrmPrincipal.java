@@ -51,6 +51,11 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lblIdSuscriptor.setVisible(false);
         timer2.schedule(tarea, 1000,100);
         lblCopyright.setText(" Copyright 2020-2020 Amantes del Vino y Licores");
+        if (inicio.isVisible()) {
+            inicio.tim.cancel();
+            inicio.tim = new java.util.Timer();
+            inicio.tim.schedule(inicio.tarea1, 400);
+        }
     }
     
     TimerTask tarea = new TimerTask() {
@@ -513,6 +518,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                 btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                 btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                inicio.tim.cancel();
+                inicio.tim = new java.util.Timer();
+                inicio.tim.schedule(inicio.tarea1, 0);
                 lblLoading.setVisible(false);
             }
         };

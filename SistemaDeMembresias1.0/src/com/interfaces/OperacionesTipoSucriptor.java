@@ -6,8 +6,11 @@ import com.modelo.TipoSucriptor;
 import java.util.List;
 
 /**
- *
- * @author manza
+ * Nombre de la interface: OperacionesTipoSucriptor
+ * Fecha: 09-10-2020
+ * Versión: 1.0
+ * CopyRight: ITCA-FEPADE
+ * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesTipoSucriptor {
     

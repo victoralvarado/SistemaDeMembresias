@@ -8,7 +8,7 @@ import java.util.List;
  * Fecha: 9-10-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author andrea rosales
+ * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesMarca {
     public List<Marca>mostrarMarca() throws Exception;

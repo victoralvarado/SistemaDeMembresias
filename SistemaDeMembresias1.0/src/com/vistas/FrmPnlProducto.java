@@ -5,8 +5,6 @@ import com.dao.DaoProducto;
 import com.modelo.Carrito;
 import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
-import java.awt.Color;
-import java.sql.PreparedStatement;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Level;

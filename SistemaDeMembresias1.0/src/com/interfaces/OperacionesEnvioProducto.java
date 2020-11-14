@@ -3,13 +3,12 @@ package com.interfaces;
 import com.modelo.EnvioProducto;
 import java.util.List;
 
-
 /**
- * Nombre de la clase: OperacionesEnvioProducto
+ * Nombre de la interface: OperacionesEnvioProducto
  * Fecha: 10-10-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author ever vasquez
+ * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesEnvioProducto {
     public List<EnvioProducto> mostrarEnvioProducto() throws Exception;

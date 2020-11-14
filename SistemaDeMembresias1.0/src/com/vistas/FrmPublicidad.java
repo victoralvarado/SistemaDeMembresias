@@ -69,16 +69,14 @@ public class FrmPublicidad extends javax.swing.JInternalFrame {
         }
     }
     
-    public void insertar() throws Exception 
-    {
+    public void insertar() throws Exception {
         try {
             pub.setIdPublicidad(this.cmbPublicidad.getSelectedIndex());
             pub.setFoto(fis);
             pub.setUrl(txtUrl.getText());
-            if(tblPublicidad.getRowCount()==10)
-            {
+            if (tblPublicidad.getRowCount() == 10) {
                 daopub.modificarPublicidad(pub);
-            }else{
+            } else {
                 daopub.insertarPublicidad(pub);
             }
             mostrar();

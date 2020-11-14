@@ -8,7 +8,7 @@ import java.util.List;
  * Fecha: 10-10-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author victor alvarado
+ * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesPersonaExterna {
     public List<PersonaExterna> mostrarProducto() throws Exception;

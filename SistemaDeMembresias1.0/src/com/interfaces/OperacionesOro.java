@@ -10,7 +10,7 @@ import java.util.List;
  * Fecha: 09-11-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author Andrea Rosales
+ * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesOro {
     

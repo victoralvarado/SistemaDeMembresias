@@ -6,10 +6,10 @@ import java.util.List;
 
 /**
  * Nombre de la clase: OpreacionesOrden
- * Fecha: 19/10/2020
+ * Fecha: 19-10-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author Luna-
+ * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesOrden {
     public List<Orden>mostrarOrden() throws Exception;

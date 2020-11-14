@@ -1,13 +1,20 @@
 package com.vistas;
 
+import com.dao.DaoCarrito;
 import com.dao.DaoCategoria;
 import com.dao.DaoMarca;
 import com.dao.DaoProducto;
+import com.dao.DaoPublicidad;
 import com.dao.DaoVino;
+import com.modelo.Carrito;
 import com.modelo.Producto;
 import com.modelo.Vino;
 import com.utilidades.CustomImageIcon;
+import java.awt.Desktop;
 import java.awt.Label;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -15,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
@@ -32,6 +40,29 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
     DaoCategoria daoc = new DaoCategoria();
     DaoMarca daom = new DaoMarca();
     JLabel lbl = new JLabel();
+    Producto p = new Producto();
+    DaoCarrito daocar = new DaoCarrito();
+    Carrito car = new Carrito();
+    int id1 = 0;
+    int id2 = 0;
+    int id3 = 0;
+    int id4 = 0;
+    int id5 = 0;
+    int id6 = 0;
+    int id7 = 0;
+    int id8 = 0;
+    int id9 = 0;
+    int id10 = 0;
+    int id11 = 0;
+    int id12 = 0;
+    int nst = 0;
+    
+    DaoPublicidad daopu = new DaoPublicidad();
+    String urlp3 = "";
+    String urlp4 = "";
+    String urlp5 = "";
+    String urlp6 = "";
+    
     public FrmPrincipalVino() {
         initComponents();
     }
@@ -45,23 +76,48 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             Logger.getLogger(FrmPrincipalVino.class.getName()).log(Level.SEVERE, null, ex);
         }
         lbl.setText(String.valueOf(idSuscriptor));
+        cargarPublicidad();
     }
     
-    
+    public void cargarPublicidad() {
+        urlp3 = daopu.getUrl(3);
+        urlp4 = daopu.getUrl(4);
+        urlp5 = daopu.getUrl(5);
+        urlp6 = daopu.getUrl(6);
+        try {
+            CustomImageIcon imagenp3 = daopu.getFoto(3);
+            lblPublicidad3.setIcon(imagenp3);
+            lblPublicidad3.updateUI();
+            
+            CustomImageIcon imagenp4 = daopu.getFoto(4);
+            lblPublicidad4.setIcon(imagenp4);
+            lblPublicidad4.updateUI();
+            
+            CustomImageIcon imagenp5 = daopu.getFoto(5);
+            lblPublicidad5.setIcon(imagenp5);
+            lblPublicidad5.updateUI();
+            
+            CustomImageIcon imagenp6 = daopu.getFoto(6);
+            lblPublicidad6.setIcon(imagenp6);
+            lblPublicidad6.updateUI();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipalInicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public void cargarVino() throws Exception{
-         int id1 = daovi.getIdVino(1).getIdProducto();
-         int id2 = daovi.getIdVino(2).getIdProducto();
-         int id3 = daovi.getIdVino(3).getIdProducto();
-         int id4 = daovi.getIdVino(4).getIdProducto();
-         int id5 = daovi.getIdVino(5).getIdProducto();
-         int id6 = daovi.getIdVino(6).getIdProducto();
-         int id7 = daovi.getIdVino(7).getIdProducto();
-         int id8= daovi.getIdVino(8).getIdProducto();
-         int id9 = daovi.getIdVino(9).getIdProducto();
-         int id10 = daovi.getIdVino(10).getIdProducto();
-         int id11 = daovi.getIdVino(11).getIdProducto();
-         int id12 = daovi.getIdVino(12).getIdProducto();
+         id1 = daovi.getIdVino(1).getIdProducto();
+         id2 = daovi.getIdVino(2).getIdProducto();
+         id3 = daovi.getIdVino(3).getIdProducto();
+         id4 = daovi.getIdVino(4).getIdProducto();
+         id5 = daovi.getIdVino(5).getIdProducto();
+         id6 = daovi.getIdVino(6).getIdProducto();
+         id7 = daovi.getIdVino(7).getIdProducto();
+         id8= daovi.getIdVino(8).getIdProducto();
+         id9 = daovi.getIdVino(9).getIdProducto();
+         id10 = daovi.getIdVino(10).getIdProducto();
+         id11 = daovi.getIdVino(11).getIdProducto();
+         id12 = daovi.getIdVino(12).getIdProducto();
          
          NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
          try {
@@ -260,6 +316,46 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             Logger.getLogger(FrmPrincipalInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void modificarStock(int nstock, int idProducto) {
+        p.setStock(nstock);
+        p.setIdProducto(idProducto);
+        daop.modificarStock(p);
+    }
+    
+    public void cargarCar(JButton btn, JSpinner spi, int id ){
+        if (btn.isEnabled()) {
+            int sp = Integer.parseInt(String.valueOf(spi.getValue()));
+            nst = daop.stock(id) - sp;
+            if (nst < 0) {
+                JOptionPane.showMessageDialog(this, "Hay " + daop.stock(id) + " en estock");
+                spi.setValue(1);
+            } else {
+                modificarStock(nst, id);
+                car.setIdProducto(id);
+                car.setCantidad(Integer.parseInt(spi.getValue().toString()));
+                car.setIdSuscriptor(Integer.parseInt(lbl.getText()));
+                try {
+                    daocar.insertarCarrito(car);
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmPnlProducto.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                spi.setValue(1);
+            }
+        }
+    }
+    
+    public void cargarUrl(String url) {
+        if (url.trim().length() > 0) {
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (IOException | URISyntaxException e) {
+                System.err.println(e);
+            }
+        } else {
+            System.out.println("No hay link");
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -268,85 +364,85 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
         jPanel7 = new javax.swing.JPanel();
         p1 = new javax.swing.JLabel();
         btn1 = new javax.swing.JButton();
-        jSpinner6 = new javax.swing.JSpinner();
+        sp1 = new javax.swing.JSpinner();
         nom1 = new javax.swing.JLabel();
         precio1 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         p2 = new javax.swing.JLabel();
         btn2 = new javax.swing.JButton();
-        jSpinner12 = new javax.swing.JSpinner();
+        sp2 = new javax.swing.JSpinner();
         precio2 = new javax.swing.JLabel();
         nom2 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
         p4 = new javax.swing.JLabel();
         btn4 = new javax.swing.JButton();
-        jSpinner13 = new javax.swing.JSpinner();
+        sp4 = new javax.swing.JSpinner();
         nom4 = new javax.swing.JLabel();
         precio4 = new javax.swing.JLabel();
         jPanel15 = new javax.swing.JPanel();
         p5 = new javax.swing.JLabel();
         btn5 = new javax.swing.JButton();
-        jSpinner14 = new javax.swing.JSpinner();
+        sp5 = new javax.swing.JSpinner();
         nom5 = new javax.swing.JLabel();
         precio5 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         p3 = new javax.swing.JLabel();
         btn3 = new javax.swing.JButton();
-        jSpinner16 = new javax.swing.JSpinner();
+        sp3 = new javax.swing.JSpinner();
         nom3 = new javax.swing.JLabel();
         precio3 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         p6 = new javax.swing.JLabel();
         btn6 = new javax.swing.JButton();
-        jSpinner22 = new javax.swing.JSpinner();
+        sp6 = new javax.swing.JSpinner();
         nom6 = new javax.swing.JLabel();
         precio6 = new javax.swing.JLabel();
         jPanel24 = new javax.swing.JPanel();
         p7 = new javax.swing.JLabel();
         btn7 = new javax.swing.JButton();
-        jSpinner23 = new javax.swing.JSpinner();
+        sp7 = new javax.swing.JSpinner();
         nom7 = new javax.swing.JLabel();
         precio7 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
         p8 = new javax.swing.JLabel();
         btn8 = new javax.swing.JButton();
-        jSpinner24 = new javax.swing.JSpinner();
+        sp8 = new javax.swing.JSpinner();
         nom8 = new javax.swing.JLabel();
         precio8 = new javax.swing.JLabel();
         jPanel26 = new javax.swing.JPanel();
         p10 = new javax.swing.JLabel();
         btn10 = new javax.swing.JButton();
-        jSpinner25 = new javax.swing.JSpinner();
+        sp10 = new javax.swing.JSpinner();
         nom10 = new javax.swing.JLabel();
         precio10 = new javax.swing.JLabel();
         jPanel27 = new javax.swing.JPanel();
         p9 = new javax.swing.JLabel();
         btn9 = new javax.swing.JButton();
-        jSpinner26 = new javax.swing.JSpinner();
+        sp9 = new javax.swing.JSpinner();
         nom9 = new javax.swing.JLabel();
         precio9 = new javax.swing.JLabel();
         jPanel28 = new javax.swing.JPanel();
         p12 = new javax.swing.JLabel();
         btn12 = new javax.swing.JButton();
-        jSpinner27 = new javax.swing.JSpinner();
+        sp12 = new javax.swing.JSpinner();
         nom12 = new javax.swing.JLabel();
         precio12 = new javax.swing.JLabel();
         jPanel29 = new javax.swing.JPanel();
         p11 = new javax.swing.JLabel();
         btn11 = new javax.swing.JButton();
-        jSpinner28 = new javax.swing.JSpinner();
+        sp11 = new javax.swing.JSpinner();
         nom11 = new javax.swing.JLabel();
         precio11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        lblPublicidad1 = new javax.swing.JLabel();
-        lblPublicidad2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        lblPublicidad3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
         lblPublicidad4 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        lblPublicidad3 = new javax.swing.JLabel();
+        btnp3 = new javax.swing.JButton();
+        btnp4 = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        lblPublicidad5 = new javax.swing.JLabel();
+        btnp5 = new javax.swing.JButton();
+        lblPublicidad6 = new javax.swing.JLabel();
+        btnp6 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(250, 250, 250)));
         setTitle("VINOS");
@@ -368,7 +464,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner6.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom1.setText("$00.0");
@@ -382,9 +478,6 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(nom1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel7Layout.createSequentialGroup()
@@ -393,10 +486,14 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGap(26, 26, 26)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSpinner6)
+                                    .addComponent(sp1)
                                     .addComponent(btn1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(precio1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(nom1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(precio1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -409,7 +506,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(precio1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -429,7 +526,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner12.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp2.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         precio2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         precio2.setText("$00.0");
@@ -443,18 +540,17 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel13Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(p2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel13Layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jSpinner12)
-                                .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
-                        .addGroup(jPanel13Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(precio2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(p2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sp2)
+                            .addComponent(btn2, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(precio2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(nom2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -470,7 +566,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -490,7 +586,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner13.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp4.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom4.setText("$00.0");
@@ -510,7 +606,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner13)
+                            .addComponent(sp4)
                             .addComponent(btn4, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addContainerGap()
@@ -529,7 +625,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -549,7 +645,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner14.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp5.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom5.setText("$00.0");
@@ -569,7 +665,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner14)
+                            .addComponent(sp5)
                             .addComponent(btn5, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addContainerGap()
@@ -588,7 +684,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -608,7 +704,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner16.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp3.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom3.setText("$00.0");
@@ -622,15 +718,14 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel16Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(p3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel16Layout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jSpinner16)
-                                .addComponent(btn3, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE))))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(p3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(sp3)
+                            .addComponent(btn3, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -648,7 +743,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -668,7 +763,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner22.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp6.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom6.setText("$00.0");
@@ -692,7 +787,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                         .addGroup(jPanel18Layout.createSequentialGroup()
                             .addGap(36, 36, 36)
                             .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jSpinner22)
+                                .addComponent(sp6)
                                 .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -706,7 +801,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -726,7 +821,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner23.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp7.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom7.setText("$00.0");
@@ -746,7 +841,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                     .addGroup(jPanel24Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner23)
+                            .addComponent(sp7)
                             .addComponent(btn7, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                     .addGroup(jPanel24Layout.createSequentialGroup()
                         .addContainerGap()
@@ -765,7 +860,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -785,7 +880,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner24.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp8.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom8.setText("$00.0");
@@ -805,7 +900,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                     .addGroup(jPanel25Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner24)
+                            .addComponent(sp8)
                             .addComponent(btn8, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                     .addGroup(jPanel25Layout.createSequentialGroup()
                         .addContainerGap()
@@ -824,7 +919,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -844,7 +939,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner25.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp10.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom10.setText("$00.0");
@@ -864,7 +959,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                     .addGroup(jPanel26Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner25)
+                            .addComponent(sp10)
                             .addComponent(btn10, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                     .addGroup(jPanel26Layout.createSequentialGroup()
                         .addContainerGap()
@@ -883,7 +978,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -903,7 +998,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner26.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp9.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom9.setText("$00.0");
@@ -923,7 +1018,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                     .addGroup(jPanel27Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner26)
+                            .addComponent(sp9)
                             .addComponent(btn9, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                     .addGroup(jPanel27Layout.createSequentialGroup()
                         .addContainerGap()
@@ -942,7 +1037,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -962,7 +1057,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner27.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp12.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom12.setText("$00.0");
@@ -979,14 +1074,13 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                     .addGroup(jPanel28Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner27)
+                            .addComponent(sp12)
                             .addComponent(btn12, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel28Layout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(nom12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(precio12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(nom12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(precio12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(p12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -1000,7 +1094,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn12, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1020,7 +1114,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             }
         });
 
-        jSpinner28.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+        sp11.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         nom11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nom11.setText("$00.0");
@@ -1040,7 +1134,7 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel29Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSpinner28)
+                            .addComponent(sp11)
                             .addComponent(btn11, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)))
                     .addGroup(jPanel29Layout.createSequentialGroup()
                         .addContainerGap()
@@ -1059,27 +1153,37 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(precio11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSpinner28, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sp11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn11, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        lblPublicidad1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPublicidad1.setText("PUBLICIDAD");
-        lblPublicidad1.setFocusable(false);
-        lblPublicidad1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        lblPublicidad1.setOpaque(true);
+        lblPublicidad4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPublicidad4.setText("PUBLICIDAD");
+        lblPublicidad4.setFocusable(false);
+        lblPublicidad4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblPublicidad4.setOpaque(true);
 
-        lblPublicidad2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPublicidad2.setText("PUBLICIDAD");
-        lblPublicidad2.setFocusable(false);
-        lblPublicidad2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        lblPublicidad2.setOpaque(true);
+        lblPublicidad3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPublicidad3.setText("PUBLICIDAD");
+        lblPublicidad3.setFocusable(false);
+        lblPublicidad3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblPublicidad3.setOpaque(true);
 
-        jButton1.setText("Visitar");
+        btnp3.setText("Visitar");
+        btnp3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp3ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Visitar");
+        btnp4.setText("Visitar");
+        btnp4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1088,41 +1192,51 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPublicidad2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPublicidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnp4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPublicidad3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPublicidad4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblPublicidad2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblPublicidad3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnp3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblPublicidad1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblPublicidad4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnp4)
                 .addGap(17, 17, 17))
         );
 
-        lblPublicidad3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPublicidad3.setText("PUBLICIDAD");
-        lblPublicidad3.setFocusable(false);
-        lblPublicidad3.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        lblPublicidad3.setOpaque(true);
+        lblPublicidad5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPublicidad5.setText("PUBLICIDAD");
+        lblPublicidad5.setFocusable(false);
+        lblPublicidad5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblPublicidad5.setOpaque(true);
 
-        jButton3.setText("Visitar");
+        btnp5.setText("Visitar");
+        btnp5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp5ActionPerformed(evt);
+            }
+        });
 
-        lblPublicidad4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPublicidad4.setText("PUBLICIDAD");
-        lblPublicidad4.setFocusable(false);
-        lblPublicidad4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        lblPublicidad4.setOpaque(true);
+        lblPublicidad6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPublicidad6.setText("PUBLICIDAD");
+        lblPublicidad6.setFocusable(false);
+        lblPublicidad6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        lblPublicidad6.setOpaque(true);
 
-        jButton5.setText("Visitar");
+        btnp6.setText("Visitar");
+        btnp6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp6ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1131,23 +1245,23 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPublicidad3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPublicidad4, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnp6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPublicidad5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPublicidad6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblPublicidad3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblPublicidad5, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnp5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblPublicidad4, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblPublicidad6, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(btnp6)
                 .addGap(17, 17, 17))
         );
 
@@ -1231,52 +1345,68 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn1, sp1, id1);
     }//GEN-LAST:event_btn1ActionPerformed
 
     private void btn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn2ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn2, sp2, id2);
     }//GEN-LAST:event_btn2ActionPerformed
 
     private void btn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn4ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn4, sp4, id4);
     }//GEN-LAST:event_btn4ActionPerformed
 
     private void btn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn5ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn5, sp5, id5);
     }//GEN-LAST:event_btn5ActionPerformed
 
     private void btn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn3ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn3, sp3, id3);
     }//GEN-LAST:event_btn3ActionPerformed
 
     private void btn6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn6ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn6, sp6, id6);
     }//GEN-LAST:event_btn6ActionPerformed
 
     private void btn7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn7ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn7, sp7, id7);
     }//GEN-LAST:event_btn7ActionPerformed
 
     private void btn8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn8ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn8, sp8, id8);
     }//GEN-LAST:event_btn8ActionPerformed
 
     private void btn10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn10ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn10, sp10, id10);
     }//GEN-LAST:event_btn10ActionPerformed
 
     private void btn9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn9ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn9, sp9, id9);
     }//GEN-LAST:event_btn9ActionPerformed
 
     private void btn12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn12ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn12, sp12, id12);
     }//GEN-LAST:event_btn12ActionPerformed
 
     private void btn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11ActionPerformed
-        // TODO add your handling code here:
+        cargarCar(btn11, sp11, id11);
     }//GEN-LAST:event_btn11ActionPerformed
+
+    private void btnp3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp3ActionPerformed
+        cargarUrl(urlp3);
+    }//GEN-LAST:event_btnp3ActionPerformed
+
+    private void btnp4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp4ActionPerformed
+        cargarUrl(urlp4);
+    }//GEN-LAST:event_btnp4ActionPerformed
+
+    private void btnp5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp5ActionPerformed
+        cargarUrl(urlp5);
+    }//GEN-LAST:event_btnp5ActionPerformed
+
+    private void btnp6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp6ActionPerformed
+        cargarUrl(urlp6);
+    }//GEN-LAST:event_btnp6ActionPerformed
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1292,10 +1422,10 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn7;
     private javax.swing.JButton btn8;
     private javax.swing.JButton btn9;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnp3;
+    private javax.swing.JButton btnp4;
+    private javax.swing.JButton btnp5;
+    private javax.swing.JButton btnp6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
@@ -1311,22 +1441,10 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JSpinner jSpinner12;
-    private javax.swing.JSpinner jSpinner13;
-    private javax.swing.JSpinner jSpinner14;
-    private javax.swing.JSpinner jSpinner16;
-    private javax.swing.JSpinner jSpinner22;
-    private javax.swing.JSpinner jSpinner23;
-    private javax.swing.JSpinner jSpinner24;
-    private javax.swing.JSpinner jSpinner25;
-    private javax.swing.JSpinner jSpinner26;
-    private javax.swing.JSpinner jSpinner27;
-    private javax.swing.JSpinner jSpinner28;
-    private javax.swing.JSpinner jSpinner6;
-    private javax.swing.JLabel lblPublicidad1;
-    private javax.swing.JLabel lblPublicidad2;
     private javax.swing.JLabel lblPublicidad3;
     private javax.swing.JLabel lblPublicidad4;
+    private javax.swing.JLabel lblPublicidad5;
+    private javax.swing.JLabel lblPublicidad6;
     private javax.swing.JLabel nom1;
     private javax.swing.JLabel nom10;
     private javax.swing.JLabel nom11;
@@ -1363,6 +1481,18 @@ public class FrmPrincipalVino extends javax.swing.JInternalFrame {
     private javax.swing.JLabel precio7;
     private javax.swing.JLabel precio8;
     private javax.swing.JLabel precio9;
+    private javax.swing.JSpinner sp1;
+    private javax.swing.JSpinner sp10;
+    private javax.swing.JSpinner sp11;
+    private javax.swing.JSpinner sp12;
+    private javax.swing.JSpinner sp2;
+    private javax.swing.JSpinner sp3;
+    private javax.swing.JSpinner sp4;
+    private javax.swing.JSpinner sp5;
+    private javax.swing.JSpinner sp6;
+    private javax.swing.JSpinner sp7;
+    private javax.swing.JSpinner sp8;
+    private javax.swing.JSpinner sp9;
     // End of variables declaration//GEN-END:variables
 
 }

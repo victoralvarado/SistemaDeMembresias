@@ -1,4 +1,3 @@
-
 package com.interfaces;
 
 import java.util.List;
@@ -6,10 +5,10 @@ import com.modelo.Publicidad;
 
 /**
  * Nombre de la interface: OperacionesPublicidad
- * Fecha: 08/11/2020
+ * Fecha: 08-11-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
- * @author adrian luna
+ * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesPublicidad {
     public List<Publicidad> mostrarPublicidad() throws Exception;
