@@ -278,12 +278,72 @@ public class DaoProducto extends Conexion implements OperacionesProducto{
         return lst;
     }
     
+    public List<Producto> buscarL(String por) throws Exception {
+        ResultSet rs;
+        List<Producto> lst = new ArrayList();
+        try {
+            this.conectar();
+            String sql = "select * from producto where tipo = 'Licor' && nombre like ? or precioVenta like ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setString(1, por);
+            pre.setString(2, por);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setIdCategoria(rs.getInt("idCategoria"));
+                p.setIdMarca(rs.getInt("idMarca"));
+                p.setTipo(rs.getString("tipo"));
+                p.setNombre(rs.getString("nombre"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setPrecioVenta(rs.getDouble("precioVenta"));
+                lst.add(p);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return lst;
+    }
+    
     public List<Producto> buscarVP(double inicio, double fin) throws Exception {
         ResultSet rs;
         List<Producto> lst = new ArrayList();
         try {
             this.conectar();
-            String sql = "select * from producto where precioVenta Between ? And ?;";
+            String sql = "select * from producto where precioVenta Between ? And ? and tipo = 'Vino';";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setDouble(1, inicio);
+            pre.setDouble(2, fin);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Producto p = new Producto();
+                p.setIdProducto(rs.getInt("idProducto"));
+                p.setIdCategoria(rs.getInt("idCategoria"));
+                p.setIdMarca(rs.getInt("idMarca"));
+                p.setTipo(rs.getString("tipo"));
+                p.setNombre(rs.getString("nombre"));
+                p.setDescripcion(rs.getString("descripcion"));
+                p.setPrecioVenta(rs.getDouble("precioVenta"));
+                lst.add(p);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return lst;
+    }
+    
+    public List<Producto> buscarLP(double inicio, double fin) throws Exception {
+        ResultSet rs;
+        List<Producto> lst = new ArrayList();
+        try {
+            this.conectar();
+            String sql = "select * from producto where precioVenta Between ? And ? and tipo = 'Licor';";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setDouble(1, inicio);
             pre.setDouble(2, fin);

@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 
 /**
  * Nombre de la clase: FrmProductoSuscripcion
@@ -13,34 +14,60 @@ import javax.swing.JInternalFrame;
  * @author victor alvarado
  */
 public class FrmProductoSuscripcion extends javax.swing.JFrame {
-    
+    Timer timer = new Timer();
     public FrmProductoSuscripcion() {
         initComponents();
         //this.setExtendedState(MAXIMIZED_BOTH);
-        Timer timer = new Timer();
+    }
+    JLabel e = new JLabel();
+    JLabel t = new JLabel();
+    public FrmProductoSuscripcion(String emailSus, String TipoSus) {
+        initComponents();
+        //this.setExtendedState(MAXIMIZED_BOTH);
+        e.setText(emailSus);
+        t.setText(TipoSus);
+        tipoSuscriptor(e.getText(), t.getText());
+    }
+    
+    public void tipoSuscriptor(String email, String TipoSus) {
         TimerTask tarea = new TimerTask() {
             @Override
             public void run() {
-                FrmProductoSuscripcionOro oro = new FrmProductoSuscripcionOro();
-                dpContenedor.add(oro);
-                //Mostar formulario centrado
-                Dimension desktopSize = dpContenedor.getSize();
-                Dimension FrameSize = oro.getSize();
-                oro.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
-                //Fin mostrar formulario centrado
-                oro.setVisible(true);
+                if ("Bronce".equals(TipoSus)) {
+                    FrmProductoSuscripcionBronce bronce = new FrmProductoSuscripcionBronce(email);
+                    dpContenedor.add(bronce);
+                    //Mostar formulario centrado
+                    Dimension desktopSize = dpContenedor.getSize();
+                    Dimension FrameSize = bronce.getSize();
+                    bronce.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                    //Fin mostrar formulario centrado
+                    bronce.setVisible(true);
+                }
+                if ("Plata".equals(TipoSus)) {
+                   FrmProductoSuscripcionPlata plata = new FrmProductoSuscripcionPlata();
+                    dpContenedor.add(plata);
+                    //Mostar formulario centrado
+                    Dimension desktopSize = dpContenedor.getSize();
+                    Dimension FrameSize = plata.getSize();
+                    plata.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                    //Fin mostrar formulario centrado
+                    plata.setVisible(true); 
+                }
+                if ("Oro".equals(TipoSus)) {
+                   FrmProductoSuscripcionOro oro = new FrmProductoSuscripcionOro();
+                    dpContenedor.add(oro);
+                    //Mostar formulario centrado
+                    Dimension desktopSize = dpContenedor.getSize();
+                    Dimension FrameSize = oro.getSize();
+                    oro.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+                    //Fin mostrar formulario centrado
+                    oro.setVisible(true); 
+                }
+                
             }
         };
-        timer.schedule(tarea, 0000);
-
+         timer.schedule(tarea, 0000);
     }
-    
-    public FrmProductoSuscripcion(int idSuscriptor) {
-        initComponents();
-        //this.setExtendedState(MAXIMIZED_BOTH);
-        
-    }
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

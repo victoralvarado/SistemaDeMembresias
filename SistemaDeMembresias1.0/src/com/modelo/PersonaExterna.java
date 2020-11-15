@@ -12,17 +12,17 @@ public class PersonaExterna {
     private String nombre;
     private String dui;
     private String telefonoMovil;
-    private String DescripcionEnvio;
+    private int idSuscriptor;
 
     public PersonaExterna() {
     }
 
-    public PersonaExterna(int idPersonaExterna, String nombre, String dui, String telefonoMovil, String DescripcionEnvio) {
+    public PersonaExterna(int idPersonaExterna, String nombre, String dui, String telefonoMovil, int idSuscriptor) {
         this.idPersonaExterna = idPersonaExterna;
         this.nombre = nombre;
         this.dui = dui;
         this.telefonoMovil = telefonoMovil;
-        this.DescripcionEnvio = DescripcionEnvio;
+        this.idSuscriptor = idSuscriptor;
     }
 
     public int getIdPersonaExterna() {
@@ -57,13 +57,14 @@ public class PersonaExterna {
         this.telefonoMovil = telefonoMovil;
     }
 
-    public String getDescripcionEnvio() {
-        return DescripcionEnvio;
+    public int getIdSuscriptor() {
+        return idSuscriptor;
     }
 
-    public void setDescripcionEnvio(String DescripcionEnvio) {
-        this.DescripcionEnvio = DescripcionEnvio;
+    public void setIdSuscriptor(int idSuscriptor) {
+        this.idSuscriptor = idSuscriptor;
     }
+
     
     
 }

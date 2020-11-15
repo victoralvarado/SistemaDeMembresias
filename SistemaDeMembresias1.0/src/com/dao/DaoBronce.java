@@ -49,7 +49,7 @@ public class DaoBronce extends Conexion implements OperacionesBronce{
     public void insertarSuscipcionBronce(Bronce b) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into broce (idProducto) values (?)";
+            String sql = "insert into bronce (idProducto) values (?)";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1,b.getIdProducto());
             pre.executeUpdate();

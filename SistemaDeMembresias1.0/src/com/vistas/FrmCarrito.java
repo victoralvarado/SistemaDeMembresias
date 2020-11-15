@@ -35,7 +35,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
     DaoCarrito daoc = new DaoCarrito();
     Carrito car = new Carrito();
     NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
-    public Timer time = new Timer();
+    Timer timer = new Timer();
     double totalPagar = 0;
     public FrmCarrito() {
         initComponents();
@@ -47,26 +47,16 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         lbl.setText(String.valueOf(idSuscriptor));
         mostrarCarrito();
     }
-    public TimerTask tarea = new TimerTask() {
-        @Override
-        public void run() {
-            adaptarTabla();
-        }
-    };
-    
-    public TimerTask tarea001 = new TimerTask() {
-        @Override
-        public void run() {
-            adaptarTabla();
-        }
-    };
-    
-    public TimerTask tarea002 = new TimerTask() {
-        @Override
-        public void run() {
-            adaptarTabla();
-        }
-    };
+
+    public void tarea() {
+        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                adaptarTabla();
+            }
+        };
+        timer.schedule(tarea, 0);
+    }
     
     public void adaptarTabla(){
         int w = tbCarrito.getWidth();
@@ -325,9 +315,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
                     daoc.eliminarTodo(Integer.parseInt(lbl.getText()));
                     totalPagar = 0;
                     mostrarCarrito();
-                    time.cancel();
-                    time = new java.util.Timer();
-                    time.schedule(tarea001, 0);
+                    tarea();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El carrito se encuentra vacio",
@@ -359,9 +347,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
                     daoc.eliminarCarrito(car);
                     totalPagar = 0;
                     mostrarCarrito();
-                    time.cancel();
-                    time = new java.util.Timer();
-                    time.schedule(tarea002, 0);
+                    tarea();
                 } catch (Exception ex) {
                     Logger.getLogger(FrmCarrito.class.getName()).log(Level.SEVERE, null, ex);
                 }

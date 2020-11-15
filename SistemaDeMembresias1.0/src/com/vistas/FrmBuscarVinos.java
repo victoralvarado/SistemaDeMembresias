@@ -5,10 +5,6 @@ import com.dao.DaoMarca;
 import com.dao.DaoProducto;
 import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,7 +27,7 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
     DaoMarca daom = new DaoMarca();
     DaoCategoria daoc = new DaoCategoria();
     JLabel lbl = new JLabel();
-    public Timer timer = new Timer();
+    Timer timer = new Timer();
     public FrmBuscarVinos() {
         initComponents();
     }
@@ -43,42 +39,17 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
         lbl.setText(String.valueOf(idSuscriptor));
     }
     
-    public TimerTask tarea001 = new TimerTask() {
-        @Override
-        public void run() {
-            adaptarTabla();
-        }
-    };
-    public TimerTask tarea002 = new TimerTask() {
-        @Override
-        public void run() {
-            adaptarTabla();
-        }
-    };
-    public TimerTask tarea003 = new TimerTask() {
-        @Override
-        public void run() {
-            adaptarTabla();
-        }
-    };
-    public TimerTask tarea004 = new TimerTask() {
-        @Override
-        public void run() {
-            adaptarTabla();
-        }
-    };
-    public TimerTask tarea005 = new TimerTask() {
-        @Override
-        public void run() {
-            adaptarTabla();
-        }
-    };
-    public TimerTask tarea006 = new TimerTask() {
-        @Override
-        public void run() {
-            adaptarTabla();
-        }
-    };
+    
+    public void tarea() {
+        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                adaptarTabla();
+            }
+        };
+        timer.schedule(tarea, 0);
+    }
+    
     
     public void adaptarTabla(){
         int w = tblProducto.getWidth();
@@ -429,14 +400,10 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
         String buscar = '%' + txtBuscarVino.getText() + '%';
         if (txtBuscarVino.getText().isEmpty()) {
             mostrar();
-            timer.cancel();
-            timer = new java.util.Timer();
-            timer.schedule(tarea002, 0);
+            tarea();
         } else {
             mostrarVino(buscar);
-            timer.cancel();
-            timer = new java.util.Timer();
-            timer.schedule(tarea003, 0);
+            tarea();
         }
     }//GEN-LAST:event_txtBuscarVinoKeyReleased
 
@@ -444,9 +411,7 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
         Double i = Double.parseDouble(String.valueOf(spInicio.getValue()));
         Double f = Double.parseDouble(String.valueOf(spFin.getValue()));
         mostrarpp(i, f);
-        timer.cancel();
-        timer = new java.util.Timer();
-        timer.schedule(tarea004, 0);
+        tarea();
     }//GEN-LAST:event_btnBuscarppMouseClicked
 
     private void btnTodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTodoMouseClicked
@@ -454,9 +419,7 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
         spFin.setValue(0);
         spInicio.setValue(0);
         mostrar();
-        timer.cancel();
-        timer = new java.util.Timer();
-        timer.schedule(tarea005, 0);
+        tarea();
     }//GEN-LAST:event_btnTodoMouseClicked
 
 

@@ -11,8 +11,8 @@ import java.util.List;
  * @author Aguillon, Alvarado, Luna, Rosales y Vasquez
  */
 public interface OperacionesPersonaExterna {
-    public List<PersonaExterna> mostrarProducto() throws Exception;
-    public void insertarProducto(PersonaExterna pe) throws Exception;
-    public void modificarProducto(PersonaExterna pe) throws Exception;
-    public void eliminarProducto(PersonaExterna pe) throws Exception;
+    public List<PersonaExterna> mostrarPersonaExterna() throws Exception;
+    public void insertarPersonaExterna(PersonaExterna pe) throws Exception;
+    public void modificarPersonaExterna(PersonaExterna pe) throws Exception;
+    public void eliminarPersonaExterna(PersonaExterna pe) throws Exception;
 }

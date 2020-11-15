@@ -7,6 +7,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyVetoException;
+import java.util.Calendar;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +41,8 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
     public FrmPrincipal(String email, int idSuscriptor) {
         initComponents();
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
         lblIdSuscriptor.setText(String.valueOf(idSuscriptor));
         btnBuscar.setVisible(false);
         //Iniciar maximixado FrmAdministracion
@@ -53,7 +56,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lblUsuario.setToolTipText(email);
         lblIdSuscriptor.setVisible(false);
         timer2.schedule(tarea, 1000,100);
-        lblCopyright.setText(" Copyright 2020-2020 Amantes del Vino y Licores");
+        lblCopyright.setText(" Copyright 2020-"+year+" Amantes del Vino y Licores");
         if (inicio.isVisible()) {
             inicio.tim.cancel();
             inicio.tim = new java.util.Timer();
@@ -206,6 +209,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuUsuario = new javax.swing.JPopupMenu();
         menuModificar = new javax.swing.JMenuItem();
+        menuVerpedidos = new javax.swing.JMenuItem();
         menuCerrarSesion = new javax.swing.JMenuItem();
         pnlPrincipal = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -234,6 +238,9 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
         menuUsuario.add(menuModificar);
+
+        menuVerpedidos.setText("Ver Pedidos");
+        menuUsuario.add(menuVerpedidos);
 
         menuCerrarSesion.setText("Cerrar Secion");
         menuCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -418,7 +425,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGap(0, 415, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(235, 245, 251));
+        jPanel2.setBackground(new java.awt.Color(248, 249, 250));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblTitulo.setText("INICIO");
@@ -526,7 +533,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 lblTitulo.setText("INICIO");
                 btnBuscar.setVisible(false);
                 lblCopyright.setVisible(true);
-                lblCopyright.setText(" Copyright 2020-2020 Amantes del Vino y Licores");
+                lblCopyright.getText();
                 btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 2));
                 //Borde al color del fondo
                 btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
@@ -605,9 +612,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                 btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                 lblLoading.setVisible(false);
-                carrito.time.cancel();
-                carrito.time = new java.util.Timer();
-                carrito.time.schedule(carrito.tarea, 0);
+                carrito.tarea();
             }
         };
         timer3.schedule(tarea2, 1000);
@@ -630,6 +635,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                     btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                     lblLoading.setVisible(false);
+                    licor.tarea();
                 }
             };
             timer3.schedule(tarea2, 1000);
@@ -650,10 +656,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                     btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                     lblLoading.setVisible(false);
-                    vino.timer.cancel();
-                    vino.timer = new java.util.Timer();
-                    vino.timer.schedule(vino.tarea001, 0);
-                    
+                    vino.tarea();
                 }
             };
             timer3.schedule(tarea2, 1000);
@@ -780,6 +783,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuCerrarSesion;
     private javax.swing.JMenuItem menuModificar;
     private javax.swing.JPopupMenu menuUsuario;
+    private javax.swing.JMenuItem menuVerpedidos;
     private javax.swing.JPanel pnlLogo;
     private javax.swing.JPanel pnlPrincipal;
     // End of variables declaration//GEN-END:variables
