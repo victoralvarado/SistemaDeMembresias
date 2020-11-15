@@ -147,7 +147,8 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                 s.setApellido(this.txtApellido.getText());
                 s.setEmail(this.txtCorreo.getText());
                 s.setTelefono(this.txtTelefono.getText());
-                s.setDireccion(this.txtDireccion.getText());
+                s.setDireccion(txtDireccion.getText()+", "+ComboMunicipio.getSelectedItem().toString()+", "
+                        + ""+comboDepartamento.getSelectedItem().toString());
                 s.setTipoSuscriptor(this.comboSuscripcion.getSelectedIndex());
                 s.setFechaNacimiento(formatoFecha.format(dateNacimiento.getDate()));
                 s.setTotalCompra(calcularPago());
@@ -186,6 +187,12 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                 u.setUltimoLogin("No logueado");
                 u.setFecha(formatoFecha.format(dateFechaActual.getDate()));
                 daou.insertarUsuario(u);
+                String email = txtCorreo.getText();
+                String tipoS = comboSuscripcion.getSelectedItem().toString();
+                FrmProductoSuscripcion psus = new FrmProductoSuscripcion(email, tipoS);
+                this.hide();
+                psus.show();
+                
                 
             }
         } catch (Exception e) {
@@ -237,6 +244,16 @@ public class FrmSuscripcion extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seleccione un tiempo de suscripcion", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
             comboTiempoSus.requestFocus();
+            val = true;
+        } else if (this.comboDepartamento.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un departamento", "VALIDACIÓN",
+                    JOptionPane.WARNING_MESSAGE);
+            comboDepartamento.requestFocus();
+            val = true;
+        } else if (this.ComboMunicipio.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un municipio", "VALIDACIÓN",
+                    JOptionPane.WARNING_MESSAGE);
+            ComboMunicipio.requestFocus();
             val = true;
         } else if (this.txtPassword.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(null, "Igrese una contraseña",
@@ -323,10 +340,11 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         btnSeleccionar = new javax.swing.JButton();
         comboTipoTargeta = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboDepartamento = new javax.swing.JComboBox<>();
+        ComboMunicipio = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -451,6 +469,8 @@ public class FrmSuscripcion extends javax.swing.JFrame {
 
         jLabel21.setText("Municipio");
 
+        jLabel22.setText("Direccion de envio de productos");
+
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
@@ -462,9 +482,9 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addGap(68, 68, 68)
                 .addComponent(jLabel7)
-                .addGap(116, 116, 116)
-                .addComponent(jLabel20)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel22)
+                .addGap(59, 59, 59))
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -517,7 +537,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                             .addComponent(btnPagarSuscripción, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(lblresivira, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 20, Short.MAX_VALUE))
+                                .addGap(0, 21, Short.MAX_VALUE))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -545,11 +565,6 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(jLabel9)
-                                        .addGap(59, 59, 59)
-                                        .addComponent(jLabel10))
-                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
                                             .addComponent(comboSuscripcion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -559,24 +574,26 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                             .addComponent(comboTiempoSus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(radioFemenino)
-                                                    .addComponent(radioMasculino))
-                                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                                        .addGap(18, 18, 18)
-                                                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                            .addComponent(jComboBox2, 0, 220, Short.MAX_VALUE)
-                                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                                        .addGap(109, 109, 109)
-                                                        .addComponent(jLabel21))))
-                                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                                .addGap(96, 96, 96)
-                                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel8)
-                                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                            .addComponent(radioFemenino)
+                                            .addComponent(radioMasculino)))
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addGap(20, 20, 20)
+                                        .addComponent(jLabel9)
+                                        .addGap(59, 59, 59)
+                                        .addComponent(jLabel10)))
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addGap(91, 91, 91)
+                                        .addComponent(jLabel21))
+                                    .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ComboMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addGap(83, 83, 83)
+                                        .addComponent(jLabel20)))
+                                .addGap(21, 21, 21)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -604,37 +621,33 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel20))
+                    .addComponent(jLabel22))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                                    .addComponent(dateNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(22, 22, 22)))
+                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel10)))
+                        .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                            .addComponent(radioFemenino)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(radioMasculino)))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                                        .addComponent(dateNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(22, 22, 22))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                                        .addComponent(jLabel21)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(radioFemenino)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(radioMasculino)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(comboSuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboTiempoSus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                            .addComponent(comboTiempoSus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -647,31 +660,33 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSeleccionar)))
                         .addGap(67, 67, 67)
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTotalSuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel16)
-                                .addGap(3, 3, 3)
-                                .addComponent(lblTotalTiempoSuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTotalSuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16)
+                        .addGap(3, 3, 3)
+                        .addComponent(lblTotalTiempoSuscripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ComboMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dateFechaActual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(dateFechaActual, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel14))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblresivira, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(34, 105, Short.MAX_VALUE))
+                            .addComponent(jButton1)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -692,8 +707,8 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnPagarSuscripción))))
-                                .addContainerGap(21, Short.MAX_VALUE))))))
+                                            .addComponent(btnPagarSuscripción))))))
+                        .addContainerGap(16, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -803,18 +818,18 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ComboMunicipio;
     private javax.swing.ButtonGroup bgGenero;
     private javax.swing.JButton btnPagarSuscripción;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> comboBanco;
+    private javax.swing.JComboBox<String> comboDepartamento;
     private javax.swing.JComboBox<String> comboSuscripcion;
     private javax.swing.JComboBox<String> comboTiempoSus;
     private javax.swing.JComboBox<String> comboTipoTargeta;
     private com.toedter.calendar.JDateChooser dateFechaActual;
     private com.toedter.calendar.JDateChooser dateNacimiento;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -829,6 +844,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

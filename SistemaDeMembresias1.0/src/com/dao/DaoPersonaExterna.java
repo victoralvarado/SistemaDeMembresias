@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExterna{
 
     @Override
-    public List<PersonaExterna> mostrarProducto() throws Exception {
+    public List<PersonaExterna> mostrarPersonaExterna() throws Exception {
         ResultSet rs;
         List<PersonaExterna> lst = new ArrayList();
         try {
@@ -34,7 +34,7 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
                 pe.setNombre(rs.getString("nombre"));
                 pe.setDui(rs.getString("dui"));
                 pe.setTelefonoMovil(rs.getString("telefonoMovil"));
-                pe.setDescripcionEnvio(rs.getString("descripcionEnvio"));
+                pe.setIdSuscriptor(rs.getInt("idSuscriptor"));
                 lst.add(pe);
             }
         } catch (SQLException e) {
@@ -47,16 +47,15 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
     }
 
     @Override
-    public void insertarProducto(PersonaExterna pe) throws Exception {
+    public void insertarPersonaExterna(PersonaExterna pe) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into personaExterna values(?,?,?,?,?);";
+            String sql = "insert into personaExterna(nombre, dui, telefono, idSuscriptor) values(?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, pe.getIdPersonaExterna());
-            pre.setString(2, pe.getNombre());
-            pre.setString(3, pe.getDui());
-            pre.setString(4, pe.getTelefonoMovil());
-            pre.setString(5, pe.getDescripcionEnvio());
+            pre.setString(1, pe.getNombre());
+            pre.setString(2, pe.getDui());
+            pre.setString(3, pe.getTelefonoMovil());
+            pre.setInt(4, pe.getIdSuscriptor());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
                     "Insertar", JOptionPane.INFORMATION_MESSAGE);
@@ -69,15 +68,15 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
     }
 
     @Override
-    public void modificarProducto(PersonaExterna pe) throws Exception {
+    public void modificarPersonaExterna(PersonaExterna pe) throws Exception {
         try {
             this.conectar();
-            String sql = "update  personaExterna set nombre = ?, dui = ?, telefonoMovil = ?, descripcionEnvio = ? where idPersonaExerna = ?;";
+            String sql = "update  personaExterna set nombre = ?, dui = ?, telefonoMovil = ?, idSuscriptor = ? where idPersonaExerna = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setString(1, pe.getNombre());
             pre.setString(2, pe.getDui());
             pre.setString(3, pe.getTelefonoMovil());
-            pre.setString(4, pe.getDescripcionEnvio());
+            pre.setInt(4, pe.getIdSuscriptor());
             pre.setInt(5, pe.getIdPersonaExterna());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Dato modificado correctamente",
@@ -91,7 +90,7 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
     }
 
     @Override
-    public void eliminarProducto(PersonaExterna pe) throws Exception {
+    public void eliminarPersonaExterna(PersonaExterna pe) throws Exception {
         try {
             this.conectar();
             String sql = "delete from  personaExterna where idPersonaExerna = ?;";
@@ -106,5 +105,24 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
         } finally {
             this.desconectar();
         }
-    }  
+    }
+    
+    public int getIdPersonaExterna(int IdSuscriptor) {
+        int id = 0;
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "Select idPersonaExterna from personaExterna where idSuscriptor = ?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, IdSuscriptor);
+            rs = pre.executeQuery();
+            while (rs.next()) {                
+                id = rs.getInt("idPersonaExterna");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error idPE"
+                    + e.getMessage());
+        }
+        return id;
+    }
 }

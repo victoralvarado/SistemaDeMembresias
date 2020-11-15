@@ -9,6 +9,8 @@ import com.utilidades.CustomImageIcon;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -33,6 +35,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
     DaoCarrito daoc = new DaoCarrito();
     Carrito car = new Carrito();
     NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
+    Timer timer = new Timer();
     double totalPagar = 0;
     public FrmCarrito() {
         initComponents();
@@ -44,7 +47,25 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         lbl.setText(String.valueOf(idSuscriptor));
         mostrarCarrito();
     }
+
+    public void tarea() {
+        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                adaptarTabla();
+            }
+        };
+        timer.schedule(tarea, 0);
+    }
     
+    public void adaptarTabla(){
+        int w = tbCarrito.getWidth();
+            int div = (w - 100) / 6;
+            int[] anchos = {div, div, div, div, div, div, 100};
+            for (int i = 0; i < tbCarrito.getColumnCount(); i++) {
+                tbCarrito.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            }
+    }
     
     public void mostrarCarrito() {
         try {
@@ -117,7 +138,6 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         tbCarrito = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        btnRPedido = new javax.swing.JButton();
         btnEliminarTodo = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
@@ -125,11 +145,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         txtTotalPagar = new javax.swing.JTextField();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0));
-        setClosable(true);
-        setIconifiable(true);
-        setMaximizable(true);
         setTitle("Carrito");
-        setToolTipText("");
 
         jPanel2.setBackground(new java.awt.Color(250, 250, 250));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -147,7 +163,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
             }
         ));
         tbCarrito.setDragEnabled(true);
-        tbCarrito.setRowHeight(155);
+        tbCarrito.setRowHeight(100);
         tbCarrito.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tbCarrito.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbCarrito);
@@ -165,8 +181,8 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(250, 250, 250));
@@ -174,13 +190,6 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
 
         jPanel4.setBackground(new java.awt.Color(250, 250, 250));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        btnRPedido.setText("Realizar Pedido");
-        btnRPedido.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnRPedidoMouseClicked(evt);
-            }
-        });
 
         btnEliminarTodo.setText("Eliminar Todo");
         btnEliminarTodo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -200,23 +209,20 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(97, Short.MAX_VALUE)
                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEliminarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(90, 90, 90))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEliminarTodo)
+                    .addComponent(btnEliminar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -225,27 +231,30 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Total pagar ");
 
+        txtTotalPagar.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        txtTotalPagar.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtTotalPagar.setEnabled(false);
+        txtTotalPagar.setSelectedTextColor(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(33, 33, 33)
                 .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(469, Short.MAX_VALUE))
+                .addContainerGap(467, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtTotalPagar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -262,13 +271,11 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(9, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(8, 8, 8))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -281,9 +288,10 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -307,8 +315,7 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
                     daoc.eliminarTodo(Integer.parseInt(lbl.getText()));
                     totalPagar = 0;
                     mostrarCarrito();
-                } else {
-                    mostrarCarrito();
+                    tarea();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "El carrito se encuentra vacio",
@@ -320,15 +327,6 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarTodoMouseClicked
-
-    private void btnRPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRPedidoMouseClicked
-        if (tbCarrito.getRowCount() > 0) {
-            //Codigo
-        } else {
-            JOptionPane.showMessageDialog(null, "El carrito se encuentra vacio",
-                    "Carrito", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_btnRPedidoMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = this.tbCarrito.getSelectedRow();
@@ -349,19 +347,20 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
                     daoc.eliminarCarrito(car);
                     totalPagar = 0;
                     mostrarCarrito();
+                    tarea();
                 } catch (Exception ex) {
                     Logger.getLogger(FrmCarrito.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } else {
-                mostrarCarrito();
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el producto que desea eliminar",
+                            "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnEliminarTodo;
-    private javax.swing.JButton btnRPedido;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

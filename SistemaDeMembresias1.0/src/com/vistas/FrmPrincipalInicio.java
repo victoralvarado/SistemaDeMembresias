@@ -72,12 +72,12 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     }
     
     public TimerTask tarea1 = new TimerTask() {
-            @Override
-            public void run() {
-                mostrarP();
-            }
-        };
-    
+        @Override
+        public void run() {
+            mostrarP();
+        }
+    };
+
     public void cargarPublicidad() {
         urlp1 = daopu.getUrl(1);
         urlp2 = daopu.getUrl(2);
@@ -112,11 +112,13 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             lblPrecio.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id1))));
 
             if (Integer.parseInt(daop.info("stock", id1)) == 0) {
+                sp1.setEnabled(false);
                 p1.setText("AGOTADO");
                 btn1.setEnabled(false);
             } else {
                 p1.setText("");
                 btn1.setEnabled(true);
+                sp1.setEnabled(true);
             }
             CustomImageIcon imagen2 = daop.getImagen(id2);
             p2.setIcon(imagen2);
@@ -126,11 +128,13 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             lblNombre1.setToolTipText(daop.info("nombre", id2));
             lblPrecio1.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id2))));
             if (Integer.parseInt(daop.info("stock", id2)) == 0) {
+                sp2.setEnabled(false);
                 p2.setText("AGOTADO");
                 btn2.setEnabled(false);
             } else {
                 p2.setText("");
                 btn2.setEnabled(true);
+                sp2.setEnabled(true);
             }
             CustomImageIcon imagen3 = daop.getImagen(id3);
             p3.setIcon(imagen3);
@@ -140,11 +144,13 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             lblNombre2.setToolTipText(daop.info("nombre", id3));
             lblPrecio2.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id3))));
             if (Integer.parseInt(daop.info("stock", id3)) == 0) {
+                sp3.setEnabled(false);
                 p3.setText("AGOTADO");
                 btn3.setEnabled(false);
             } else {
                 p3.setText("");
                 btn3.setEnabled(true);
+                sp3.setEnabled(true);
             }
             CustomImageIcon imagen4 = daop.getImagen(id4);
             p4.setIcon(imagen4);
@@ -154,11 +160,13 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
             lblNombre3.setToolTipText(daop.info("nombre", id4));
             lblPrecio3.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id4))));
             if (Integer.parseInt(daop.info("stock", id4)) == 0) {
+                sp4.setEnabled(false);
                 p4.setText("AGOTADO");
                 btn4.setEnabled(false);
             } else {
                 p4.setText("");
                 btn4.setEnabled(true);
+                sp4.setEnabled(true);
             }
         } catch (Exception ex) {
             Logger.getLogger(FrmPrincipalInicio.class.getName()).log(Level.SEVERE, null, ex);
@@ -224,7 +232,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         setTitle("INICIO");
         setAutoscrolls(true);
 
-        pnlInicio.setBackground(new java.awt.Color(213, 245, 227));
+        pnlInicio.setBackground(new java.awt.Color(248, 249, 249));
         pnlInicio.setAutoscrolls(true);
         pnlInicio.setPreferredSize(new java.awt.Dimension(1308, 531));
 
@@ -238,6 +246,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         p1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         p1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn1.setBackground(new java.awt.Color(115, 198, 182));
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn1.addActionListener(new java.awt.event.ActionListener() {
@@ -304,6 +313,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         p2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         p2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn2.setBackground(new java.awt.Color(115, 198, 182));
         btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn2.addActionListener(new java.awt.event.ActionListener() {
@@ -373,6 +383,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         p3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         p3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn3.setBackground(new java.awt.Color(115, 198, 182));
         btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn3.addActionListener(new java.awt.event.ActionListener() {
@@ -444,6 +455,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         p4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         p4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn4.setBackground(new java.awt.Color(115, 198, 182));
         btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn4.addActionListener(new java.awt.event.ActionListener() {
@@ -502,12 +514,16 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel7.setBackground(new java.awt.Color(248, 249, 249));
+
+        lblPublicidad1.setBackground(new java.awt.Color(248, 249, 249));
         lblPublicidad1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPublicidad1.setText("PUBLICIDAD");
         lblPublicidad1.setFocusable(false);
         lblPublicidad1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblPublicidad1.setOpaque(true);
 
+        btnVisitar1.setBackground(new java.awt.Color(248, 196, 113));
         btnVisitar1.setText("Visitar");
         btnVisitar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -536,9 +552,12 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel8.setBackground(new java.awt.Color(248, 249, 249));
+
         lblPublicidad2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPublicidad2.setText("PUBLICIDAD");
 
+        btnVisitar2.setBackground(new java.awt.Color(248, 196, 113));
         btnVisitar2.setText("Visitar");
         btnVisitar2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

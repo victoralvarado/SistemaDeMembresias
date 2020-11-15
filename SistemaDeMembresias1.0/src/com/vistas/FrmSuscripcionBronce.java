@@ -121,14 +121,9 @@ public class FrmSuscripcionBronce extends javax.swing.JInternalFrame {
     public void agregar() {
         try {
             
-                br.setIdProducto(Integer.parseInt(this.txtCodigo.getText()));
-                if (tblBronce.getRowCount() == 1) {
-                     daoB.modificarSuscipcionBronce(br);
-                     JOptionPane.showMessageDialog(this, "Modificar");
-                } else {
-                    daoB.insertarSuscipcionBronce(br);
-                    JOptionPane.showMessageDialog(this, "Insertar");
-                }
+               br.setIdProducto(Integer.parseInt(this.txtCodigo.getText()));
+               daoB.insertarSuscipcionBronce(br);
+                    
             limpiarP();
             mostrarBronce();
         } catch (Exception e) {

@@ -44,6 +44,28 @@ public class DaoCobertura extends Conexion implements OperacionesCobertura{
         }
         return lst;
     }
+    
+    public List<Cobertura> mostrarDepartamento() throws Exception {
+        List<Cobertura> lst = new ArrayList();
+        ResultSet rs;
+        try {
+            this.conectar();
+            String sql = "select DISTINCT departamento from cobertura;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Cobertura cob = new Cobertura();
+                cob.setDepartamento(rs.getString("departamento"));
+                lst.add(cob);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return lst;
+    }
 
     @Override
     public void insertarCobertura(Cobertura cob) throws Exception {
@@ -102,6 +124,48 @@ public class DaoCobertura extends Conexion implements OperacionesCobertura{
         } finally {
             this.desconectar();
         }
+    }
+    
+    
+    public Cobertura getDepartamento(int idCobertura){
+        Cobertura co = new Cobertura();
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "select departamento from cobertura where idCobertura = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idCobertura);
+            rs = pre.executeQuery();
+            while(rs.next())
+            {
+                co.setDepartamento(rs.getString("departamento"));
+            }
+        } catch (SQLException e) {
+        }
+        return co;
+    }
+    
+    public List<Cobertura> mostrarMunicipio(String departamento) throws Exception {
+        List<Cobertura> lst = new ArrayList();
+        ResultSet rs;
+        try {
+            this.conectar();
+            String sql = "select municipio from cobertura where departamento = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setString(1, departamento);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                Cobertura cob = new Cobertura();
+                cob.setMunicipio(rs.getString("municipio"));
+                lst.add(cob);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return lst;
     }
     
 }

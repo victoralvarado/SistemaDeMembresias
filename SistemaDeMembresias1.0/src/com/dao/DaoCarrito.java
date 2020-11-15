@@ -88,7 +88,7 @@ public class DaoCarrito extends Conexion implements OperacionesCarrito{
             Robot robot = new Robot();
             JOptionPane.showMessageDialog(null, "Se agrego el producto al carrito",
                     "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-            robot.delay(950);
+            robot.delay(500);
             robot.keyPress(KeyEvent.VK_ESCAPE);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar " + e.getMessage(),

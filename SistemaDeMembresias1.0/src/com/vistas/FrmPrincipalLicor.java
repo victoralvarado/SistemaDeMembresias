@@ -5,10 +5,15 @@ import com.dao.DaoCategoria;
 import com.dao.DaoLicor;
 import com.dao.DaoMarca;
 import com.dao.DaoProducto;
+import com.dao.DaoPublicidad;
 import com.modelo.Carrito;
 import com.modelo.Licor;
 import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -50,6 +55,11 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
     int id11 = 0;
     int id12 = 0;
     int nst = 0;
+    DaoPublicidad daopu = new DaoPublicidad();
+    String urlp7 = "";
+    String urlp8 = "";
+    String urlp9 = "";
+    String urlp10 = "";
     public FrmPrincipalLicor() {
         initComponents();
     }
@@ -57,11 +67,38 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
     public FrmPrincipalLicor(int idSuscriptor) {
         initComponents();
         lbl.setText(String.valueOf(idSuscriptor));
+        cargarPublicidad();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         try {
             cargarLicor();
         } catch (Exception ex) {
             Logger.getLogger(FrmPrincipalLicor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void cargarPublicidad() {
+        urlp7 = daopu.getUrl(3);
+        urlp8 = daopu.getUrl(4);
+        urlp9 = daopu.getUrl(5);
+        urlp10 = daopu.getUrl(6);
+        try {
+            CustomImageIcon imagenp7 = daopu.getFoto(3);
+            lblPublicidad7.setIcon(imagenp7);
+            lblPublicidad7.updateUI();
+            
+            CustomImageIcon imagenp8 = daopu.getFoto(4);
+            lblPublicidad8.setIcon(imagenp8);
+            lblPublicidad8.updateUI();
+            
+            CustomImageIcon imagenp9 = daopu.getFoto(5);
+            lblPublicidad9.setIcon(imagenp9);
+            lblPublicidad9.updateUI();
+            
+            CustomImageIcon imagenp10 = daopu.getFoto(6);
+            lblPublicidad10.setIcon(imagenp10);
+            lblPublicidad10.updateUI();
+        } catch (Exception ex) {
+            Logger.getLogger(FrmPrincipalInicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -91,11 +128,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre1.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id1))));
 
             if (Integer.parseInt(daop.info("stock", id1)) == 0) {
+                sp1.setEnabled(false);
                 p1.setText("AGOTADO");
                 btn1.setEnabled(false);
             } else {
                 p1.setText("");
                 btn1.setEnabled(true);
+                sp1.setEnabled(true);
             }
             
             CustomImageIcon imagen2 = daop.getImagen(id2);
@@ -107,11 +146,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre2.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id2))));
 
             if (Integer.parseInt(daop.info("stock", id2)) == 0) {
+                sp2.setEnabled(false);
                 p2.setText("AGOTADO");
                 btn2.setEnabled(false);
             } else {
                 p2.setText("");
                 btn2.setEnabled(true);
+                sp2.setEnabled(true);
             }
             
             CustomImageIcon imagen3 = daop.getImagen(id3);
@@ -123,11 +164,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre3.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id3))));
 
             if (Integer.parseInt(daop.info("stock", id3)) == 0) {
+                sp3.setEnabled(false);
                 p3.setText("AGOTADO");
                 btn3.setEnabled(false);
             } else {
                 p3.setText("");
                 btn3.setEnabled(true);
+                sp3.setEnabled(true);
             }
             CustomImageIcon imagen4 = daop.getImagen(id4);
             p4.setIcon(imagen4);
@@ -138,11 +181,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre4.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id4))));
 
             if (Integer.parseInt(daop.info("stock", id4)) == 0) {
-                p3.setText("AGOTADO");
-                btn3.setEnabled(false);
+                sp4.setEnabled(false);
+                p4.setText("AGOTADO");
+                btn4.setEnabled(false);
             } else {
-                p3.setText("");
-                btn3.setEnabled(true);
+                p4.setText("");
+                btn4.setEnabled(true);
+                sp4.setEnabled(true);
             }
             
             CustomImageIcon imagen5 = daop.getImagen(id5);
@@ -154,11 +199,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre5.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id5))));
 
             if (Integer.parseInt(daop.info("stock", id5)) == 0) {
+                sp5.setEnabled(false);
                 p5.setText("AGOTADO");
                 btn5.setEnabled(false);
             } else {
                 p5.setText("");
                 btn5.setEnabled(true);
+                sp5.setEnabled(true);
             }
             
             CustomImageIcon imagen6 = daop.getImagen(id6);
@@ -170,11 +217,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre6.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id6))));
 
             if (Integer.parseInt(daop.info("stock", id6)) == 0) {
+                sp6.setEnabled(false);
                 p6.setText("AGOTADO");
                 btn6.setEnabled(false);
             } else {
                 p6.setText("");
                 btn6.setEnabled(true);
+                sp6.setEnabled(true);
             }
             
             CustomImageIcon imagen7 = daop.getImagen(id7);
@@ -186,11 +235,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre7.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id7))));
 
             if (Integer.parseInt(daop.info("stock", id7)) == 0) {
+                sp7.setEnabled(false);
                 p7.setText("AGOTADO");
                 btn7.setEnabled(false);
             } else {
                 p7.setText("");
                 btn7.setEnabled(true);
+                sp7.setEnabled(true);
             }
             
             CustomImageIcon imagen8 = daop.getImagen(id8);
@@ -202,11 +253,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre8.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id8))));
 
             if (Integer.parseInt(daop.info("stock", id8)) == 0) {
+                sp8.setEnabled(false);
                 p8.setText("AGOTADO");
                 btn8.setEnabled(false);
             } else {
                 p8.setText("");
                 btn8.setEnabled(true);
+                sp8.setEnabled(true);
             }
             
             CustomImageIcon imagen9 = daop.getImagen(id9);
@@ -218,11 +271,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre9.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id9))));
 
             if (Integer.parseInt(daop.info("stock", id9)) == 0) {
+                sp9.setEnabled(false);
                 p9.setText("AGOTADO");
                 btn9.setEnabled(false);
             } else {
                 p9.setText("");
                 btn9.setEnabled(true);
+                sp9.setEnabled(true);
             }
             
             CustomImageIcon imagen10 = daop.getImagen(id10);
@@ -234,11 +289,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre10.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id10))));
 
             if (Integer.parseInt(daop.info("stock", id10)) == 0) {
+                sp10.setEnabled(false);
                 p10.setText("AGOTADO");
                 btn10.setEnabled(false);
             } else {
                 p10.setText("");
                 btn10.setEnabled(true);
+                sp10.setEnabled(true);
             }
             
             CustomImageIcon imagen11 = daop.getImagen(id11);
@@ -250,11 +307,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre11.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id11))));
 
             if (Integer.parseInt(daop.info("stock", id11)) == 0) {
+                sp11.setEnabled(false);
                 p11.setText("AGOTADO");
                 btn11.setEnabled(false);
             } else {
                 p11.setText("");
                 btn11.setEnabled(true);
+                sp11.setEnabled(true);
             }
             
             CustomImageIcon imagen12 = daop.getImagen(id12);
@@ -266,11 +325,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             pre12.setText(nf.format(Integer.valueOf(daop.info("precioVenta", id12))));
 
             if (Integer.parseInt(daop.info("stock", id12)) == 0) {
+                sp12.setEnabled(false);
                 p12.setText("AGOTADO");
                 btn12.setEnabled(false);
             } else {
                 p12.setText("");
                 btn12.setEnabled(true);
+                sp12.setEnabled(true);
             }
         } catch (Exception ex) {
             Logger.getLogger(FrmPrincipalInicio.class.getName()).log(Level.SEVERE, null, ex);
@@ -303,6 +364,18 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 }
                 spi.setValue(1);
             }
+        }
+    }
+    
+    public void cargarUrl(String url) {
+        if (url.trim().length() > 0) {
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (IOException | URISyntaxException e) {
+                System.err.println(e);
+            }
+        } else {
+            System.out.println("No hay link");
         }
     }
     @SuppressWarnings("unchecked")
@@ -384,14 +457,14 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         nom11 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         lblPublicidad7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnp7 = new javax.swing.JButton();
         lblPublicidad8 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnp8 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         lblPublicidad9 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnp9 = new javax.swing.JButton();
         lblPublicidad10 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        btnp10 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(250, 250, 250)));
         setTitle("LICORES");
@@ -403,8 +476,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p1.setBackground(new java.awt.Color(255, 255, 255));
+        p1.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p1.setForeground(new java.awt.Color(255, 0, 0));
+        p1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn1.setBackground(new java.awt.Color(115, 198, 182));
         btn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn1.addActionListener(new java.awt.event.ActionListener() {
@@ -465,8 +543,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel13.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p2.setBackground(new java.awt.Color(255, 255, 255));
+        p2.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p2.setForeground(new java.awt.Color(255, 0, 0));
+        p2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn2.setBackground(new java.awt.Color(115, 198, 182));
         btn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn2.addActionListener(new java.awt.event.ActionListener() {
@@ -528,8 +611,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel14.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p4.setBackground(new java.awt.Color(255, 255, 255));
+        p4.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p4.setForeground(new java.awt.Color(255, 0, 0));
+        p4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn4.setBackground(new java.awt.Color(115, 198, 182));
         btn4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn4.addActionListener(new java.awt.event.ActionListener() {
@@ -589,8 +677,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel15.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p5.setBackground(new java.awt.Color(255, 255, 255));
+        p5.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p5.setForeground(new java.awt.Color(255, 0, 0));
+        p5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn5.setBackground(new java.awt.Color(115, 198, 182));
         btn5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn5.addActionListener(new java.awt.event.ActionListener() {
@@ -650,8 +743,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel16.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p3.setBackground(new java.awt.Color(255, 255, 255));
+        p3.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p3.setForeground(new java.awt.Color(255, 0, 0));
+        p3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn3.setBackground(new java.awt.Color(115, 198, 182));
         btn3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn3.addActionListener(new java.awt.event.ActionListener() {
@@ -714,8 +812,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel18.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p6.setBackground(new java.awt.Color(255, 255, 255));
+        p6.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p6.setForeground(new java.awt.Color(255, 0, 0));
+        p6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn6.setBackground(new java.awt.Color(115, 198, 182));
         btn6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn6.addActionListener(new java.awt.event.ActionListener() {
@@ -747,9 +850,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(nom6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pre6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nom6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pre6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(p6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -772,8 +874,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel24.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p7.setBackground(new java.awt.Color(255, 255, 255));
+        p7.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p7.setForeground(new java.awt.Color(255, 0, 0));
+        p7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn7.setBackground(new java.awt.Color(115, 198, 182));
         btn7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn7.addActionListener(new java.awt.event.ActionListener() {
@@ -833,8 +940,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel25.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p8.setBackground(new java.awt.Color(255, 255, 255));
+        p8.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p8.setForeground(new java.awt.Color(255, 0, 0));
+        p8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn8.setBackground(new java.awt.Color(115, 198, 182));
         btn8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn8.addActionListener(new java.awt.event.ActionListener() {
@@ -894,8 +1006,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel26.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p10.setBackground(new java.awt.Color(255, 255, 255));
+        p10.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p10.setForeground(new java.awt.Color(255, 0, 0));
+        p10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p10.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn10.setBackground(new java.awt.Color(115, 198, 182));
         btn10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn10.addActionListener(new java.awt.event.ActionListener() {
@@ -955,8 +1072,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel27.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p9.setBackground(new java.awt.Color(255, 255, 255));
+        p9.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p9.setForeground(new java.awt.Color(255, 0, 0));
+        p9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p9.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn9.setBackground(new java.awt.Color(115, 198, 182));
         btn9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn9.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn9.addActionListener(new java.awt.event.ActionListener() {
@@ -1016,8 +1138,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel28.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p12.setBackground(new java.awt.Color(255, 255, 255));
+        p12.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p12.setForeground(new java.awt.Color(255, 0, 0));
+        p12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p12.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p12.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn12.setBackground(new java.awt.Color(115, 198, 182));
         btn12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn12.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn12.addActionListener(new java.awt.event.ActionListener() {
@@ -1049,9 +1176,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             .addGroup(jPanel28Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel28Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(nom12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(pre12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nom12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pre12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(p12, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -1075,8 +1201,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         jPanel29.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         p11.setBackground(new java.awt.Color(255, 255, 255));
+        p11.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
+        p11.setForeground(new java.awt.Color(255, 0, 0));
+        p11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        p11.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        btn11.setBackground(new java.awt.Color(115, 198, 182));
         btn11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/carrito.png"))); // NOI18N
         btn11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn11.addActionListener(new java.awt.event.ActionListener() {
@@ -1132,13 +1263,21 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jPanel4.setBackground(new java.awt.Color(248, 249, 249));
+
         lblPublicidad7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPublicidad7.setText("PUBLICIDAD");
         lblPublicidad7.setFocusable(false);
         lblPublicidad7.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblPublicidad7.setOpaque(true);
 
-        jButton1.setText("Visitar");
+        btnp7.setBackground(new java.awt.Color(248, 196, 113));
+        btnp7.setText("Visitar");
+        btnp7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp7ActionPerformed(evt);
+            }
+        });
 
         lblPublicidad8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPublicidad8.setText("PUBLICIDAD");
@@ -1146,7 +1285,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         lblPublicidad8.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblPublicidad8.setOpaque(true);
 
-        jButton2.setText("Visitar");
+        btnp8.setBackground(new java.awt.Color(248, 196, 113));
+        btnp8.setText("Visitar");
+        btnp8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp8ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1155,8 +1300,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPublicidad7, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPublicidad8, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -1167,13 +1312,15 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(lblPublicidad7, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnp7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblPublicidad8, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnp8)
                 .addGap(17, 17, 17))
         );
+
+        jPanel5.setBackground(new java.awt.Color(248, 249, 249));
 
         lblPublicidad9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPublicidad9.setText("PUBLICIDAD");
@@ -1181,7 +1328,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         lblPublicidad9.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblPublicidad9.setOpaque(true);
 
-        jButton3.setText("Visitar");
+        btnp9.setBackground(new java.awt.Color(248, 196, 113));
+        btnp9.setText("Visitar");
+        btnp9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp9ActionPerformed(evt);
+            }
+        });
 
         lblPublicidad10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPublicidad10.setText("PUBLICIDAD");
@@ -1189,7 +1342,13 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
         lblPublicidad10.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         lblPublicidad10.setOpaque(true);
 
-        jButton5.setText("Visitar");
+        btnp10.setBackground(new java.awt.Color(248, 196, 113));
+        btnp10.setText("Visitar");
+        btnp10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnp10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1198,8 +1357,8 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnp9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPublicidad9, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPublicidad10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -1210,11 +1369,11 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(lblPublicidad9, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addComponent(btnp9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblPublicidad10, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
+                .addComponent(btnp10)
                 .addGap(17, 17, 17))
         );
 
@@ -1340,6 +1499,22 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
     private void btn11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn11ActionPerformed
         cargarCar(btn11, sp11, id11);
     }//GEN-LAST:event_btn11ActionPerformed
+
+    private void btnp7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp7ActionPerformed
+        cargarUrl(urlp7);
+    }//GEN-LAST:event_btnp7ActionPerformed
+
+    private void btnp8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp8ActionPerformed
+        cargarUrl(urlp8);
+    }//GEN-LAST:event_btnp8ActionPerformed
+
+    private void btnp9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp9ActionPerformed
+        cargarUrl(urlp9);
+    }//GEN-LAST:event_btnp9ActionPerformed
+
+    private void btnp10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnp10ActionPerformed
+        cargarUrl(urlp10);
+    }//GEN-LAST:event_btnp10ActionPerformed
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1355,10 +1530,10 @@ public class FrmPrincipalLicor extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn7;
     private javax.swing.JButton btn8;
     private javax.swing.JButton btn9;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnp10;
+    private javax.swing.JButton btnp7;
+    private javax.swing.JButton btnp8;
+    private javax.swing.JButton btnp9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;

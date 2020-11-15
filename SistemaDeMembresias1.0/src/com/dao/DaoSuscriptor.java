@@ -133,6 +133,25 @@ public class DaoSuscriptor extends Conexion implements OperacionesSuscriptor {
             this.desconectar();
         }
     }
+    
+    public int getIdSuscriptor(String email) {
+        int id = 0;
+        ResultSet rs = null;
+        try {
+            this.conectar();
+            String sql = "Select idSuscriptor from suscriptor where email = ?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setString(1, email);
+            rs = pre.executeQuery();
+            while (rs.next()) {                
+                id = rs.getInt("idSuscriptor");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error idSuscriptor"
+                    + e.getMessage());
+        }
+        return id;
+    }
 }
 
   

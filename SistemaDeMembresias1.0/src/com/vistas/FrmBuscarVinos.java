@@ -5,11 +5,9 @@ import com.dao.DaoMarca;
 import com.dao.DaoProducto;
 import com.modelo.Producto;
 import com.utilidades.CustomImageIcon;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -29,6 +27,7 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
     DaoMarca daom = new DaoMarca();
     DaoCategoria daoc = new DaoCategoria();
     JLabel lbl = new JLabel();
+    Timer timer = new Timer();
     public FrmBuscarVinos() {
         initComponents();
     }
@@ -38,6 +37,27 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
         mostrar();
         lbl.setText(String.valueOf(idSuscriptor));
+    }
+    
+    
+    public void tarea() {
+        TimerTask tarea = new TimerTask() {
+            @Override
+            public void run() {
+                adaptarTabla();
+            }
+        };
+        timer.schedule(tarea, 0);
+    }
+    
+    
+    public void adaptarTabla(){
+        int w = tblProducto.getWidth();
+            int div = (w - 150) / 6;
+            int[] anchos = {div, div, div, div, div, div, 150};
+            for (int i = 0; i < tblProducto.getColumnCount(); i++) {
+                tblProducto.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
+            }
     }
     public void mostrar(){
         try {
@@ -220,6 +240,7 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
             panel.cargarProd(id, tooltip, nombre, precio,Integer.parseInt(stock));
             JOptionPane.showOptionDialog(null, panel,categoria, JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, 
                     null, new Object[]{}, null);
+            tblProducto.clearSelection();
             
         }
     }
@@ -353,7 +374,7 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
                     .addComponent(spInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(spFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
                 .addGap(27, 27, 27))
         );
 
@@ -376,11 +397,13 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblProductoMouseClicked
 
     private void txtBuscarVinoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarVinoKeyReleased
-        String buscar = '%'+txtBuscarVino.getText()+'%';
+        String buscar = '%' + txtBuscarVino.getText() + '%';
         if (txtBuscarVino.getText().isEmpty()) {
             mostrar();
+            tarea();
         } else {
             mostrarVino(buscar);
+            tarea();
         }
     }//GEN-LAST:event_txtBuscarVinoKeyReleased
 
@@ -388,6 +411,7 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
         Double i = Double.parseDouble(String.valueOf(spInicio.getValue()));
         Double f = Double.parseDouble(String.valueOf(spFin.getValue()));
         mostrarpp(i, f);
+        tarea();
     }//GEN-LAST:event_btnBuscarppMouseClicked
 
     private void btnTodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTodoMouseClicked
@@ -395,6 +419,7 @@ public class FrmBuscarVinos extends javax.swing.JInternalFrame {
         spFin.setValue(0);
         spInicio.setValue(0);
         mostrar();
+        tarea();
     }//GEN-LAST:event_btnTodoMouseClicked
 
 
