@@ -225,7 +225,10 @@ public class FrmCarrito extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Total pagar ");
 
+        txtTotalPagar.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        txtTotalPagar.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtTotalPagar.setEnabled(false);
+        txtTotalPagar.setSelectedTextColor(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);

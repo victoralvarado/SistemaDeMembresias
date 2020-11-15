@@ -1,6 +1,7 @@
 package com.vistas;
 
 import com.dao.DaoCarrito;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -230,6 +231,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         menuUsuario.add(menuModificar);
 
         menuCerrarSesion.setText("Cerrar Secion");
+        menuCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                menuCerrarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                menuCerrarSesionMouseExited(evt);
+            }
+        });
         menuCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuCerrarSesionActionPerformed(evt);
@@ -404,7 +413,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             .addGap(0, 415, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(235, 245, 251));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lblTitulo.setText("INICIO");
@@ -673,6 +682,14 @@ public class FrmPrincipal extends javax.swing.JFrame {
         login.show();
         this.hide();
     }//GEN-LAST:event_menuCerrarSesionActionPerformed
+
+    private void menuCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCerrarSesionMouseEntered
+        //menuCerrarSesion.setBackground(new Color(174, 214, 241));
+    }//GEN-LAST:event_menuCerrarSesionMouseEntered
+
+    private void menuCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCerrarSesionMouseExited
+        //menuCerrarSesion.setBackground(new Color(214,217,223));
+    }//GEN-LAST:event_menuCerrarSesionMouseExited
 
 
     public static void main(String args[]) {

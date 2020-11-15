@@ -49,7 +49,7 @@
     <Container class="javax.swing.JPanel" name="pnlInicio">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="e3" green="f5" red="d5" type="rgb"/>
+          <Color blue="e3" green="e5" red="e5" type="rgb"/>
         </Property>
         <Property name="autoscrolls" type="boolean" value="true"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">

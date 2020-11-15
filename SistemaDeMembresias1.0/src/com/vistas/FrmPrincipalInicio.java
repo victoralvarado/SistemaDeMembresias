@@ -224,7 +224,7 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
         setTitle("INICIO");
         setAutoscrolls(true);
 
-        pnlInicio.setBackground(new java.awt.Color(213, 245, 227));
+        pnlInicio.setBackground(new java.awt.Color(229, 229, 227));
         pnlInicio.setAutoscrolls(true);
         pnlInicio.setPreferredSize(new java.awt.Dimension(1308, 531));
 
