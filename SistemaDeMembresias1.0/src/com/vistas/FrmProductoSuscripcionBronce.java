@@ -73,6 +73,7 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
             
             int idPE = daope.getIdPersonaExterna(idS);
             
+            
         } catch (Exception e) {
         }
     }
