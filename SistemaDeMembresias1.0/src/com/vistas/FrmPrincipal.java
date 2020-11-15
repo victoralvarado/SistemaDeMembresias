@@ -31,11 +31,13 @@ public class FrmPrincipal extends javax.swing.JFrame {
     java.util.Timer timer2 = new java.util.Timer();
     java.util.Timer timer3 = new java.util.Timer();
     java.util.Timer timer4 = new java.util.Timer();
+    public java.util.Timer timer5 = new java.util.Timer();
     DaoCarrito daoc = new DaoCarrito();
     int n1 = 0;
     public FrmPrincipal() {
         initComponents();
     }
+
     public FrmPrincipal(String email, int idSuscriptor) {
         initComponents();
         lblIdSuscriptor.setText(String.valueOf(idSuscriptor));
@@ -75,6 +77,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         lblLogo.repaint();
     }
     
+    
     public void abrirFrm(JInternalFrame frm) {
         //Agregar instancias de sus formularios
         int id = Integer.parseInt(lblIdSuscriptor.getText());
@@ -84,6 +87,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmBuscarLicores  licores = new FrmBuscarLicores(id);
         FrmBuscarVinos vinos = new FrmBuscarVinos(id);
         FrmCarrito carrito = new FrmCarrito(id);
+        FrmPedido pedido = new FrmPedido(id);
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -95,6 +99,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             carrito.setVisible(false);
             licores.setVisible(false);
             vinos.setVisible(false);
+            pedido.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -590,14 +595,19 @@ public class FrmPrincipal extends javax.swing.JFrame {
                 FrmCarrito carrito = new FrmCarrito(Integer.parseInt(lblIdSuscriptor.getText()));
                 abrirFrm(carrito);
                 lblTitulo.setText("CARRITO");
-                btnBuscar.setVisible(false);
+                btnBuscar.setVisible(true);
+                btnBuscar.setText("Continuar Pedido");
                 lblCopyright.setVisible(false);
+                frm = "carrito";
                 btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0), 1));
                 //Borde al color del fondo
                 btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                 btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                 btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                 lblLoading.setVisible(false);
+                carrito.time.cancel();
+                carrito.time = new java.util.Timer();
+                carrito.time.schedule(carrito.tarea, 0);
             }
         };
         timer3.schedule(tarea2, 1000);
@@ -640,6 +650,31 @@ public class FrmPrincipal extends javax.swing.JFrame {
                     btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                     btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
                     lblLoading.setVisible(false);
+                    vino.timer.cancel();
+                    vino.timer = new java.util.Timer();
+                    vino.timer.schedule(vino.tarea001, 0);
+                    
+                }
+            };
+            timer3.schedule(tarea2, 1000);
+        }
+        if (frm.equalsIgnoreCase("carrito")) {
+            cargando();
+            TimerTask tarea2 = new TimerTask() {
+                @Override
+                public void run() {
+                    FrmPedido pedido = new FrmPedido(Integer.parseInt(lblIdSuscriptor.getText()));
+                    abrirFrm(pedido);
+                    lblTitulo.setText("PEDIDOS");
+                    btnBuscar.setVisible(false);
+                    lblCopyright.setVisible(true);
+                    //Borde al color del fondo
+                    btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    lblLoading.setVisible(false);
+                    
                 }
             };
             timer3.schedule(tarea2, 1000);

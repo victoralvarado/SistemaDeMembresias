@@ -72,12 +72,12 @@ public class FrmPrincipalInicio extends javax.swing.JInternalFrame {
     }
     
     public TimerTask tarea1 = new TimerTask() {
-            @Override
-            public void run() {
-                mostrarP();
-            }
-        };
-    
+        @Override
+        public void run() {
+            mostrarP();
+        }
+    };
+
     public void cargarPublicidad() {
         urlp1 = daopu.getUrl(1);
         urlp2 = daopu.getUrl(2);
