@@ -52,13 +52,12 @@ public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProduc
     public void insertarProducto(EnvioProducto env) throws Exception {
        try {
             this.conectar();
-            String sql = "insert into envioProducto values(?,?,?,?,?);";
+            String sql = "insert into envioProducto (idSuscriptor,idPersonaExtra,telefono,fechaEnvio) values(?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, env.getIdEnvio());
-            pre.setInt(2, env.getIdSuscriptor());
-            pre.setInt(3, env.getIdPersonaExterna());
-            pre.setString(4, env.getTelefono());
-            pre.setString(5, env.getFechaEnvio());
+            pre.setInt(1, env.getIdSuscriptor());
+            pre.setInt(2, env.getIdPersonaExterna());
+            pre.setString(3, env.getTelefono());
+            pre.setString(4, env.getFechaEnvio());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
                     "Insertar", JOptionPane.INFORMATION_MESSAGE);
