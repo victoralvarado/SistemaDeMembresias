@@ -11,26 +11,24 @@ public class EnvioProducto {
     private int idEnvio;
     private int idSuscriptor;
     private int idPersonaExterna;
-    private String telefono;
     private String fechaEnvio;
+    private int idProducto;
+    private String detalleEnvio;
+    private int estado;
+    private int idCobertura;
 
     public EnvioProducto() {
     }
 
-    public EnvioProducto(int idEnvio, int idSuscriptor, int idPersonaExterna, String telefono, String fechaEnvio) {
+    public EnvioProducto(int idEnvio, int idSuscriptor, int idPersonaExterna, String fechaEnvio, int idProductto, String detalleEnvio, int estado, int idCobertura) {
         this.idEnvio = idEnvio;
         this.idSuscriptor = idSuscriptor;
         this.idPersonaExterna = idPersonaExterna;
-        this.telefono = telefono;
         this.fechaEnvio = fechaEnvio;
-    }
-
-    public String getFechaEnvio() {
-        return fechaEnvio;
-    }
-
-    public void setFechaEnvio(String fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
+        this.idProducto = idProducto;
+        this.detalleEnvio = detalleEnvio;
+        this.estado = estado;
+        this.idCobertura = idCobertura;
     }
 
     public int getIdEnvio() {
@@ -57,13 +55,46 @@ public class EnvioProducto {
         this.idPersonaExterna = idPersonaExterna;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getFechaEnvio() {
+        return fechaEnvio;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setFechaEnvio(String fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
     }
 
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(int idProductto) {
+        this.idProducto = idProductto;
+    }
+
+    public String getDetalleEnvio() {
+        return detalleEnvio;
+    }
+
+    public void setDetalleEnvio(String detalleEnvio) {
+        this.detalleEnvio = detalleEnvio;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getIdCobertura() {
+        return idCobertura;
+    }
+
+    public void setIdCobertura(int idCobertura) {
+        this.idCobertura = idCobertura;
+    }
+    
+    
     
 }
