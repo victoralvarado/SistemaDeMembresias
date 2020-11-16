@@ -8,6 +8,8 @@ import com.dao.DaoProducto;
 import com.modelo.Oro;
 import com.modelo.Producto;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -117,15 +119,9 @@ public class FrmSuscripcionOro extends javax.swing.JInternalFrame {
     
     public void agregar() {
         try {
-            
-                or.setIdProducto(Integer.parseInt(this.txtCodigo.getText()));
-                if (tblOro.getRowCount() == 1) {
-                     daoO.modificarSusOro(or);
-                     JOptionPane.showMessageDialog(this, "Modificar");
-                } else {
-                    daoO.insertarSusOro(or);
-                    JOptionPane.showMessageDialog(this, "Insertar");
-                }
+
+            or.setIdProducto(Integer.parseInt(this.txtCodigo.getText()));
+            daoO.insertarSusOro(or);
             limpiarP();
             mostrarOro();
         } catch (Exception e) {
@@ -165,6 +161,10 @@ public class FrmSuscripcionOro extends javax.swing.JInternalFrame {
         txtPrecioV = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
+        btnEliminar = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
 
         tblProducto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -233,6 +233,13 @@ public class FrmSuscripcionOro extends javax.swing.JInternalFrame {
         txtDescripcion.setEnabled(false);
         jScrollPane3.setViewportView(txtDescripcion);
 
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -276,6 +283,9 @@ public class FrmSuscripcionOro extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 768, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(332, 332, 332)
+                .addComponent(btnEliminar))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,7 +321,10 @@ public class FrmSuscripcionOro extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel4))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEliminar)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -343,10 +356,36 @@ public class FrmSuscripcionOro extends javax.swing.JInternalFrame {
         limpiarP();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int fila = this.tblOro.getSelectedRow();
+        if (fila > -1) {
+            int SiONo = JOptionPane.showConfirmDialog(this, "Desea eliminar al producto",
+                    "Confirmación", JOptionPane.YES_NO_OPTION);
+            //Confirmacion para eliminar
+            if (SiONo == 0) {
+                try {
+                    String id = tblOro.getValueAt(fila, 0).toString();
+                    or.setIdOro(Integer.parseInt(id));
+                    daoO.eliminarSusOro(or);
+                    mostrarOro();
+                } catch (Exception ex) {
+                    Logger.getLogger(FrmSuscripcionBronce.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                tblOro.clearSelection();
+            }
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila de la tabla",
+                    "Mensaje", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

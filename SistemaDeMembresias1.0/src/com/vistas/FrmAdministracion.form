@@ -135,7 +135,7 @@
             <Property name="text" type="java.lang.String" value="TABLAS"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="btnOrden">
+            <MenuItem class="javax.swing.JMenuItem" name="btnEnvioProducto">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/com/media/orden.png"/>
@@ -148,7 +148,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrdenActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnvioProductoActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -163,7 +163,15 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnProductosI">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/producto.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Productos"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                    <BevelBorder/>
+                  </Border>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductosIActionPerformed"/>
@@ -181,6 +189,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/wine_freezer (1).png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="PRODUCTOS"/>
           </Properties>
           <SubComponents>
@@ -204,6 +215,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu4">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/advertising.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="PUBLICIDAD"/>
           </Properties>
           <SubComponents>
@@ -219,6 +233,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/route_map.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="COBERTURA"/>
           </Properties>
           <SubComponents>
@@ -241,11 +258,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Oro"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOroActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnPlata">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Plata"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPlataActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnBronce">
               <Properties>
@@ -259,6 +282,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="btnCerrarSesion">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/exit.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="CERRAR SESION"/>
             <Property name="horizontalAlignment" type="int" value="11"/>
           </Properties>

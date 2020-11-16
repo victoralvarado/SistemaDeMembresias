@@ -29,7 +29,6 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmCarrito carrito = new FrmCarrito();
         FrmCategoria categoria=new FrmCategoria();
         FrmMarca marca = new FrmMarca();
-        FrmOrden orden=new FrmOrden();
         FrmPortada portada = new FrmPortada();
         FrmUsuario usuario = new FrmUsuario();
         FrmTipoSuscriptor tiposuscriptor = new FrmTipoSuscriptor();
@@ -39,6 +38,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmPublicidad publicidad = new FrmPublicidad();
         FrmCobertura cobertura= new FrmCobertura();
         FrmSuscripcionBronce bronce = new FrmSuscripcionBronce();
+        FrmSuscripcionOro oro = new FrmSuscripcionOro();
+        FrmSuscripcionPlata plata = new FrmSuscripcionPlata();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -47,7 +48,6 @@ public class FrmAdministracion extends javax.swing.JFrame {
             producto.setVisible(false);
             carrito.setVisible(false);
             categoria.setVisible(false);
-            orden.setVisible(false);
             marca.setVisible(false);
             productoI.setVisible(false);
             portada.setVisible(false);
@@ -58,6 +58,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
             licor.setVisible(false);
             cobertura.setVisible(false);
             bronce.setVisible(false);
+            oro.setVisible(false);
+            plata.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -101,7 +103,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnUsuario = new javax.swing.JMenuItem();
         btnTipoSuscriptor = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        btnOrden = new javax.swing.JMenuItem();
+        btnEnvioProducto = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnProductosI = new javax.swing.JMenuItem();
         btnPortada = new javax.swing.JMenuItem();
@@ -208,22 +210,24 @@ public class FrmAdministracion extends javax.swing.JFrame {
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/tablas.png"))); // NOI18N
         jMenu1.setText("TABLAS");
 
-        btnOrden.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/orden.png"))); // NOI18N
-        btnOrden.setText("Ordenes");
-        btnOrden.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnOrden.addActionListener(new java.awt.event.ActionListener() {
+        btnEnvioProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/orden.png"))); // NOI18N
+        btnEnvioProducto.setText("Ordenes");
+        btnEnvioProducto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEnvioProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrdenActionPerformed(evt);
+                btnEnvioProductoActionPerformed(evt);
             }
         });
-        jMenu1.add(btnOrden);
+        jMenu1.add(btnEnvioProducto);
 
         menuPrincipal.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/inicio.png"))); // NOI18N
         jMenu2.setText("INICIO");
 
+        btnProductosI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/producto.png"))); // NOI18N
         btnProductosI.setText("Productos");
+        btnProductosI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnProductosI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosIActionPerformed(evt);
@@ -241,6 +245,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(jMenu2);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/wine_freezer (1).png"))); // NOI18N
         jMenu3.setText("PRODUCTOS");
 
         btnVino.setText("Vino");
@@ -261,6 +266,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(jMenu3);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/advertising.png"))); // NOI18N
         jMenu4.setText("PUBLICIDAD");
 
         btnPublicidad.setText("Plubicidad");
@@ -273,6 +279,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(jMenu4);
 
+        jMenu5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/route_map.png"))); // NOI18N
         jMenu5.setText("COBERTURA");
 
         btnCobertura.setText("Cobertura");
@@ -288,9 +295,19 @@ public class FrmAdministracion extends javax.swing.JFrame {
         jMenu6.setText("PRODUCTO SUCRIPCION");
 
         btnOro.setText("Oro");
+        btnOro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOroActionPerformed(evt);
+            }
+        });
         jMenu6.add(btnOro);
 
         btnPlata.setText("Plata");
+        btnPlata.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlataActionPerformed(evt);
+            }
+        });
         jMenu6.add(btnPlata);
 
         btnBronce.setText("Bronce");
@@ -303,6 +320,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(jMenu6);
 
+        btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/exit.png"))); // NOI18N
         btnCerrarSesion.setText("CERRAR SESION");
         btnCerrarSesion.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         btnCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -351,10 +369,9 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(categoria);
     }//GEN-LAST:event_btnCategoriaActionPerformed
 
-    private void btnOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenActionPerformed
-        FrmOrden orden=new FrmOrden();
-        abrirFrm(orden);
-    }//GEN-LAST:event_btnOrdenActionPerformed
+    private void btnEnvioProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvioProductoActionPerformed
+        
+    }//GEN-LAST:event_btnEnvioProductoActionPerformed
 
     private void btnMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcaActionPerformed
         FrmMarca marca = new FrmMarca();
@@ -412,6 +429,16 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(bronce);
     }//GEN-LAST:event_btnBronceActionPerformed
 
+    private void btnOroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOroActionPerformed
+        FrmSuscripcionOro oro = new FrmSuscripcionOro();
+        abrirFrm(oro);
+    }//GEN-LAST:event_btnOroActionPerformed
+
+    private void btnPlataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlataActionPerformed
+        FrmSuscripcionPlata plata = new FrmSuscripcionPlata();
+        abrirFrm(plata);
+    }//GEN-LAST:event_btnPlataActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -452,10 +479,10 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnCategoria;
     private javax.swing.JMenu btnCerrarSesion;
     private javax.swing.JMenuItem btnCobertura;
+    private javax.swing.JMenuItem btnEnvioProducto;
     private javax.swing.JMenuItem btnLicor;
     private javax.swing.JMenuItem btnMarca;
     private javax.swing.JMenu btnMenu;
-    private javax.swing.JMenuItem btnOrden;
     private javax.swing.JMenuItem btnOro;
     private javax.swing.JMenuItem btnPlata;
     private javax.swing.JMenuItem btnPortada;

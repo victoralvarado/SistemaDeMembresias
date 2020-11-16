@@ -30,7 +30,7 @@ public class DaoBronce extends Conexion implements OperacionesBronce{
             rs = pre.executeQuery();
             while (rs.next()) {                
                 Bronce b= new Bronce();
-                b.setIdBronce(rs.getInt("idOro"));
+                b.setIdBronce(rs.getInt("idBronce"));
                 b.setIdProducto(rs.getInt("idProducto"));     
                 lst.add(b);
             }
