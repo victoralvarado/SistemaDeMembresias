@@ -34,8 +34,11 @@ public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProduc
                 enp.setIdEnvio(rs.getInt("idEnvio"));
                 enp.setIdSuscriptor(rs.getInt("idSuscriptor"));
                 enp.setIdPersonaExterna(rs.getInt("idPersonaExterna"));
-                enp.setTelefono(rs.getString("telefono"));
                 enp.setFechaEnvio(rs.getString("fechaEnvio"));
+                enp.setIdProducto(rs.getInt("idProducto"));
+                enp.setDetalleEnvio(rs.getString("detalleEnvio"));
+                enp.setEstado(rs.getInt("estado"));
+                enp.setIdCobertura(rs.getInt("idCobertura"));
                 envio.add(enp);
             }
         } catch (SQLException e) {
@@ -52,13 +55,15 @@ public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProduc
     public void insertarProducto(EnvioProducto env) throws Exception {
        try {
             this.conectar();
-            String sql = "insert into envioProducto values(?,?,?,?,?);";
+            String sql = "insert into envioProducto (idSuscriptor,idPersonaExtra,fechaEnvio,idProducto,detalleEnvio,estado,idCobertura) values(?,?,?,?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, env.getIdEnvio());
-            pre.setInt(2, env.getIdSuscriptor());
-            pre.setInt(3, env.getIdPersonaExterna());
-            pre.setString(4, env.getTelefono());
-            pre.setString(5, env.getFechaEnvio());
+            pre.setInt(1, env.getIdSuscriptor());
+            pre.setInt(2, env.getIdPersonaExterna());
+            pre.setString(3, env.getFechaEnvio());
+            pre.setInt(4, env.getIdProducto());
+            pre.setString(5, env.getDetalleEnvio());
+            pre.setInt(6, env.getEstado());
+            pre.setInt(7, env.getIdCobertura());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
                     "Insertar", JOptionPane.INFORMATION_MESSAGE);
@@ -75,12 +80,15 @@ public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProduc
     public void modificarProducto(EnvioProducto env) throws Exception {
         try {
             this.conectar();
-            String sql = "update envioProducto  set idSuscriptor = ?,  idPersonaExterna= ? ,telefono=?, fechaEnvio=? where idEnvio = ?;";
+            String sql = "update envioProducto  set idSuscriptor=?,  idPersonaExterna=?, fechaEnvio=?, idProducto=?, detalleEnvio=?, estado=?, idCobertura=? where idEnvio = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, env.getIdSuscriptor());
             pre.setInt(2, env.getIdPersonaExterna());
-            pre.setString(3, env.getTelefono());
             pre.setString(4, env.getFechaEnvio());
+            pre.setInt(4, env.getIdProducto());
+            pre.setString(5, env.getDetalleEnvio());
+            pre.setInt(6, env.getEstado());
+            pre.setInt(7, env.getIdCobertura());
             pre.setInt(5, env.getIdEnvio());
             pre.executeUpdate();
             JOptionPane.showMessageDialog(null, "Datos modificados correctamente",
