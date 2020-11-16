@@ -232,6 +232,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         spStock.setValue(0);
         this.fis = null;
         tblProducto.clearSelection();
+        comboMarca.setSelectedIndex(0);
     }
     
     public void llenarTabla() {

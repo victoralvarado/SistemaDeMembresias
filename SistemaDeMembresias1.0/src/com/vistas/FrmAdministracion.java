@@ -223,7 +223,9 @@ public class FrmAdministracion extends javax.swing.JFrame {
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/inicio.png"))); // NOI18N
         jMenu2.setText("INICIO");
 
+        btnProductosI.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/producto.png"))); // NOI18N
         btnProductosI.setText("Productos");
+        btnProductosI.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnProductosI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosIActionPerformed(evt);
