@@ -19,9 +19,7 @@ import java.util.regex.Pattern;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
-
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 /**
