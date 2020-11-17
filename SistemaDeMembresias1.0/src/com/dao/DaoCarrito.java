@@ -144,8 +144,6 @@ public class DaoCarrito extends Conexion implements OperacionesCarrito{
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, idSuscriptor);
             pre.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Se eliminaron los productos del carrito",
-                    "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);

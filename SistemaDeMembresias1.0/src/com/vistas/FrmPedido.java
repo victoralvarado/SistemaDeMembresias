@@ -1,11 +1,13 @@
 package com.vistas;
 
+import com.conexion.Conexion;
 import com.dao.DaoCarrito;
 import com.dao.DaoCobertura;
 import com.dao.DaoEnvioProducto;
 import com.dao.DaoPersonaExterna;
 import com.dao.DaoProducto;
 import com.dao.DaoSuscriptor;
+import com.dao.DaoUsuario;
 import com.modelo.Carrito;
 import com.modelo.Cobertura;
 import com.modelo.EnvioProducto;
@@ -13,20 +15,28 @@ import com.modelo.PersonaExterna;
 import com.modelo.Producto;
 import com.utilidades.ComboItem;
 import com.utilidades.CustomImageIcon;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * Nombre de la clase: FrmPedido
@@ -41,6 +51,7 @@ public class FrmPedido extends javax.swing.JInternalFrame {
     DaoCarrito daoc = new DaoCarrito();
     Carrito car = new Carrito();
     DaoProducto daop = new DaoProducto();
+    DaoUsuario daous = new DaoUsuario();
     Producto prod = new Producto();
     DaoSuscriptor daos = new DaoSuscriptor();
     NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
@@ -48,6 +59,8 @@ public class FrmPedido extends javax.swing.JInternalFrame {
     int tiposuscriptor = 0;
     double des = 0;
     double caldes = 0;
+    Conexion con = new Conexion();
+    JasperReport reporte;
     EnvioProducto envio = new EnvioProducto();
     DaoPersonaExterna daope = new DaoPersonaExterna();
     DaoEnvioProducto daoe = new DaoEnvioProducto();
@@ -124,7 +137,7 @@ public class FrmPedido extends javax.swing.JInternalFrame {
                 datos[1] = car.getIdProducto();
                 datos[2] = daop.getProducto(car.getIdProducto()).getNombre();
                 double precio = Double.parseDouble(daop.info("precioVenta", Integer.parseInt(id)));
-                datos[3] = nf.format(precio);
+                datos[3] = precio;
                 double cantidad = car.getCantidad();
                 datos[4] = car.getCantidad();
                 
@@ -174,44 +187,37 @@ public class FrmPedido extends javax.swing.JInternalFrame {
             } else {
                 val = false;
             }
-        } else {
-            val = true;
-        }
-        return val;
-    }
-    
-    public boolean validarOtros() {
-        boolean validar;
-        if (cmbDepartamento.getSelectedIndex() == 0) {
+        } else if (cmbDepartamento.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un departamento valido", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
             cmbDepartamento.requestFocus();
-            validar = true;
+            val = true;
         } else if (cmbMunicipio.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un municipio valido", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
             cmbMunicipio.requestFocus();
-            validar = true;
+            val = true;
         } else if (txtDireccion.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(null, "Ingrese una direccion", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
             txtDireccion.requestFocus();
-            validar = true;
+            val = true;
         } else if (cmbBanco.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un banco", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
             cmbBanco.requestFocus();
-            validar = true;
+            val = true;
         } else if (cmbTipoTargeta.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un tipo de targeta", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
             cmbTipoTargeta.requestFocus();
-            validar = true;
+            val = true;
         } else {
-            validar = false;
+            val = false;
         }
-        return validar;
+        return val;
     }
+    
     
     public boolean validarTel(String tel) {
         //Validacion de numero telefonico
@@ -223,31 +229,56 @@ public class FrmPedido extends javax.swing.JInternalFrame {
     
     public void insertarPedido() {
         try {
-            pe.setNombre(this.txtNombre.getText());
-            pe.setDui(this.txtDui.getText());
-            pe.setTelefonoMovil(this.txtTelefono.getText());
-            pe.setIdSuscriptor(Integer.parseInt(lbl.getText()));
-            daope.insertarPersonaExterna(pe);
-            
-            int idPE = daope.getIdPersonaExterna(Integer.parseInt(lbl.getText()));
-            int contaf = tblEnvio.getRowCount();
-            int idCobertura = daoco.getIdCobertura(cmbMunicipio.getSelectedItem().toString());
-            for (int i = 1; i <= contaf; i++) {
-                int idP = (Integer.parseInt(this.tblEnvio.getValueAt(i, 1).toString()));
-                double precio = (Double.parseDouble(this.tblEnvio.getValueAt(i, 3).toString()));
-                int cantidad = (Integer.parseInt(this.tblEnvio.getValueAt(i, 4).toString()));
-                envio.setIdSuscriptor(Integer.parseInt(lbl.getText()));
-                envio.setIdPersonaExterna(idPE);
-                envio.setFechaEnvio("En Proceso");
-                envio.setIdProducto(idP);
-                envio.setDetalleEnvio("Precio Unitario: " + precio +" Cantidad: "+cantidad+" "+txtDireccion.getText());
-                envio.setEstado(1);
-                envio.setIdCobertura(idCobertura);
-                daoe.insertarProducto(envio);
+            if (tblEnvio.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "No tiene productos en el carrito",
+                        "Mensaje", JOptionPane.WARNING_MESSAGE);
+            } else {
+                pe.setNombre(this.txtNombre.getText());
+                pe.setDui(this.txtDui.getText());
+                pe.setTelefonoMovil(this.txtTelefono.getText());
+                pe.setIdSuscriptor(Integer.parseInt(lbl.getText()));
+                daope.insertarPersonaExterna(pe);
+
+                int contaf = tblEnvio.getRowCount();
+                int idCobertura = daoco.getIdCobertura(cmbMunicipio.getSelectedItem().toString());
+                for (int i = 0; i < contaf; i++) {
+                    int idP = (Integer.parseInt(this.tblEnvio.getValueAt(i, 1).toString()));
+                    double precio = (Double.parseDouble(this.tblEnvio.getValueAt(i, 3).toString()));
+                    int cantidad = (Integer.parseInt(this.tblEnvio.getValueAt(i, 4).toString()));
+                    envio.setIdSuscriptor(Integer.parseInt(lbl.getText()));
+                    envio.setIdPersonaExterna(daope.getIdPersonaExterna(Integer.parseInt(lbl.getText())));
+                    envio.setFechaEnvio("En Proceso");
+                    envio.setIdProducto(idP);
+                    envio.setDetalleEnvio("Precio Unitario: " + precio + " Cantidad: " + cantidad + " " + txtDireccion.getText());
+                    envio.setEstado(1);
+                    envio.setIdCobertura(idCobertura);
+                    daoe.insertarProducto(envio);
+                }
+                try {
+                    con.conectar();
+                    Map parametros = new HashMap();
+                    parametros.put("id", Integer.parseInt(lbl.getText()));
+                    parametros.put("subtotal", (totalPagar));
+                    parametros.put("totalfinal", (totalPagar - caldes));
+                    parametros.put("descuento", lblDescuento.getText());
+                    reporte = JasperCompileManager.compileReport("src/com/reportes/reporteFacturaCarrito.jrxml");
+                    JasperPrint jp = JasperFillManager.fillReport(reporte, parametros, con.getCon());
+                    JasperViewer.viewReport(jp, false);
+
+                } catch (NumberFormatException | JRException e) {
+                    System.err.println(e.getMessage());
+                }
+                daoc.eliminarTodo(Integer.parseInt(lbl.getText()));
+                mostrarCarrito();
             }
+
         } catch (Exception ex) {
             Logger.getLogger(FrmPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void limpiarCarrito() {
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -565,7 +596,7 @@ public class FrmPedido extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(606, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -574,7 +605,7 @@ public class FrmPedido extends javax.swing.JInternalFrame {
                         .addGap(544, 544, 544))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnRealizarPedido)
-                        .addGap(593, 593, 593))))
+                        .addGap(592, 592, 592))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -686,9 +717,7 @@ public class FrmPedido extends javax.swing.JInternalFrame {
 
     private void btnRealizarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRealizarPedidoMouseClicked
         if (!validarPE()) {
-            if (!validarOtros()) {
-                
-            }
+                insertarPedido();
         }
     }//GEN-LAST:event_btnRealizarPedidoMouseClicked
 

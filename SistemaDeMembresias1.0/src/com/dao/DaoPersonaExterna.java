@@ -50,7 +50,7 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
     public void insertarPersonaExterna(PersonaExterna pe) throws Exception {
         try {
             this.conectar();
-            String sql = "insert into personaExterna(nombre, dui, telefono, idSuscriptor) values(?,?,?,?);";
+            String sql = "insert into personaExterna(nombre, dui, telefonoMovil, idSuscriptor) values(?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setString(1, pe.getNombre());
             pre.setString(2, pe.getDui());
@@ -107,14 +107,14 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
         }
     }
     
-    public int getIdPersonaExterna(int IdSuscriptor) {
+    public int getIdPersonaExterna(int idSuscriptor) {
         int id = 0;
         ResultSet rs = null;
         try {
             this.conectar();
             String sql = "Select idPersonaExterna from personaExterna where idSuscriptor = ?";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
-            pre.setInt(1, IdSuscriptor);
+            pre.setInt(1, idSuscriptor);
             rs = pre.executeQuery();
             while (rs.next()) {                
                 id = rs.getInt("idPersonaExterna");
@@ -122,6 +122,8 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error idPE"
                     + e.getMessage());
+        } finally {
+            this.desconectar();
         }
         return id;
     }

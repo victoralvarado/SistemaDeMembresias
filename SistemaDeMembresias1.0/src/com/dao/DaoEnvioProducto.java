@@ -55,7 +55,7 @@ public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProduc
     public void insertarProducto(EnvioProducto env) throws Exception {
        try {
             this.conectar();
-            String sql = "insert into envioProducto (idSuscriptor,idPersonaExtra,fechaEnvio,idProducto,detalleEnvio,estado,idCobertura) values(?,?,?,?,?,?,?);";
+            String sql = "insert into envioProducto (idSuscriptor,idPersonaExterna,fechaEnvio,idProducto,detalleEnvio,estado,idCobertura) values(?,?,?,?,?,?,?);";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, env.getIdSuscriptor());
             pre.setInt(2, env.getIdPersonaExterna());
@@ -65,8 +65,6 @@ public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProduc
             pre.setInt(6, env.getEstado());
             pre.setInt(7, env.getIdCobertura());
             pre.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Datos insertados correctamente",
-                    "Insertar", JOptionPane.INFORMATION_MESSAGE);
         } catch (HeadlessException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al insertar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
