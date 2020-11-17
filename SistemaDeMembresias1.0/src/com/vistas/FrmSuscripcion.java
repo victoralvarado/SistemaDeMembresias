@@ -1,9 +1,11 @@
 package com.vistas;
 
+import com.dao.DaoBanco;
 import com.dao.DaoCobertura;
 import com.dao.DaoSuscriptor;
 import com.dao.DaoTipoSucriptor;
 import com.dao.DaoUsuario;
+import com.modelo.Banco;
 import com.modelo.Cobertura;
 import com.modelo.Suscriptor;
 import com.modelo.TipoSucriptor;
@@ -51,6 +53,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagen","jpg","png","jpeg");
     Date fechaActual = new Date();
     int conta =0;
+    DaoBanco daoban = new DaoBanco();
     NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
     public FrmSuscripcion() {
         initComponents();
@@ -69,6 +72,11 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         dateFechaActual.setDate(fechaActual);
         try {
             llenarCombo(comboSuscripcion, (ArrayList<TipoSucriptor>)daots.mostrarTipoSus());
+        } catch (Exception ex) {
+            Logger.getLogger(FrmSuscripcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            llenarComboBanco(comboBanco, (ArrayList<Banco>)daoban.mostrarBancos());
         } catch (Exception ex) {
             Logger.getLogger(FrmSuscripcion.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -121,6 +129,13 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         combo.addItem("-- Seleccione --");
         list.forEach((item) -> {
             combo.addItem(new ComboItem(item.getTipoSuscriptor(), item.getNombre()));
+        });
+    }
+    
+    public void llenarComboBanco(JComboBox combo, ArrayList<Banco> list) {
+        combo.addItem("-- Seleccione --");
+        list.forEach((item) -> {
+            combo.addItem(new ComboItem(item.getIdBanco(), item.getNombre()));
         });
     }
     
@@ -470,8 +485,6 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         jLabel12.setText("Numero de targeta:");
 
         jLabel13.setText("Banco:");
-
-        comboBanco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --", "Agricola", "Cuscatlán ", "Davivienda ", "Hipotecario ", "Promerica", "BAC", "ABANK", "Azul" }));
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -887,7 +900,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cmbDepartamento;
     private javax.swing.JComboBox<String> cmbMunicipio;
-    private javax.swing.JComboBox<String> comboBanco;
+    private javax.swing.JComboBox<ComboItem> comboBanco;
     private javax.swing.JComboBox<String> comboSuscripcion;
     private javax.swing.JComboBox<String> comboTiempoSus;
     private javax.swing.JComboBox<String> comboTipoTargeta;

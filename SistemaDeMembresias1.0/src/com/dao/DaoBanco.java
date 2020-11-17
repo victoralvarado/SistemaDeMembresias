@@ -22,17 +22,14 @@ public class DaoBanco extends Conexion implements OperacionesBanco {
 
     @Override
     public List<Banco> mostrarBancos() throws Exception {
-         List<Banco>listaBanco;
-        listaBanco = new ArrayList();
+        List<Banco> listaBanco = new ArrayList();
         ResultSet res;
-        
         try
         {
             this.conectar();
             String sql="select * from banco";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             res= pre.executeQuery();
-            
             while(res.next())
             {
                 Banco ba = new Banco();
@@ -61,7 +58,8 @@ public class DaoBanco extends Conexion implements OperacionesBanco {
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, ba.getIdBanco());
             pre.setString(2, ba.getNombre());
-            pre.executeUpdate();   
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Banco insertado correctamente");
         }catch(SQLException e)
         {
             JOptionPane.showMessageDialog(null, "Error al insertar"+

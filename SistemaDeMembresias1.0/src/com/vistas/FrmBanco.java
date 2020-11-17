@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmBanco extends javax.swing.JInternalFrame {
 
-   Banco ba;
+    Banco ba = new Banco();
     DaoBanco daoB = new DaoBanco();
     ValidarCampos vc = new ValidarCampos();
     public FrmBanco() {
@@ -25,12 +25,12 @@ public class FrmBanco extends javax.swing.JInternalFrame {
         mostrar();
     }
 
-      public void mostrar()
+    public void mostrar()
     {
-        DefaultTableModel tabla;
-        String encabezados[] = {"Codigo","Nombre"};
-        tabla=new DefaultTableModel(null,encabezados);
+        
+        String[] encabezados = {"Codigo","Nombre"};
         Object datos[] = new Object[2];
+        DefaultTableModel tabla=new DefaultTableModel(null,encabezados);
         try
         {
             List lista;
@@ -43,7 +43,6 @@ public class FrmBanco extends javax.swing.JInternalFrame {
                 tabla.addRow(datos);
             }
             this.tblBanco.setModel(tabla);
-            
             
         }catch(Exception e)
         {
@@ -71,12 +70,11 @@ public class FrmBanco extends javax.swing.JInternalFrame {
             ba.setIdBanco(Integer.parseInt(this.txtCodigo.getText()));
             ba.setNombre(this.txtNombre.getText());
             daoB.insertarBanco(ba);
-            JOptionPane.showMessageDialog(null, "Banco insertado correctamente");
             limpiar();
             mostrar();
         }catch(Exception e)
         {
-             JOptionPane.showMessageDialog(null, "Error al insertar en formulario");
+             JOptionPane.showMessageDialog(null, "Error al insertar en formulario "+e);
         }
         
     }
@@ -166,6 +164,9 @@ public class FrmBanco extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tblBanco);
+
+        setClosable(true);
+        setIconifiable(true);
 
         jLabel1.setText("Mantenimiento Banco");
 
