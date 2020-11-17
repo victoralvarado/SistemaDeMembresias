@@ -128,7 +128,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="btnPagarSuscripción" min="-2" pref="148" max="-2" attributes="0"/>
-                                              <Component id="jButton1" min="-2" pref="148" max="-2" attributes="0"/>
+                                              <Component id="btnCancelar" min="-2" pref="148" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Component id="lblresivira" min="-2" pref="518" max="-2" attributes="0"/>
@@ -200,17 +200,16 @@
                                           <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
                                           <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="comboDepartamento" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
-                                      <Component id="ComboMunicipio" min="-2" pref="236" max="-2" attributes="0"/>
+                                      <Component id="cmbDepartamento" alignment="0" min="-2" pref="220" max="-2" attributes="0"/>
+                                      <Component id="cmbMunicipio" min="-2" pref="236" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="83" pref="83" max="-2" attributes="0"/>
                                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -273,7 +272,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="comboDepartamento" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbDepartamento" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -310,7 +309,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="ComboMunicipio" min="-2" max="-2" attributes="0"/>
+                          <Component id="cmbMunicipio" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -327,7 +326,7 @@
                           <Component id="lblresivira" min="-2" pref="49" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
@@ -589,10 +588,13 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField2">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnCancelar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnCancelarMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
@@ -665,12 +667,15 @@
             <Property name="text" type="java.lang.String" value="Tipo de targeta"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="comboDepartamento">
+        <Component class="javax.swing.JComboBox" name="cmbDepartamento">
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbDepartamentoItemStateChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JComboBox" name="ComboMunicipio">
+        <Component class="javax.swing.JComboBox" name="cmbMunicipio">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

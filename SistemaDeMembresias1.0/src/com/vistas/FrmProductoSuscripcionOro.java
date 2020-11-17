@@ -7,6 +7,7 @@ import com.dao.DaoPersonaExterna;
 import com.dao.DaoProducto;
 import com.dao.DaoSuscriptor;
 import com.modelo.Cobertura;
+import com.modelo.EnvioProducto;
 import com.modelo.Oro;
 import com.modelo.PersonaExterna;
 import com.utilidades.ComboItem;
@@ -33,13 +34,14 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
     DaoCobertura daoc = new DaoCobertura();
     DaoOro daoOr = new DaoOro();
     Oro or = new Oro();
+    EnvioProducto envio = new EnvioProducto();
     DaoProducto daop = new DaoProducto();
     DaoPersonaExterna daope = new DaoPersonaExterna();
     DaoEnvioProducto daoe = new DaoEnvioProducto();
     PersonaExterna pe = new PersonaExterna();
     DaoSuscriptor daos = new DaoSuscriptor();
     JLabel lblEmail = new JLabel();
-
+    int pedido = 0;
     public FrmProductoSuscripcionOro() {
         initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -100,6 +102,7 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
    
       public void insertarEnvio() {
         try {
+            pedido = 1;
             pe.setNombre(this.txtNombre.getText());
             pe.setDui(this.txtDui.getText());
             pe.setTelefonoMovil(this.txtTelefono.getText());
@@ -108,8 +111,23 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
             daope.insertarPersonaExterna(pe);
             
             int idPE = daope.getIdPersonaExterna(idS);
-            
-            
+            int contaf = tblOro.getRowCount();
+            int idCobertura = daoc.getIdCobertura(cmbMunicipio.getSelectedItem().toString());
+            for (int i = 1; i <= contaf; i++) {
+                int idP = (Integer.parseInt(this.tblOro.getValueAt(i, 1).toString()));
+                envio.setIdSuscriptor(idS);
+                envio.setIdPersonaExterna(idPE);
+                envio.setFechaEnvio("En Proceso");
+                envio.setIdProducto(idP);
+                envio.setDetalleEnvio(txtDireccion.getText());
+                envio.setEstado(1);
+                envio.setIdCobertura(idCobertura);
+                daoe.insertarProducto(envio);
+            }
+            FrmLogin login = new FrmLogin();
+            FrmProductoSuscripcion fsus = new FrmProductoSuscripcion();
+            fsus.dispose();
+            login.show();
         } catch (Exception e) {
         }
     }
@@ -470,7 +488,24 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
-        System.exit(0);
+        if (pedido == 0) {
+            int respuesta = JOptionPane.showConfirmDialog(this, "¿esta seguro que desea cerrar el fomulario?,\nSi no realiza el pedido no se enviaran los productos", "Cerrando", JOptionPane.YES_NO_OPTION);
+            if (respuesta == JOptionPane.OK_OPTION) {
+                System.exit(0);
+                FrmLogin login = new FrmLogin();
+                FrmProductoSuscripcion fsus = new FrmProductoSuscripcion();
+                fsus.dispose();
+                login.show();
+            } else {
+                btnFinalizarPedido.requestFocus();
+            }
+        } else {
+            System.exit(0);
+            FrmLogin login = new FrmLogin();
+            FrmProductoSuscripcion fsus = new FrmProductoSuscripcion();
+            fsus.dispose();
+            login.show();
+        }
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void radioSiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_radioSiItemStateChanged
@@ -505,7 +540,7 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
     private void btnFinalizarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseClicked
         if (!validarPE()) {
             if (!validarDireccion()) {
-
+                insertarEnvio();
             }
         }
     }//GEN-LAST:event_btnFinalizarPedidoMouseClicked

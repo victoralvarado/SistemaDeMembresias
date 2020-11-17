@@ -1,8 +1,10 @@
 package com.vistas;
 
+import com.dao.DaoCobertura;
 import com.dao.DaoSuscriptor;
 import com.dao.DaoTipoSucriptor;
 import com.dao.DaoUsuario;
+import com.modelo.Cobertura;
 import com.modelo.Suscriptor;
 import com.modelo.TipoSucriptor;
 import com.modelo.Usuario;
@@ -41,6 +43,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     Suscriptor s = new Suscriptor();
     TipoSucriptor ts = new TipoSucriptor();
     DaoUsuario daou = new DaoUsuario();
+    DaoCobertura daoc = new DaoCobertura();
     Usuario u = new Usuario();
     FileInputStream fis;
     int longitudBytes;
@@ -56,6 +59,12 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     
     public FrmSuscripcion(String fechaN){
         initComponents();
+        try {
+            cargarComboC(cmbDepartamento, (ArrayList<Cobertura>)daoc.mostrarDepartamento());
+        } catch (Exception ex) {
+            Logger.getLogger(FrmProductoSuscripcionOro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        cmbMunicipio.setEnabled(false);
         dateNacimiento.setDate(parseFecha(fechaN));
         dateFechaActual.setDate(fechaActual);
         try {
@@ -64,7 +73,8 @@ public class FrmSuscripcion extends javax.swing.JFrame {
             Logger.getLogger(FrmSuscripcion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void calcularEdad() {
+    public boolean calcularEdad() {
+        boolean fecha;
         int yearn = dateNacimiento.getCalendar().get(Calendar.YEAR);
         int mesn = dateNacimiento.getCalendar().get(Calendar.MONTH);
         int dayn = dateNacimiento.getCalendar().get(Calendar.DAY_OF_MONTH);
@@ -75,20 +85,23 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         for (int i = yearn; i < year; i++) {
             conta++;
         }
-        //JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse edad "+dayn);
         if (conta < 18) {
-            JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse"); 
-        } else if (conta == 18 && mesn+1 >= mes+1 && dayn >= day) {
-            JOptionPane.showMessageDialog(this, "Usted es mayor de edad \nFecha Cumple"+yearn+"-"+mesn+"-"+dayn+
-                    "\n Fecha actual"+year+"-"+mes+"-"+day);
-        } else if (conta == 18 && mesn+1 >= mes+1 && dayn < day) {
             JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse");
-        } else if (conta  == 18 && mesn+1 < mes+1) {
+            fecha = false;
+        } else if (conta == 18 && mesn + 1 >= mes + 1 && dayn >= day) {
+            JOptionPane.showMessageDialog(this, "Usted es mayor de edad \nFecha Cumple" + yearn + "-" + mesn + "-" + dayn
+                    + "\n Fecha actual" + year + "-" + mes + "-" + day);
+            fecha = true;
+        } else if (conta == 18 && mesn + 1 >= mes + 1 && dayn < day) {
             JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse");
+            fecha = false;
+        } else if (conta == 18 && mesn + 1 < mes + 1) {
+            JOptionPane.showMessageDialog(this, "Debe ser mayor de edad para suscribirse");
+            fecha = false;
+        } else {
+            fecha = true;
         }
-        else {
-            JOptionPane.showMessageDialog(this, "Su edad es"+conta);
-        }
+        return fecha;
     }
     public static Date parseFecha(String fecha)
     {
@@ -140,15 +153,15 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     
     public void insertar() {
         try {
-            if (!daou.email(this.txtCorreo.getText())) {
+            if (daou.email(this.txtCorreo.getText())) {
                 this.txtCorreo.requestFocus();
             } else {
                 s.setNombre(this.txtNombre.getText());
                 s.setApellido(this.txtApellido.getText());
                 s.setEmail(this.txtCorreo.getText());
                 s.setTelefono(this.txtTelefono.getText());
-                s.setDireccion(txtDireccion.getText()+", "+ComboMunicipio.getSelectedItem().toString()+", "
-                        + ""+comboDepartamento.getSelectedItem().toString());
+                s.setDireccion(txtDireccion.getText()+", "+cmbMunicipio.getSelectedItem().toString()+", "
+                        + ""+cmbDepartamento.getSelectedItem().toString());
                 s.setTipoSuscriptor(this.comboSuscripcion.getSelectedIndex());
                 s.setFechaNacimiento(formatoFecha.format(dateNacimiento.getDate()));
                 s.setTotalCompra(calcularPago());
@@ -245,15 +258,15 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                     JOptionPane.WARNING_MESSAGE);
             comboTiempoSus.requestFocus();
             val = true;
-        } else if (this.comboDepartamento.getSelectedIndex() == 0) {
+        } else if (this.cmbDepartamento.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un departamento", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
-            comboDepartamento.requestFocus();
+            cmbDepartamento.requestFocus();
             val = true;
-        } else if (this.ComboMunicipio.getSelectedIndex() == 0) {
+        } else if (this.cmbMunicipio.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un municipio", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
-            ComboMunicipio.requestFocus();
+            cmbMunicipio.requestFocus();
             val = true;
         } else if (this.txtPassword.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(null, "Igrese una contraseña",
@@ -289,6 +302,29 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                 + "+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher mather = patternE.matcher(correo);
         return mather.find();
+    }
+    
+    private void cargarComboC(JComboBox combo, ArrayList<Cobertura> list) {
+        combo.addItem("-- Seleccione --");
+        list.forEach((item) -> {
+            combo.addItem(new ComboItem(item.getIdCobertura(), item.getDepartamento()));
+        });
+    }
+    
+    private void cargarComboM(JComboBox combo, ArrayList<Cobertura> listM) {
+        combo.addItem("-- Seleccione --");
+        listM.forEach((item) -> {
+            combo.addItem(new ComboItem(item.getIdCobertura(), item.getMunicipio()));
+        });
+    }
+    
+    public void mostrarMunicipio(String departamento) {
+        try {
+            cmbMunicipio.removeAllItems();
+            cargarComboM(cmbMunicipio, (ArrayList<Cobertura>) daoc.mostrarMunicipio(departamento));
+        } catch (Exception ex) {
+            Logger.getLogger(FrmProductoSuscripcionOro.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -329,7 +365,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         comboBanco = new javax.swing.JComboBox<>();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -340,8 +376,8 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         btnSeleccionar = new javax.swing.JButton();
         comboTipoTargeta = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
-        comboDepartamento = new javax.swing.JComboBox<>();
-        ComboMunicipio = new javax.swing.JComboBox<>();
+        cmbDepartamento = new javax.swing.JComboBox<>();
+        cmbMunicipio = new javax.swing.JComboBox<>();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -437,7 +473,12 @@ public class FrmSuscripcion extends javax.swing.JFrame {
 
         comboBanco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --", "Agricola", "Cuscatlán ", "Davivienda ", "Hipotecario ", "Promerica", "BAC", "ABANK", "Azul" }));
 
-        jButton1.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarMouseClicked(evt);
+            }
+        });
 
         jLabel14.setText("Por su suscripcion resivirá");
 
@@ -464,6 +505,12 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         comboTipoTargeta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --", "Debito", "Credito" }));
 
         jLabel18.setText("Tipo de targeta");
+
+        cmbDepartamento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbDepartamentoItemStateChanged(evt);
+            }
+        });
 
         jLabel20.setText("Departamento");
 
@@ -535,7 +582,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(btnPagarSuscripción, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(lblresivira, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 21, Short.MAX_VALUE))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -588,13 +635,12 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                         .addGap(91, 91, 91)
                                         .addComponent(jLabel21))
-                                    .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ComboMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                         .addGap(83, 83, 83)
-                                        .addComponent(jLabel20)))
-                                .addGap(21, 21, 21)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(jLabel20)))))
+                        .addGap(0, 21, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlBackgroundLayout.setVerticalGroup(
@@ -641,7 +687,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addComponent(jLabel20)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comboDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -671,7 +717,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbMunicipio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -686,7 +732,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                         .addComponent(lblresivira, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addComponent(btnCancelar)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -728,7 +774,9 @@ public class FrmSuscripcion extends javax.swing.JFrame {
 
     private void btnPagarSuscripciónMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPagarSuscripciónMouseClicked
         if (!validar()) {
-            insertar();
+            if (calcularEdad()) {
+                insertar();
+            }
         }
     }//GEN-LAST:event_btnPagarSuscripciónMouseClicked
 
@@ -784,6 +832,21 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSeleccionarMouseClicked
 
+    private void cmbDepartamentoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDepartamentoItemStateChanged
+        if (cmbDepartamento.getSelectedIndex() > 0) {
+            cmbMunicipio.setEnabled(true);
+            mostrarMunicipio(cmbDepartamento.getSelectedItem().toString());
+        } else {
+            cmbMunicipio.setEnabled(false);
+        }
+    }//GEN-LAST:event_cmbDepartamentoItemStateChanged
+
+    private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        this.dispose();
+        FrmLogin login = new FrmLogin();
+        login.show();
+    }//GEN-LAST:event_btnCancelarMouseClicked
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -818,18 +881,18 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> ComboMunicipio;
     private javax.swing.ButtonGroup bgGenero;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnPagarSuscripción;
     private javax.swing.JButton btnSeleccionar;
+    private javax.swing.JComboBox<String> cmbDepartamento;
+    private javax.swing.JComboBox<String> cmbMunicipio;
     private javax.swing.JComboBox<String> comboBanco;
-    private javax.swing.JComboBox<String> comboDepartamento;
     private javax.swing.JComboBox<String> comboSuscripcion;
     private javax.swing.JComboBox<String> comboTiempoSus;
     private javax.swing.JComboBox<String> comboTipoTargeta;
     private com.toedter.calendar.JDateChooser dateFechaActual;
     private com.toedter.calendar.JDateChooser dateNacimiento;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

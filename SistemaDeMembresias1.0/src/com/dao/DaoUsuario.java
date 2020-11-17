@@ -331,7 +331,6 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
         return filas;
-        
     }
     
 }
