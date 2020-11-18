@@ -127,9 +127,9 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
                 daoe.insertarProducto(envio);
             }
             FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Plata");
-                sus.tim.cancel();
-                sus.tim = new Timer();
-                sus.tim.schedule(sus.tareacerrar, 0);
+            sus.tim.cancel();
+            sus.tim = new Timer();
+            sus.tim.schedule(sus.tareacerrar, 0);
         } catch (Exception e) {
         }
     }
@@ -155,15 +155,7 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
             } else {
                 val = false;
             }
-        } else {
-            val = true;
-        }
-        return val;
-    }
-    
-    public boolean validarDireccion() {
-        boolean val;
-        if (cmbDepartamento.getSelectedIndex() == 0) {
+        } else if (cmbDepartamento.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un departamento valido", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
             cmbDepartamento.requestFocus();
@@ -542,9 +534,7 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
 
     private void btnFinalizarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseClicked
         if (!validarPE()) {
-            if (!validarDireccion()) {
                 insertarEnvio();
-            }
         }
     }//GEN-LAST:event_btnFinalizarPedidoMouseClicked
 

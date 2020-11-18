@@ -68,14 +68,15 @@ public class FrmProductoSuscripcion extends javax.swing.JFrame {
         };
          timer.schedule(tarea, 0000);
     }
-    
+    public void cerrar() {
+        FrmLogin login = new FrmLogin();
+        System.exit(0);
+        login.show();
+    }
     public TimerTask tareacerrar = new TimerTask() {
         @Override
         public void run() {
-            FrmProductoSuscripcion fsus = new FrmProductoSuscripcion(e.getText(), t.getText());
-            fsus.setVisible(false);
-            FrmLogin login = new FrmLogin();
-            login.show();
+            cerrar();
         }
     };
     

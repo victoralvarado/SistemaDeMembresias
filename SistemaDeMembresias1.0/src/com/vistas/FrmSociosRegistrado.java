@@ -105,7 +105,9 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         dateFechaActual = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("SOCIOS REGISTRADOS");
@@ -125,17 +127,12 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Fecha: ");
 
+        dateFechaActual.setDateFormatString("yyyy-MM-dd");
+
         jButton1.setText("Generar reporte diario");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
-            }
-        });
-
-        jButton2.setText("Cerrar");
-        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton2MouseClicked(evt);
             }
         });
 
@@ -159,10 +156,6 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(22, 22, 22))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,9 +169,7 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
                     .addComponent(jButton1))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,15 +207,10 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_jButton2MouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser dateFechaActual;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

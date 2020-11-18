@@ -127,9 +127,9 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
                 daoe.insertarProducto(envio);
             }
             FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Oro");
-                sus.tim.cancel();
-                sus.tim = new Timer();
-                sus.tim.schedule(sus.tareacerrar, 0);
+            sus.tim.cancel();
+            sus.tim = new Timer();
+            sus.tim.schedule(sus.tareacerrar, 0);
         } catch (Exception e) {
         }
     }
@@ -503,9 +503,9 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
             }
         } else {
             FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Oro");
-                sus.tim.cancel();
-                sus.tim = new Timer();
-                sus.tim.schedule(sus.tareacerrar, 0);
+            sus.tim.cancel();
+            sus.tim = new Timer();
+            sus.tim.schedule(sus.tareacerrar, 0);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 

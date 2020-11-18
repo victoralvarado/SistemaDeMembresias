@@ -92,9 +92,9 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
                 daoe.insertarProducto(envio);
             }
             FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Bronce");
-                sus.tim.cancel();
-                sus.tim = new Timer();
-                sus.tim.schedule(sus.tareacerrar, 0);
+            sus.tim.cancel();
+            sus.tim = new Timer();
+            sus.tim.schedule(sus.tareacerrar, 0);
         } catch (Exception e) {
             System.err.println("error: "+e);
         }
@@ -500,9 +500,9 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
             }
         } else {
             FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Bronce");
-                sus.tim.cancel();
-                sus.tim = new Timer();
-                sus.tim.schedule(sus.tareacerrar, 0);
+            sus.tim.cancel();
+            sus.tim = new Timer();
+            sus.tim.schedule(sus.tareacerrar, 0);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 

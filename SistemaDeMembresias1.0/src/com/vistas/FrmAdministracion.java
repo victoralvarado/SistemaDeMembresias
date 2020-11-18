@@ -41,6 +41,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmSuscripcionOro oro = new FrmSuscripcionOro();
         FrmSuscripcionPlata plata = new FrmSuscripcionPlata();
         FrmEnvioProducto envios = new FrmEnvioProducto();
+        FrmSociosRegistrado socio = new FrmSociosRegistrado();
         FrmBanco  banco = new FrmBanco();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
@@ -64,6 +65,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             plata.setVisible(false);
             banco.setVisible(false);
             envios.setVisible(true);
+            socio.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -107,6 +109,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnUsuario = new javax.swing.JMenuItem();
         btnTipoSuscriptor = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        btnSocios = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnProductosI = new javax.swing.JMenuItem();
         btnPortada = new javax.swing.JMenuItem();
@@ -215,7 +218,16 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         jMenu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/tablas.png"))); // NOI18N
-        jMenu1.setText("TABLAS");
+        jMenu1.setText("TABLAS Y REPORTES");
+
+        btnSocios.setText("Socios Registrados");
+        btnSocios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSociosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnSocios);
+
         menuPrincipal.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/inicio.png"))); // NOI18N
@@ -465,6 +477,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(banco);
     }//GEN-LAST:event_btnBancosActionPerformed
 
+    private void btnSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSociosActionPerformed
+        FrmSociosRegistrado socio = new FrmSociosRegistrado();
+        abrirFrm(socio);
+    }//GEN-LAST:event_btnSociosActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -516,6 +533,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnProducto;
     private javax.swing.JMenuItem btnProductosI;
     private javax.swing.JMenuItem btnPublicidad;
+    private javax.swing.JMenuItem btnSocios;
     private javax.swing.JMenuItem btnTipoSuscriptor;
     private javax.swing.JMenuItem btnUsuario;
     private javax.swing.JMenuItem btnVino;
