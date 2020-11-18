@@ -14,6 +14,7 @@ import com.modelo.Plata;
 import com.utilidades.ComboItem;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -41,6 +42,7 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
     PersonaExterna pe = new PersonaExterna();
     DaoSuscriptor daos = new DaoSuscriptor();
     JLabel lblEmail = new JLabel();
+    int idS = 0;
     int pedido = 0;
     public FrmProductoSuscripcionPlata() {
         initComponents();
@@ -63,6 +65,7 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
         }
         cmbMunicipio.setEnabled(false);
         radioSi.setSelected(true);
+        lblEmail.setText(email);
         cargarOro();
     }
    
@@ -107,17 +110,15 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
             pe.setNombre(this.txtNombre.getText());
             pe.setDui(this.txtDui.getText());
             pe.setTelefonoMovil(this.txtTelefono.getText());
-            int idS = daos.getIdSuscriptor(lblEmail.getText());
-            pe.setIdSuscriptor(idS);
+            pe.setIdSuscriptor(daos.getIdSuscriptor(lblEmail.getText()));
             daope.insertarPersonaExterna(pe);
             
-            int idPE = daope.getIdPersonaExterna(idS);
             int contaf = tblPlata.getRowCount();
             int idCobertura = daoc.getIdCobertura(cmbMunicipio.getSelectedItem().toString());
-            for (int i = 1; i <= contaf; i++) {
+            for (int i = 0; i < contaf; i++) {
                 int idP = (Integer.parseInt(this.tblPlata.getValueAt(i, 1).toString()));
-                envio.setIdSuscriptor(idS);
-                envio.setIdPersonaExterna(idPE);
+                envio.setIdSuscriptor(daos.getIdSuscriptor(lblEmail.getText()));
+                envio.setIdPersonaExterna(daope.getIdPersonaExterna(daos.getIdSuscriptor(lblEmail.getText())));
                 envio.setFechaEnvio("En Proceso");
                 envio.setIdProducto(idP);
                 envio.setDetalleEnvio(txtDireccion.getText());
@@ -125,10 +126,10 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
                 envio.setIdCobertura(idCobertura);
                 daoe.insertarProducto(envio);
             }
-            FrmLogin login = new FrmLogin();
-            FrmProductoSuscripcion fsus = new FrmProductoSuscripcion();
-            fsus.dispose();
-            login.show();
+            FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Plata");
+                sus.tim.cancel();
+                sus.tim = new Timer();
+                sus.tim.schedule(sus.tareacerrar, 0);
         } catch (Exception e) {
         }
     }
@@ -495,20 +496,18 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
         if (pedido == 0) {
             int respuesta = JOptionPane.showConfirmDialog(this, "¿esta seguro que desea cerrar el fomulario?,\nSi no realiza el pedido no se enviaran los productos", "Cerrando", JOptionPane.YES_NO_OPTION);
             if (respuesta == JOptionPane.OK_OPTION) {
-                System.exit(0);
-                FrmLogin login = new FrmLogin();
-                FrmProductoSuscripcion fsus = new FrmProductoSuscripcion();
-                fsus.dispose();
-                login.show();
+                FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Plata");
+                sus.tim.cancel();
+                sus.tim = new Timer();
+                sus.tim.schedule(sus.tareacerrar, 0);
             } else {
                 btnFinalizarPedido.requestFocus();
             }
         } else {
-            System.exit(0);
-            FrmLogin login = new FrmLogin();
-            FrmProductoSuscripcion fsus = new FrmProductoSuscripcion();
-            fsus.dispose();
-            login.show();
+            FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Plata");
+            sus.tim.cancel();
+            sus.tim = new Timer();
+            sus.tim.schedule(sus.tareacerrar, 0);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 

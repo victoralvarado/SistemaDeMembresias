@@ -426,6 +426,9 @@
         <Component class="javax.swing.JSpinner" name="spStock">
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrecioVenta">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPrecioVentaKeyTyped"/>
+          </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dateFecha">
           <Properties>

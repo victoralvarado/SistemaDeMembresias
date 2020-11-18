@@ -123,6 +123,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnBronce = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         btnEnvios = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        btnBancos = new javax.swing.JMenuItem();
         btnCerrarSesion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -326,6 +328,18 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(jMenu8);
 
+        jMenu7.setText("BANCOS");
+
+        btnBancos.setText("Bancos");
+        btnBancos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBancosActionPerformed(evt);
+            }
+        });
+        jMenu7.add(btnBancos);
+
+        menuPrincipal.add(jMenu7);
+
         btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/exit.png"))); // NOI18N
         btnCerrarSesion.setText("CERRAR SESION");
         btnCerrarSesion.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
@@ -446,6 +460,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(envios);
     }//GEN-LAST:event_btnEnviosActionPerformed
 
+    private void btnBancosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBancosActionPerformed
+        FrmBanco banco = new FrmBanco();
+        abrirFrm(banco);
+    }//GEN-LAST:event_btnBancosActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -481,6 +500,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnBancos;
     private javax.swing.JMenuItem btnBronce;
     private javax.swing.JMenuItem btnCarrito;
     private javax.swing.JMenuItem btnCategoria;
@@ -506,6 +526,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables

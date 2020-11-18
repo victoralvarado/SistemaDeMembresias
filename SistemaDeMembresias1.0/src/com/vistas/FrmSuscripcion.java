@@ -406,7 +406,6 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        btnReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -542,13 +541,6 @@ public class FrmSuscripcion extends javax.swing.JFrame {
 
         jLabel22.setText("Direccion de envio de productos");
 
-        btnReporte.setText("Generar reporte");
-        btnReporte.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnReporteMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
@@ -614,7 +606,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                             .addComponent(btnPagarSuscripción, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(lblresivira, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 33, Short.MAX_VALUE))
+                                .addGap(0, 36, Short.MAX_VALUE))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -624,9 +616,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                 .addGap(59, 59, 59))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnReporte)
-                                .addGap(22, 22, 22))))
+                                .addGap(22, 390, Short.MAX_VALUE))))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -789,9 +779,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel12)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnReporte))))))
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap(22, Short.MAX_VALUE))))
         );
 
@@ -885,21 +873,6 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         login.show();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
-    private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
-         try
-       {
-           con.conectar();
-           Map parametros = new HashMap();
-           parametros.put("fech",formatoFecha.format(dateFechaActual.getDate()));
-           reporte = JasperCompileManager.compileReport("src/com/reportes/reporteSociosDiario.jrxml");
-           JasperPrint jp = JasperFillManager.fillReport(reporte, parametros, con.getCon());
-           JasperViewer.viewReport(jp,false);
-       }catch(Exception e)
-       {
-           e.printStackTrace();
-       }
-    }//GEN-LAST:event_btnReporteMouseClicked
-
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -937,7 +910,6 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bgGenero;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnPagarSuscripción;
-    private javax.swing.JButton btnReporte;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cmbDepartamento;
     private javax.swing.JComboBox<String> cmbMunicipio;
