@@ -33,6 +33,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     java.util.Timer timer3 = new java.util.Timer();
     java.util.Timer timer4 = new java.util.Timer();
     public java.util.Timer timer5 = new java.util.Timer();
+    public java.util.Timer tim = new java.util.Timer();
     DaoCarrito daoc = new DaoCarrito();
     int n1 = 0;
     public FrmPrincipal() {

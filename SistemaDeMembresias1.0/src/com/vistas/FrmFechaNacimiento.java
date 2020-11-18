@@ -44,12 +44,10 @@ public class FrmFechaNacimiento extends javax.swing.JFrame {
         } else if (conta == 18 && mesn+1 >= mes+1 && dayn >= day) {
             this.dispose();
             FrmSuscripcion suscripcion = new FrmSuscripcion(String.valueOf(formatoFecha.format(this.dateNacimiento.getDate())));
-            JOptionPane.showMessageDialog(this, dateNacimiento.getDate());
             suscripcion.show();
         } else {
             this.dispose();
             FrmSuscripcion suscripcion = new FrmSuscripcion(String.valueOf(formatoFecha.format(this.dateNacimiento.getDate())));
-            JOptionPane.showMessageDialog(this, dateNacimiento.getDate());
             suscripcion.show();
         }
     }

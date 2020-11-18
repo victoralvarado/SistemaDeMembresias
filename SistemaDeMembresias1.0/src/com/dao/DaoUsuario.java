@@ -296,6 +296,7 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
         ResultSet rs;
         int id = 0;
         try {
+            this.conectar();
             String sql2 = "select idSuscriptor from suscriptor where email= ?";
             PreparedStatement pre = this.getCon().prepareCall(sql2);
             pre.setString(1, email);
@@ -306,8 +307,31 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
         } catch (SQLException e) {
            JOptionPane.showMessageDialog(null, "Error login idSuscriptor " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
         }
         return id;
+    }
+    
+    public String consultarEmail(int id) throws SQLException{
+        ResultSet rs;
+        String email = "";
+        try {
+            this.conectar();
+            String sql = "select email from suscriptor where idSuscriptor = ?;";
+            PreparedStatement pre = this.getCon().prepareCall(sql);
+            pre.setInt(1, id);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                email = rs.getString("email");
+            }
+        } catch (SQLException e) {
+           JOptionPane.showMessageDialog(null, "Error email " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return email;
     }
     
     public boolean email(String email) {
@@ -329,9 +353,10 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error consulta email" + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
         }
         return filas;
-        
     }
     
 }

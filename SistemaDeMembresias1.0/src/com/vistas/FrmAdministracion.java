@@ -40,6 +40,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmSuscripcionBronce bronce = new FrmSuscripcionBronce();
         FrmSuscripcionOro oro = new FrmSuscripcionOro();
         FrmSuscripcionPlata plata = new FrmSuscripcionPlata();
+        FrmBanco  banco = new FrmBanco();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -60,6 +61,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             bronce.setVisible(false);
             oro.setVisible(false);
             plata.setVisible(false);
+            banco.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -119,6 +121,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnPlata = new javax.swing.JMenuItem();
         btnBronce = new javax.swing.JMenuItem();
         btnCerrarSesion = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        btnBancos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,7 +132,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         deskPnlContenedor.setLayout(deskPnlContenedorLayout);
         deskPnlContenedorLayout.setHorizontalGroup(
             deskPnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 973, Short.MAX_VALUE)
+            .addGap(0, 1070, Short.MAX_VALUE)
         );
         deskPnlContenedorLayout.setVerticalGroup(
             deskPnlContenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,6 +334,18 @@ public class FrmAdministracion extends javax.swing.JFrame {
         });
         menuPrincipal.add(btnCerrarSesion);
 
+        jMenu7.setText("BANCOS");
+
+        btnBancos.setText("Bancos");
+        btnBancos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBancosActionPerformed(evt);
+            }
+        });
+        jMenu7.add(btnBancos);
+
+        menuPrincipal.add(jMenu7);
+
         setJMenuBar(menuPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -439,6 +455,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(plata);
     }//GEN-LAST:event_btnPlataActionPerformed
 
+    private void btnBancosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBancosActionPerformed
+        FrmBanco  banco = new FrmBanco();
+        abrirFrm(banco);
+    }//GEN-LAST:event_btnBancosActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -474,6 +495,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnBancos;
     private javax.swing.JMenuItem btnBronce;
     private javax.swing.JMenuItem btnCarrito;
     private javax.swing.JMenuItem btnCategoria;
@@ -499,6 +521,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables
 

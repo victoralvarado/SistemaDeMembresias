@@ -152,6 +152,25 @@ public class DaoSuscriptor extends Conexion implements OperacionesSuscriptor {
         }
         return id;
     }
+    
+    public int tipoSuscriptor(int idSuscriptor){
+        int tipos = 0;
+        ResultSet rs;
+        try {
+            this.conectar();
+            String sql = "Select tipoSuscriptor from suscriptor where idSuscriptor = ?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idSuscriptor);
+            rs = pre.executeQuery();
+            while (rs.next()) {                
+                tipos = rs.getInt("tipoSuscriptor");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error tiposuscriptor"
+                    + e.getMessage());
+        }
+        return tipos;
+    }
 }
 
   

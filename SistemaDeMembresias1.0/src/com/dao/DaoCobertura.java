@@ -168,4 +168,25 @@ public class DaoCobertura extends Conexion implements OperacionesCobertura{
         return lst;
     }
     
+    public int getIdCobertura(String municipio) throws Exception {
+        int idCobertura = 0;
+        ResultSet rs;
+        try {
+            this.conectar();
+            String sql = "select idCobertura from cobertura where municipio = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setString(1, municipio);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                idCobertura = rs.getInt("idCobertura");
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return idCobertura;
+    }
+    
 }

@@ -20,7 +20,7 @@ public class EnvioProducto {
     public EnvioProducto() {
     }
 
-    public EnvioProducto(int idEnvio, int idSuscriptor, int idPersonaExterna, String fechaEnvio, int idProductto, String detalleEnvio, int estado, int idCobertura) {
+    public EnvioProducto(int idEnvio, int idSuscriptor, int idPersonaExterna, String fechaEnvio, int idProducto, String detalleEnvio, int estado, int idCobertura) {
         this.idEnvio = idEnvio;
         this.idSuscriptor = idSuscriptor;
         this.idPersonaExterna = idPersonaExterna;
@@ -67,8 +67,8 @@ public class EnvioProducto {
         return idProducto;
     }
 
-    public void setIdProducto(int idProductto) {
-        this.idProducto = idProductto;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
     public String getDetalleEnvio() {
@@ -94,7 +94,7 @@ public class EnvioProducto {
     public void setIdCobertura(int idCobertura) {
         this.idCobertura = idCobertura;
     }
-    
+
     
     
 }
