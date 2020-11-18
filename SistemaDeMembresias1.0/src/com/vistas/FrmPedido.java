@@ -17,6 +17,7 @@ import com.modelo.PersonaExterna;
 import com.modelo.Producto;
 import com.utilidades.ComboItem;
 import com.utilidades.CustomImageIcon;
+import com.utilidades.ValidarCampos;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -61,6 +62,7 @@ public class FrmPedido extends javax.swing.JInternalFrame {
     int tiposuscriptor = 0;
     double des = 0;
     double caldes = 0;
+    ValidarCampos val = new ValidarCampos();
     Conexion con = new Conexion();
     JasperReport reporte;
     EnvioProducto envio = new EnvioProducto();
@@ -400,6 +402,11 @@ public class FrmPedido extends javax.swing.JInternalFrame {
                 txtNombreActionPerformed(evt);
             }
         });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel4.setText("Nombre Completo");
 
@@ -731,6 +738,10 @@ public class FrmPedido extends javax.swing.JInternalFrame {
                 insertarPedido();
         }
     }//GEN-LAST:event_btnRealizarPedidoMouseClicked
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        val.wordsOnly(evt);
+    }//GEN-LAST:event_txtNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,6 +11,7 @@ import com.modelo.EnvioProducto;
 import com.modelo.Oro;
 import com.modelo.PersonaExterna;
 import com.utilidades.ComboItem;
+import com.utilidades.ValidarCampos;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -44,6 +45,7 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
     JLabel lblEmail = new JLabel();
     int pedido = 0;
     int idS =0;
+    ValidarCampos val = new ValidarCampos();
     public FrmProductoSuscripcionOro() {
         initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -269,10 +271,27 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
                 txtNombreActionPerformed(evt);
             }
         });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel5.setText("Nombre");
 
+        try {
+            txtDui.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         jLabel6.setText("DUI");
+
+        try {
+            txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel7.setText("Telefono Movil");
 
@@ -547,6 +566,10 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
            insertarEnvio();
         }
     }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        val.wordsOnly(evt);
+    }//GEN-LAST:event_txtNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
