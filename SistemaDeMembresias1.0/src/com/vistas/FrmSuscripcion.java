@@ -1,5 +1,6 @@
 package com.vistas;
 
+import com.conexion.Conexion;
 import com.dao.DaoBanco;
 import com.dao.DaoCobertura;
 import com.dao.DaoSuscriptor;
@@ -20,7 +21,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -31,6 +34,11 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  * Nombre de la clase: FrmSuscripcion
@@ -55,6 +63,8 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     int conta =0;
     DaoBanco daoban = new DaoBanco();
     NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
+    JasperReport reporte;
+    Conexion con = new Conexion();
     public FrmSuscripcion() {
         initComponents();
         
@@ -396,6 +406,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        btnReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -531,6 +542,13 @@ public class FrmSuscripcion extends javax.swing.JFrame {
 
         jLabel22.setText("Direccion de envio de productos");
 
+        btnReporte.setText("Generar reporte");
+        btnReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReporteMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
@@ -582,7 +600,6 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel12)
                                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -593,18 +610,23 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                                     .addComponent(jLabel18)
                                                     .addComponent(comboTipoTargeta, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(btnPagarSuscripción, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(lblresivira, javax.swing.GroupLayout.PREFERRED_SIZE, 518, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 21, Short.MAX_VALUE))
+                                .addGap(0, 33, Short.MAX_VALUE))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(dateFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59))))
+                                .addGap(59, 59, 59))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnReporte)
+                                .addGap(22, 22, 22))))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -653,7 +675,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                         .addGap(83, 83, 83)
                                         .addComponent(jLabel20)))))
-                        .addGap(0, 21, Short.MAX_VALUE)))
+                        .addGap(0, 36, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlBackgroundLayout.setVerticalGroup(
@@ -745,7 +767,10 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                         .addComponent(lblresivira, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCancelar)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addComponent(btnCancelar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnPagarSuscripción))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGap(2, 2, 2)
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -766,8 +791,8 @@ public class FrmSuscripcion extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(btnPagarSuscripción))))))
-                        .addContainerGap(16, Short.MAX_VALUE))))
+                                            .addComponent(btnReporte))))))
+                        .addContainerGap(22, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -860,6 +885,21 @@ public class FrmSuscripcion extends javax.swing.JFrame {
         login.show();
     }//GEN-LAST:event_btnCancelarMouseClicked
 
+    private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
+         try
+       {
+           con.conectar();
+           Map parametros = new HashMap();
+           parametros.put("fech",formatoFecha.format(dateFechaActual.getDate()));
+           reporte = JasperCompileManager.compileReport("src/com/reportes/reporteSociosDiario.jrxml");
+           JasperPrint jp = JasperFillManager.fillReport(reporte, parametros, con.getCon());
+           JasperViewer.viewReport(jp,false);
+       }catch(Exception e)
+       {
+           e.printStackTrace();
+       }
+    }//GEN-LAST:event_btnReporteMouseClicked
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -897,6 +937,7 @@ public class FrmSuscripcion extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bgGenero;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnPagarSuscripción;
+    private javax.swing.JButton btnReporte;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cmbDepartamento;
     private javax.swing.JComboBox<String> cmbMunicipio;
