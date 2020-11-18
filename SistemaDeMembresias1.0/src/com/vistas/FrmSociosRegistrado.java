@@ -227,7 +227,7 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
             con.conectar();
             Map parametros = new HashMap();
             parametros.put("fech", formatoFecha.format(dateFechaActual.getDate()));
-            reporte = JasperCompileManager.compileReport("src/com/reportes/reporteSociosDiario.jrxml");
+            reporte = JasperCompileManager.compileReport("src/com/reportes/reporteTipoSuscriptor.jrxml");
             JasperPrint jp = JasperFillManager.fillReport(reporte, parametros, con.getCon());
             JasperViewer.viewReport(jp,false);
         } catch (Exception e) {
