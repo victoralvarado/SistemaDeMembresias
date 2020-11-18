@@ -171,6 +171,7 @@ public class DaoSuscriptor extends Conexion implements OperacionesSuscriptor {
         }
         return tipos;
     }
+    
 }
 
   

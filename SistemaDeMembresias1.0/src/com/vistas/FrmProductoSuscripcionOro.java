@@ -42,6 +42,7 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
     DaoSuscriptor daos = new DaoSuscriptor();
     JLabel lblEmail = new JLabel();
     int pedido = 0;
+    int idS =0;
     public FrmProductoSuscripcionOro() {
         initComponents();
         ((BasicInternalFrameUI) this.getUI()).setNorthPane(null);
@@ -62,6 +63,7 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
             Logger.getLogger(FrmProductoSuscripcionOro.class.getName()).log(Level.SEVERE, null, ex);
         }
         cmbMunicipio.setEnabled(false);
+        radioSi.setSelected(true);
         cargarOro();
     }
    
@@ -74,30 +76,30 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
         });
     }
       public void cargarOro() {
-        try {
-            String[] Columnas = {"ID","Cod. Producto", "Producto"};
-            Object[] datos = new Object[3];
-            DefaultTableModel tabla = new DefaultTableModel(null, Columnas) {
-                @Override
-                public boolean isCellEditable(int row, int col) {
-                    return false;
-                }
-            };
-            
-            List lst;
-            lst = daoOr.mostrarSusOro();
-            for (int i = 0; i < lst.size(); i++) {
-                or = (Oro) lst.get(i);
-                datos[0] = or.getIdOro();
-                datos[1] = daop.getProducto(or.getIdProducto()).getIdProducto();
-                datos[2] = daop.getProducto(or.getIdProducto()).getNombre();
-                tabla.addRow(datos);
-            }
-            this.tblOro.setModel(tabla);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al mostrar datos " +e,
-                    "Error", JOptionPane.ERROR_MESSAGE);
-        }
+          try {
+              String[] Columnas = {"ID", "Cod. Producto", "Producto"};
+              Object[] datos = new Object[3];
+              DefaultTableModel tabla = new DefaultTableModel(null, Columnas) {
+                  @Override
+                  public boolean isCellEditable(int row, int col) {
+                      return false;
+                  }
+              };
+
+              List lst;
+              lst = daoOr.mostrarSusOro();
+              for (int i = 0; i < lst.size(); i++) {
+                  or = (Oro) lst.get(i);
+                  datos[0] = or.getIdOro();
+                  datos[1] = daop.getProducto(or.getIdProducto()).getIdProducto();
+                  datos[2] = daop.getProducto(or.getIdProducto()).getNombre();
+                  tabla.addRow(datos);
+              }
+              this.tblOro.setModel(tabla);
+          } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, "Error al mostrar datos " + e,
+                      "Error", JOptionPane.ERROR_MESSAGE);
+          }
     }
    
       public void insertarEnvio() {
@@ -106,17 +108,16 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
             pe.setNombre(this.txtNombre.getText());
             pe.setDui(this.txtDui.getText());
             pe.setTelefonoMovil(this.txtTelefono.getText());
-            int idS = daos.getIdSuscriptor(lblEmail.getText());
+            idS = daos.getIdSuscriptor(lblEmail.getText());
             pe.setIdSuscriptor(idS);
             daope.insertarPersonaExterna(pe);
             
-            int idPE = daope.getIdPersonaExterna(idS);
             int contaf = tblOro.getRowCount();
             int idCobertura = daoc.getIdCobertura(cmbMunicipio.getSelectedItem().toString());
             for (int i = 1; i <= contaf; i++) {
                 int idP = (Integer.parseInt(this.tblOro.getValueAt(i, 1).toString()));
                 envio.setIdSuscriptor(idS);
-                envio.setIdPersonaExterna(idPE);
+                envio.setIdPersonaExterna(daope.getIdPersonaExterna(idS));
                 envio.setFechaEnvio("En Proceso");
                 envio.setIdProducto(idP);
                 envio.setDetalleEnvio(txtDireccion.getText());
@@ -153,15 +154,7 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
             } else {
                 val = false;
             }
-        } else {
-            val = true;
-        }
-        return val;
-    }
-    
-    public boolean validarDireccion() {
-        boolean val;
-        if (cmbDepartamento.getSelectedIndex() == 0) {
+        } else if (cmbDepartamento.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un departamento valido", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
             cmbDepartamento.requestFocus();
@@ -181,6 +174,7 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
         }
         return val;
     }
+    
     
     public boolean validarTel(String tel) {
         //Validacion de numero telefonico
@@ -398,6 +392,11 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
                 btnFinalizarPedidoMouseClicked(evt);
             }
         });
+        btnFinalizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarPedidoActionPerformed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -541,12 +540,14 @@ public class FrmProductoSuscripcionOro extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cmbDepartamentoItemStateChanged
 
     private void btnFinalizarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseClicked
-        if (!validarPE()) {
-            if (!validarDireccion()) {
-                insertarEnvio();
-            }
-        }
+        
     }//GEN-LAST:event_btnFinalizarPedidoMouseClicked
+
+    private void btnFinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoActionPerformed
+        if (!validarPE()) {
+           insertarEnvio();
+        }
+    }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

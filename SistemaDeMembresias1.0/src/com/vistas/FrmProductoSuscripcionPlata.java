@@ -62,6 +62,7 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
             Logger.getLogger(FrmProductoSuscripcionOro.class.getName()).log(Level.SEVERE, null, ex);
         }
         cmbMunicipio.setEnabled(false);
+        radioSi.setSelected(true);
         cargarOro();
     }
    
@@ -208,6 +209,7 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bgSiNo = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
@@ -252,6 +254,7 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Agregar persona externa");
 
+        bgSiNo.add(radioSi);
         radioSi.setText("SI");
         radioSi.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -259,6 +262,7 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
             }
         });
 
+        bgSiNo.add(radioNo);
         radioNo.setText("NO");
         radioNo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -547,6 +551,7 @@ public class FrmProductoSuscripcionPlata extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bgSiNo;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JButton btnFinalizarPedido;
     private javax.swing.JComboBox<String> cmbDepartamento;

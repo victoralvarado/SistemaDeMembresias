@@ -41,6 +41,7 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
     EnvioProducto envio = new EnvioProducto();
     DaoSuscriptor daos = new DaoSuscriptor();
     JLabel lblEmail = new JLabel();
+    int idS = 0;
     int pedido = 0;
     public FrmProductoSuscripcionBronce() {
         initComponents();
@@ -62,6 +63,7 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
             Logger.getLogger(FrmProductoSuscripcionBronce.class.getName()).log(Level.SEVERE, null, ex);
         }
         comboMunicipio.setEnabled(false);
+        radioSi.setSelected(true);
         cargarBronce();
     }
     
@@ -71,17 +73,16 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
             pe.setNombre(this.txtNombre.getText());
             pe.setDui(this.txtDui.getText());
             pe.setTelefonoMovil(this.txtTelefono.getText());
-            int idS = daos.getIdSuscriptor(lblEmail.getText());
+            idS = daos.getIdSuscriptor(lblEmail.getText());
             pe.setIdSuscriptor(idS);
             daope.insertarPersonaExterna(pe);
             
-            int idPE = daope.getIdPersonaExterna(idS);
             int contaf = tblBronce.getRowCount();
             int idCobertura = daoc.getIdCobertura(comboMunicipio.getSelectedItem().toString());
-            for (int i = 1; i <= contaf; i++) {
+            for (int i = 0; i < contaf; i++) {
                 int idP = (Integer.parseInt(this.tblBronce.getValueAt(i, 1).toString()));
                 envio.setIdSuscriptor(idS);
-                envio.setIdPersonaExterna(idPE);
+                envio.setIdPersonaExterna(daope.getIdPersonaExterna(idS));
                 envio.setFechaEnvio("En Proceso");
                 envio.setIdProducto(idP);
                 envio.setDetalleEnvio(txtDireccion.getText());
@@ -118,15 +119,7 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
             } else {
                 val = false;
             }
-        } else {
-            val = true;
-        }
-        return val;
-    }
-    
-    public boolean validarDireccion() {
-        boolean val;
-        if (comboDepartamento.getSelectedIndex() == 0) {
+        } else if (comboDepartamento.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Seleccione un departamento valido", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
             comboDepartamento.requestFocus();
@@ -540,9 +533,7 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
 
     private void btnFinalizarPedidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoMouseClicked
         if (!validarPE()) {
-            if (!validarDireccion()) {
                 insertarEnvio();
-            }
         }
     }//GEN-LAST:event_btnFinalizarPedidoMouseClicked
 

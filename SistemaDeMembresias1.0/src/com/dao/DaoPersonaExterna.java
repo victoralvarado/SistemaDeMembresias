@@ -79,8 +79,6 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
             pre.setInt(4, pe.getIdSuscriptor());
             pre.setInt(5, pe.getIdPersonaExterna());
             pre.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Dato modificado correctamente",
-                    "Modificar", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al modificar " + e.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
