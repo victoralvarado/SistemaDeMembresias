@@ -1,6 +1,7 @@
 package com.vistas;
 
 import com.conexion.Conexion;
+import com.dao.DaoBanco;
 import com.dao.DaoCarrito;
 import com.dao.DaoCobertura;
 import com.dao.DaoEnvioProducto;
@@ -8,6 +9,7 @@ import com.dao.DaoPersonaExterna;
 import com.dao.DaoProducto;
 import com.dao.DaoSuscriptor;
 import com.dao.DaoUsuario;
+import com.modelo.Banco;
 import com.modelo.Carrito;
 import com.modelo.Cobertura;
 import com.modelo.EnvioProducto;
@@ -65,6 +67,7 @@ public class FrmPedido extends javax.swing.JInternalFrame {
     DaoPersonaExterna daope = new DaoPersonaExterna();
     DaoEnvioProducto daoe = new DaoEnvioProducto();
     PersonaExterna pe = new PersonaExterna();
+    DaoBanco daoban = new DaoBanco();
     public FrmPedido() {
         initComponents();
         
@@ -79,6 +82,11 @@ public class FrmPedido extends javax.swing.JInternalFrame {
             cargarComboC(cmbDepartamento, (ArrayList<Cobertura>)daoco.mostrarDepartamento());
         } catch (Exception ex) {
             Logger.getLogger(FrmProductoSuscripcionOro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            llenarComboBanco(cmbBanco, (ArrayList<Banco>)daoban.mostrarBancos());
+        } catch (Exception ex) {
+            Logger.getLogger(FrmSuscripcion.class.getName()).log(Level.SEVERE, null, ex);
         }
         cmbMunicipio.setEnabled(false);
         tiposuscriptor = daos.tipoSuscriptor(Integer.parseInt(lbl.getText()));
@@ -278,9 +286,11 @@ public class FrmPedido extends javax.swing.JInternalFrame {
             Logger.getLogger(FrmPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void limpiarCarrito() {
-        
+    public void llenarComboBanco(JComboBox combo, ArrayList<Banco> list) {
+        combo.addItem("-- Seleccione --");
+        list.forEach((item) -> {
+            combo.addItem(new ComboItem(item.getIdBanco(), item.getNombre()));
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -430,8 +440,6 @@ public class FrmPedido extends javax.swing.JInternalFrame {
         jLabel11.setText("Especificar direccion segun Municipio");
 
         jLabel12.setText("Pago");
-
-        cmbBanco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --", "Agricola", "Cuscatlán ", "Davivienda ", "Hipotecario ", "Promerica", "BAC", "ABANK", "Azul" }));
 
         jLabel13.setText("Banco");
 
@@ -728,7 +736,7 @@ public class FrmPedido extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRealizarPedido;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cmbBanco;
+    private javax.swing.JComboBox<ComboItem> cmbBanco;
     private javax.swing.JComboBox<String> cmbDepartamento;
     private javax.swing.JComboBox<String> cmbMunicipio;
     private javax.swing.JComboBox<String> cmbTipoTargeta;

@@ -132,7 +132,7 @@
                                       </Group>
                                       <Component id="lblresivira" min="-2" pref="518" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="0" pref="33" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="36" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
@@ -144,9 +144,7 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jTextField2" min="-2" pref="164" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnReporte" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                                  <EmptySpace min="22" pref="390" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -357,10 +355,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jTextField2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="btnReporte" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jTextField2" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -688,14 +683,6 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Direccion de envio de productos"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnReporte">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Generar reporte"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnReporteMouseClicked"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

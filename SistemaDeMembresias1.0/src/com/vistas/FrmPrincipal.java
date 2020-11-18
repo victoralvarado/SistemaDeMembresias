@@ -92,6 +92,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
         FrmBuscarVinos vinos = new FrmBuscarVinos(id);
         FrmCarrito carrito = new FrmCarrito(id);
         FrmPedido pedido = new FrmPedido(id);
+        FrmPrincipalProcesoEnvio procesoenvio = new FrmPrincipalProcesoEnvio(id);
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -104,6 +105,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
             licores.setVisible(false);
             vinos.setVisible(false);
             pedido.setVisible(false);
+            procesoenvio.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -209,7 +211,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         menuUsuario = new javax.swing.JPopupMenu();
-        menuModificar = new javax.swing.JMenuItem();
         menuVerpedidos = new javax.swing.JMenuItem();
         menuCerrarSesion = new javax.swing.JMenuItem();
         pnlPrincipal = new javax.swing.JPanel();
@@ -232,15 +233,12 @@ public class FrmPrincipal extends javax.swing.JFrame {
 
         menuUsuario.setInheritsPopupMenu(true);
 
-        menuModificar.setText("Modificar mis datos");
-        menuModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuModificarActionPerformed(evt);
+        menuVerpedidos.setText("Ver Pedidos");
+        menuVerpedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuVerpedidosMouseClicked(evt);
             }
         });
-        menuUsuario.add(menuModificar);
-
-        menuVerpedidos.setText("Ver Pedidos");
         menuUsuario.add(menuVerpedidos);
 
         menuCerrarSesion.setText("Cerrar Secion");
@@ -703,10 +701,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnInicioMouseExited
     
-    private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
-        JOptionPane.showMessageDialog(this, "Modificar");
-    }//GEN-LAST:event_menuModificarActionPerformed
-
     private void lblUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseEntered
         
     }//GEN-LAST:event_lblUsuarioMouseEntered
@@ -729,6 +723,28 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void menuCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuCerrarSesionMouseExited
         //menuCerrarSesion.setBackground(new Color(214,217,223));
     }//GEN-LAST:event_menuCerrarSesionMouseExited
+
+    private void menuVerpedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuVerpedidosMouseClicked
+        cargando();
+            TimerTask tarea2 = new TimerTask() {
+                @Override
+                public void run() {
+                    FrmPrincipalProcesoEnvio procesoenvio = new FrmPrincipalProcesoEnvio(Integer.parseInt(lblIdSuscriptor.getText()));
+                    abrirFrm(procesoenvio);
+                    lblTitulo.setText("PEDIDOS");
+                    btnBuscar.setVisible(false);
+                    lblCopyright.setVisible(true);
+                    //Borde al color del fondo
+                    btnInicio.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnLicores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnCarrito.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    btnVinos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(245, 245, 245), 0));
+                    lblLoading.setVisible(false);
+                    
+                }
+            };
+            timer3.schedule(tarea2, 1000);
+    }//GEN-LAST:event_menuVerpedidosMouseClicked
 
 
     public static void main(String args[]) {
@@ -782,7 +798,6 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenuItem menuCerrarSesion;
-    private javax.swing.JMenuItem menuModificar;
     private javax.swing.JPopupMenu menuUsuario;
     private javax.swing.JMenuItem menuVerpedidos;
     private javax.swing.JPanel pnlLogo;

@@ -41,6 +41,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmSuscripcionOro oro = new FrmSuscripcionOro();
         FrmSuscripcionPlata plata = new FrmSuscripcionPlata();
         FrmEnvioProducto envios = new FrmEnvioProducto();
+        FrmSociosRegistrado socio = new FrmSociosRegistrado();
         FrmBanco  banco = new FrmBanco();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
@@ -64,6 +65,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             plata.setVisible(false);
             banco.setVisible(false);
             envios.setVisible(true);
+            socio.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -107,6 +109,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnUsuario = new javax.swing.JMenuItem();
         btnTipoSuscriptor = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        btnSocios = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         btnProductosI = new javax.swing.JMenuItem();
         btnPortada = new javax.swing.JMenuItem();
@@ -123,6 +126,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnBronce = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
         btnEnvios = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        btnBancos = new javax.swing.JMenuItem();
         btnCerrarSesion = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -213,7 +218,16 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         jMenu1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/tablas.png"))); // NOI18N
-        jMenu1.setText("TABLAS");
+        jMenu1.setText("TABLAS Y REPORTES");
+
+        btnSocios.setText("Socios Registrados");
+        btnSocios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSociosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(btnSocios);
+
         menuPrincipal.add(jMenu1);
 
         jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/inicio.png"))); // NOI18N
@@ -325,6 +339,18 @@ public class FrmAdministracion extends javax.swing.JFrame {
         jMenu8.add(btnEnvios);
 
         menuPrincipal.add(jMenu8);
+
+        jMenu7.setText("BANCOS");
+
+        btnBancos.setText("Bancos");
+        btnBancos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBancosActionPerformed(evt);
+            }
+        });
+        jMenu7.add(btnBancos);
+
+        menuPrincipal.add(jMenu7);
 
         btnCerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/exit.png"))); // NOI18N
         btnCerrarSesion.setText("CERRAR SESION");
@@ -446,6 +472,16 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(envios);
     }//GEN-LAST:event_btnEnviosActionPerformed
 
+    private void btnBancosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBancosActionPerformed
+        FrmBanco banco = new FrmBanco();
+        abrirFrm(banco);
+    }//GEN-LAST:event_btnBancosActionPerformed
+
+    private void btnSociosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSociosActionPerformed
+        FrmSociosRegistrado socio = new FrmSociosRegistrado();
+        abrirFrm(socio);
+    }//GEN-LAST:event_btnSociosActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -481,6 +517,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem btnBancos;
     private javax.swing.JMenuItem btnBronce;
     private javax.swing.JMenuItem btnCarrito;
     private javax.swing.JMenuItem btnCategoria;
@@ -496,6 +533,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnProducto;
     private javax.swing.JMenuItem btnProductosI;
     private javax.swing.JMenuItem btnPublicidad;
+    private javax.swing.JMenuItem btnSocios;
     private javax.swing.JMenuItem btnTipoSuscriptor;
     private javax.swing.JMenuItem btnUsuario;
     private javax.swing.JMenuItem btnVino;
@@ -506,6 +544,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar menuPrincipal;
     // End of variables declaration//GEN-END:variables

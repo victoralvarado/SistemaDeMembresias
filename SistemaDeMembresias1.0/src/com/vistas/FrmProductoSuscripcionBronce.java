@@ -13,6 +13,7 @@ import com.modelo.PersonaExterna;
 import com.utilidades.ComboItem;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -64,6 +65,7 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
         }
         comboMunicipio.setEnabled(false);
         radioSi.setSelected(true);
+        lblEmail.setText(email);
         cargarBronce();
     }
     
@@ -73,16 +75,15 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
             pe.setNombre(this.txtNombre.getText());
             pe.setDui(this.txtDui.getText());
             pe.setTelefonoMovil(this.txtTelefono.getText());
-            idS = daos.getIdSuscriptor(lblEmail.getText());
-            pe.setIdSuscriptor(idS);
+            pe.setIdSuscriptor(daos.getIdSuscriptor(lblEmail.getText()));
             daope.insertarPersonaExterna(pe);
             
             int contaf = tblBronce.getRowCount();
             int idCobertura = daoc.getIdCobertura(comboMunicipio.getSelectedItem().toString());
             for (int i = 0; i < contaf; i++) {
                 int idP = (Integer.parseInt(this.tblBronce.getValueAt(i, 1).toString()));
-                envio.setIdSuscriptor(idS);
-                envio.setIdPersonaExterna(daope.getIdPersonaExterna(idS));
+                envio.setIdSuscriptor(daos.getIdSuscriptor(lblEmail.getText()));
+                envio.setIdPersonaExterna(daope.getIdPersonaExterna(daos.getIdSuscriptor(lblEmail.getText())));
                 envio.setFechaEnvio("En Proceso");
                 envio.setIdProducto(idP);
                 envio.setDetalleEnvio(txtDireccion.getText());
@@ -90,11 +91,12 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
                 envio.setIdCobertura(idCobertura);
                 daoe.insertarProducto(envio);
             }
-            FrmLogin login = new FrmLogin();
-            FrmProductoSuscripcion fsus = new FrmProductoSuscripcion();
-            fsus.dispose();
-            login.show();
+            FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Bronce");
+            sus.tim.cancel();
+            sus.tim = new Timer();
+            sus.tim.schedule(sus.tareacerrar, 0);
         } catch (Exception e) {
+            System.err.println("error: "+e);
         }
     }
     
@@ -489,20 +491,18 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
         if (pedido == 0) {
             int respuesta = JOptionPane.showConfirmDialog(this, "¿esta seguro que desea cerrar el fomulario?,\nSi no realiza el pedido no se enviaran los productos", "Cerrando", JOptionPane.YES_NO_OPTION);
             if (respuesta == JOptionPane.OK_OPTION) {
-                System.exit(0);
-                FrmLogin login = new FrmLogin();
-                FrmProductoSuscripcion fsus = new FrmProductoSuscripcion();
-                fsus.dispose();
-                login.show();
+                FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Bronce");
+                sus.tim.cancel();
+                sus.tim = new Timer();
+                sus.tim.schedule(sus.tareacerrar, 0);
             } else {
                 btnFinalizarPedido.requestFocus();
             }
         } else {
-            System.exit(0);
-            FrmLogin login = new FrmLogin();
-            FrmProductoSuscripcion fsus = new FrmProductoSuscripcion();
-            fsus.dispose();
-            login.show();
+            FrmProductoSuscripcion sus = new FrmProductoSuscripcion(lblEmail.getText(), "Bronce");
+            sus.tim.cancel();
+            sus.tim = new Timer();
+            sus.tim.schedule(sus.tareacerrar, 0);
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
 

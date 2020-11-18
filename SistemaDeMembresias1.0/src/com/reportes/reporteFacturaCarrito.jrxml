@@ -26,15 +26,9 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select c.idCarrito, c.idSuscriptor, concat(s.nombre, ' ',s.apellido)  as nombre, p.idProducto, p.nombre as nombrep, c.cantidad, p.precioVenta from carrito c inner join suscriptor s 
+		<![CDATA[select concat(s.nombre, ' ',s.apellido)  as nombre, p.idProducto, p.nombre as nombrep, c.cantidad, p.precioVenta from carrito c inner join suscriptor s 
 on c.idSuscriptor = s.idSuscriptor inner join producto p on c.idProducto=p.idProducto where c.idSuscriptor = 1;]]>
 	</queryString>
-	<field name="idCarrito" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="idSuscriptor" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="idProducto" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -157,35 +151,14 @@ on c.idSuscriptor = s.idSuscriptor inner join producto p on c.idProducto=p.idPro
 	<columnHeader>
 		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement style="Column header" x="0" y="0" width="132" height="18" forecolor="#000000" uuid="0bf09f19-e858-460e-95be-daac5edcc1d5"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Codigo]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="132" y="0" width="132" height="18" forecolor="#000000" uuid="a38287f5-6e51-4488-9df5-a09346ceb5da"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Codigo Suscriptor]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="264" y="0" width="132" height="18" forecolor="#000000" uuid="1ea3c934-f499-4227-bddd-7a72e968862c"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Codigo Producto]]></text>
-			</staticText>
-			<staticText>
-				<reportElement style="Column header" x="396" y="0" width="173" height="18" forecolor="#000000" uuid="cf5a954c-39d5-48f8-a109-7704704614fc"/>
+				<reportElement style="Column header" x="2" y="0" width="531" height="18" forecolor="#000000" uuid="cf5a954c-39d5-48f8-a109-7704704614fc"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Producto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="579" y="0" width="81" height="18" forecolor="#000000" uuid="941e5018-4422-41d7-aca0-be84203c2b58"/>
+				<reportElement style="Column header" x="560" y="0" width="81" height="18" forecolor="#000000" uuid="941e5018-4422-41d7-aca0-be84203c2b58"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
@@ -205,35 +178,14 @@ on c.idSuscriptor = s.idSuscriptor inner join producto p on c.idProducto=p.idPro
 			<frame>
 				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18" uuid="9b807ba6-3780-4bc0-b9af-734fcb9c11e9"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="0" y="0" width="132" height="18" uuid="82216d88-1f09-47de-baab-0dde5217e9c3"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{idCarrito}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="132" y="0" width="132" height="18" uuid="0fa8cad7-bb6f-407b-a3ad-222237c1518a"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{idSuscriptor}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="264" y="0" width="132" height="18" uuid="ced98f36-345d-47c4-a1a9-feab08ba8085"/>
-					<textElement>
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{idProducto}]]></textFieldExpression>
-				</textField>
-				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="396" y="0" width="173" height="18" uuid="f352212c-6e29-4bca-a697-5b5b3558d0c6"/>
+					<reportElement style="Detail" positionType="Float" x="2" y="0" width="531" height="18" uuid="f352212c-6e29-4bca-a697-5b5b3558d0c6"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{nombrep}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement style="Detail" positionType="Float" x="579" y="0" width="81" height="18" uuid="c326c0cd-e42e-49a8-84e4-d9d704168b32"/>
+					<reportElement style="Detail" positionType="Float" x="560" y="0" width="81" height="18" uuid="c326c0cd-e42e-49a8-84e4-d9d704168b32"/>
 					<textElement>
 						<font size="14"/>
 					</textElement>

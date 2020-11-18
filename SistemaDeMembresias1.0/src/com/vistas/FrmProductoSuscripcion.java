@@ -15,9 +15,9 @@ import javax.swing.JLabel;
  */
 public class FrmProductoSuscripcion extends javax.swing.JFrame {
     Timer timer = new Timer();
+    public Timer tim = new Timer();
     public FrmProductoSuscripcion() {
         initComponents();
-        //this.setExtendedState(MAXIMIZED_BOTH);
     }
     JLabel e = new JLabel();
     JLabel t = new JLabel();
@@ -44,7 +44,7 @@ public class FrmProductoSuscripcion extends javax.swing.JFrame {
                     bronce.setVisible(true);
                 }
                 if ("Plata".equals(TipoSus)) {
-                   FrmProductoSuscripcionPlata plata = new FrmProductoSuscripcionPlata();
+                   FrmProductoSuscripcionPlata plata = new FrmProductoSuscripcionPlata(email);
                     dpContenedor.add(plata);
                     //Mostar formulario centrado
                     Dimension desktopSize = dpContenedor.getSize();
@@ -54,7 +54,7 @@ public class FrmProductoSuscripcion extends javax.swing.JFrame {
                     plata.setVisible(true); 
                 }
                 if ("Oro".equals(TipoSus)) {
-                   FrmProductoSuscripcionOro oro = new FrmProductoSuscripcionOro();
+                   FrmProductoSuscripcionOro oro = new FrmProductoSuscripcionOro(email);
                     dpContenedor.add(oro);
                     //Mostar formulario centrado
                     Dimension desktopSize = dpContenedor.getSize();
@@ -68,6 +68,18 @@ public class FrmProductoSuscripcion extends javax.swing.JFrame {
         };
          timer.schedule(tarea, 0000);
     }
+    public void cerrar() {
+        FrmLogin login = new FrmLogin();
+        System.exit(0);
+        login.show();
+    }
+    public TimerTask tareacerrar = new TimerTask() {
+        @Override
+        public void run() {
+            cerrar();
+        }
+    };
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

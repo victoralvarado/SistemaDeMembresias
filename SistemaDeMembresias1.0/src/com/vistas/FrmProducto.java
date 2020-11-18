@@ -9,6 +9,7 @@ import com.modelo.Marca;
 import com.modelo.Producto;
 import com.utilidades.ComboItem;
 import com.utilidades.CustomImageIcon;
+import com.utilidades.ValidarCampos;
 import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -50,6 +51,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
     Date FechaActual = new Date();
     JasperReport reporte;
+    ValidarCampos val = new ValidarCampos();
     Conexion con=new Conexion();
     public FrmProducto() {
         initComponents();
@@ -398,6 +400,12 @@ public class FrmProducto extends javax.swing.JInternalFrame {
 
         lblImagen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray, java.awt.Color.gray));
 
+        txtPrecioVenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioVentaKeyTyped(evt);
+            }
+        });
+
         dateFecha.setDateFormatString("yyyy-MM-dd");
         dateFecha.setEnabled(false);
 
@@ -683,6 +691,10 @@ public class FrmProducto extends javax.swing.JInternalFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnReporteMouseClicked
+
+    private void txtPrecioVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVentaKeyTyped
+        val.numbersAndPoint(evt, txtPrecioVenta);
+    }//GEN-LAST:event_txtPrecioVentaKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

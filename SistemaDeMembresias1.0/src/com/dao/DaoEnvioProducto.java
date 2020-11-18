@@ -49,6 +49,36 @@ public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProduc
         }
         return envio;
     }
+    
+    public List<EnvioProducto> mostrarEnvioProductoSus(int idSus) throws Exception {
+        ResultSet rs;
+        List<EnvioProducto> envio = new ArrayList();
+        try {
+            this.conectar();
+            String sql = "select * from envioProducto where idSuscriptor = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, idSus);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                EnvioProducto enp = new EnvioProducto();
+                enp.setIdEnvio(rs.getInt("idEnvio"));
+                enp.setIdSuscriptor(rs.getInt("idSuscriptor"));
+                enp.setIdPersonaExterna(rs.getInt("idPersonaExterna"));
+                enp.setFechaEnvio(rs.getString("fechaEnvio"));
+                enp.setIdProducto(rs.getInt("idProducto"));
+                enp.setDetalleEnvio(rs.getString("detalleEnvio"));
+                enp.setEstado(rs.getInt("estado"));
+                enp.setIdCobertura(rs.getInt("idCobertura"));
+                envio.add(enp);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al mostrar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return envio;
+    }
 
    
     @Override
