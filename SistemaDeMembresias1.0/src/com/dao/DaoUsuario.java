@@ -3,6 +3,7 @@ package com.dao;
 import com.conexion.Conexion;
 import com.interfaces.OperacionesUsuario;
 import com.modelo.Usuario;
+import com.sun.org.apache.bcel.internal.generic.IFEQ;
 import com.utilidades.CustomImageIcon;
 import com.vistas.FrmAdministracion;
 import com.vistas.FrmPrincipal;
@@ -220,7 +221,6 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
         boolean estado = false;
         int nivel = 0;
         int es = 0;
-        FrmAdministracion adm= new FrmAdministracion();
         Date date = new Date();
         DateFormat hourdateFormat = new SimpleDateFormat("HH:mm:ss yyyy-MM-dd");
         try {
@@ -244,6 +244,7 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
                         preM.setString(1, String.valueOf(hourdateFormat.format(date)));
                         preM.setString(2, us.getEmail());
                         preM.executeUpdate();
+                        FrmAdministracion adm= new FrmAdministracion(us.getEmail());
                         adm.show();
                     }
                     if (nivel == 2) {
@@ -253,6 +254,7 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
                         preM.setString(1, String.valueOf(hourdateFormat.format(date)));
                         preM.setString(2, us.getEmail());
                         preM.executeUpdate();
+                        FrmAdministracion adm= new FrmAdministracion(us.getEmail());
                         adm.show();
                     }
                     if (nivel == 3) {
@@ -358,5 +360,27 @@ public class DaoUsuario extends Conexion implements OperacionesUsuario{
         }
         return filas;
     }
+    
+    public int tipoUsuario(String email){
+        ResultSet rs;
+        int id = 0;
+        try {
+            this.conectar();
+            String sql2 = "select tipoUsuario from usuario where email= ?";
+            PreparedStatement pre = this.getCon().prepareCall(sql2);
+            pre.setString(1, email);
+            rs = pre.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt("tipoUsuario");
+            }
+        } catch (SQLException e) {
+           JOptionPane.showMessageDialog(null, "Error tipo usuario " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+        return id;
+    }
+    
     
 }

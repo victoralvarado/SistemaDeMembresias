@@ -3,6 +3,7 @@ package com.vistas;
 import com.dao.DaoUsuario;
 import com.modelo.Usuario;
 import com.utilidades.CustomImageIcon;
+import com.utilidades.ValidarCampos;
 import static com.vistas.FrmProducto.parseFecha;
 import java.awt.Image;
 import java.io.FileInputStream;
@@ -13,6 +14,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -35,9 +38,12 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     FileNameExtensionFilter filter = new FileNameExtensionFilter("Imagen","jpg","png","jpeg");
     SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
     Date FechaActual = new Date();
+    ValidarCampos val = new ValidarCampos();
     public FrmUsuario() {
         initComponents();
         dateCreacion.setDate(FechaActual);
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
         mostrar();
     }
     
@@ -140,6 +146,42 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         }
     }
     
+    public boolean validar(){
+        boolean val;
+        if (txtNombre.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre",
+                    "Validar", JOptionPane.WARNING_MESSAGE);
+            val = true;
+        } else if (txtApellido.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese un apellido",
+                    "Validar", JOptionPane.WARNING_MESSAGE);
+            val = true;
+        } else if (comboTipoU.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un tipo de usuario",
+                    "Validar", JOptionPane.WARNING_MESSAGE);
+            val = true;
+        } else if (comboEstado.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Seleccione un estado",
+                    "Validar", JOptionPane.WARNING_MESSAGE);
+            val = true;
+        } else if (txtPassword.getText().trim().length()== 0) {
+            JOptionPane.showMessageDialog(null, "Ingrese una contraseña",
+                    "Validar", JOptionPane.WARNING_MESSAGE);
+            val = true;
+        } else if (ValidarEmail(txtCorreo.getText()) == false) {
+            JOptionPane.showMessageDialog(null, "Ingrese un correo",
+                    "Validar", JOptionPane.WARNING_MESSAGE);
+            val = true;
+        } else if (lblFoto.getIcon() == null) {
+            JOptionPane.showMessageDialog(null, "Ingrese una foto",
+                    "Validar", JOptionPane.WARNING_MESSAGE);
+            val = true;
+        } else {
+            val = false;
+        }
+        return val;
+    }
+    
     public void limpiar() {
         this.fis = null;
         txtApellido.setText("");
@@ -152,6 +194,9 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
         lblCodigo.setText("#");
         comboEstado.setSelectedIndex(0);
         comboTipoU.setSelectedIndex(0);
+        btnInsertar.setEnabled(true);
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
     }
     
     public static Date parseFecha(String fecha)
@@ -198,6 +243,18 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
             } catch (NumberFormatException ex) {
                 Logger.getLogger(FrmProducto.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+    }
+    
+    public boolean ValidarEmail (String email){
+        Pattern pat = null;
+        Matcher mat = null;
+        pat = Pattern.compile("^[\\w\\-\\_\\+]+(\\.[\\w\\-\\_]+)*@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}$");
+        mat = pat.matcher(email);
+        if(mat.find()){
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -291,7 +348,19 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
             }
         });
 
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
+
         lblCodigo.setText("#");
+
+        txtApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoKeyTyped(evt);
+            }
+        });
 
         comboTipoU.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --", "Administrador", "Editor", "Suscriptor" }));
 
@@ -390,9 +459,7 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
                         .addComponent(jLabel12)
                         .addGap(55, 55, 55)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCorreo))
+                    .addComponent(txtCorreo)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,15 +579,23 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnInsertarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertarMouseClicked
-        insertar();
+        if (btnInsertar.isEnabled()) {
+            if (!validar()) {
+                insertar();
+            }
+        }
     }//GEN-LAST:event_btnInsertarMouseClicked
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
-        modificar();
+        if (btnModificar.isEnabled()) {
+             modificar();
+        }
     }//GEN-LAST:event_btnModificarMouseClicked
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
-        eliminar();
+        if (btnEliminar.isEnabled()) {
+            eliminar();
+        }
     }//GEN-LAST:event_btnEliminarMouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
@@ -554,6 +629,14 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
         llenarTabla();
     }//GEN-LAST:event_tblUsuariosMouseClicked
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        val.wordsOnly(evt);
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoKeyTyped
+        val.wordsOnly(evt);
+    }//GEN-LAST:event_txtApellidoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,6 +11,7 @@ import com.modelo.Cobertura;
 import com.modelo.EnvioProducto;
 import com.modelo.PersonaExterna;
 import com.utilidades.ComboItem;
+import com.utilidades.ValidarCampos;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -42,6 +43,7 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
     EnvioProducto envio = new EnvioProducto();
     DaoSuscriptor daos = new DaoSuscriptor();
     JLabel lblEmail = new JLabel();
+    ValidarCampos val = new ValidarCampos();
     int idS = 0;
     int pedido = 0;
     public FrmProductoSuscripcionBronce() {
@@ -305,10 +307,27 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
                 txtNombreActionPerformed(evt);
             }
         });
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel5.setText("Nombre");
 
+        try {
+            txtDui.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         jLabel6.setText("DUI");
+
+        try {
+            txtTelefono.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel7.setText("Telefono Movil");
 
@@ -536,6 +555,10 @@ public class FrmProductoSuscripcionBronce extends javax.swing.JInternalFrame {
                 insertarEnvio();
         }
     }//GEN-LAST:event_btnFinalizarPedidoMouseClicked
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        val.wordsOnly(evt);
+    }//GEN-LAST:event_txtNombreKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
