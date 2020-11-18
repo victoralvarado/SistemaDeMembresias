@@ -233,11 +233,13 @@ public class FrmPedido extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "No tiene productos en el carrito",
                         "Mensaje", JOptionPane.WARNING_MESSAGE);
             } else {
+                
                 pe.setNombre(this.txtNombre.getText());
                 pe.setDui(this.txtDui.getText());
                 pe.setTelefonoMovil(this.txtTelefono.getText());
                 pe.setIdSuscriptor(Integer.parseInt(lbl.getText()));
-                daope.insertarPersonaExterna(pe);
+                pe.setIdPersonaExterna(daope.getIdPersonaExterna(Integer.parseInt(lbl.getText())));
+                daope.modificarPersonaExterna(pe);
 
                 int contaf = tblEnvio.getRowCount();
                 int idCobertura = daoco.getIdCobertura(cmbMunicipio.getSelectedItem().toString());

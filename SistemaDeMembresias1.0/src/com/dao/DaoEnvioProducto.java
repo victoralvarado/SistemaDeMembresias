@@ -98,6 +98,25 @@ public class DaoEnvioProducto extends Conexion implements OperacionesEnvioProduc
             this.desconectar();
         }
     }
+    
+    public void modificarFechaEstado(EnvioProducto env) throws Exception {
+        try {
+            this.conectar();
+            String sql = "update envioProducto  set fechaEnvio=?, estado=? where idEnvio = ?;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setString(1, env.getFechaEnvio());
+            pre.setInt(2, env.getEstado());
+            pre.setInt(3, env.getIdEnvio());
+            pre.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Datos modificados correctamente",
+                    "Modificar", JOptionPane.INFORMATION_MESSAGE);
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al modificar " + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            this.desconectar();
+        }
+    }
 
     @Override
     public void eliminarProducto(EnvioProducto env) throws Exception {
