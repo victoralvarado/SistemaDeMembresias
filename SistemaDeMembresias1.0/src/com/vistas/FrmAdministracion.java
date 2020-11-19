@@ -56,6 +56,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmSociosRegistrado socio = new FrmSociosRegistrado();
         FrmBanco banco = new FrmBanco();
         FrmProductos productos = new FrmProductos();
+        FrmProductosAgotados productosAgotados = new FrmProductosAgotados();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -80,6 +81,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             envios.setVisible(true);
             socio.setVisible(false);
             productos.setVisible(false);
+            productosAgotados.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -125,6 +127,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         menuTablas = new javax.swing.JMenu();
         btnSocios = new javax.swing.JMenuItem();
         btnProductos = new javax.swing.JMenuItem();
+        btnProductosAgotados = new javax.swing.JMenuItem();
         menuInicio = new javax.swing.JMenu();
         btnProductosI = new javax.swing.JMenuItem();
         btnPortada = new javax.swing.JMenuItem();
@@ -250,6 +253,14 @@ public class FrmAdministracion extends javax.swing.JFrame {
             }
         });
         menuTablas.add(btnProductos);
+
+        btnProductosAgotados.setText("Productos Agotados");
+        btnProductosAgotados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosAgotadosActionPerformed(evt);
+            }
+        });
+        menuTablas.add(btnProductosAgotados);
 
         menuPrincipal.add(menuTablas);
 
@@ -510,6 +521,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(productos);
     }//GEN-LAST:event_btnProductosActionPerformed
 
+    private void btnProductosAgotadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosAgotadosActionPerformed
+        FrmProductosAgotados productosAgotados=new FrmProductosAgotados();
+        abrirFrm(productosAgotados);
+    }//GEN-LAST:event_btnProductosAgotadosActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -559,6 +575,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnPortada;
     private javax.swing.JMenuItem btnProducto;
     private javax.swing.JMenuItem btnProductos;
+    private javax.swing.JMenuItem btnProductosAgotados;
     private javax.swing.JMenuItem btnProductosI;
     private javax.swing.JMenuItem btnPublicidad;
     private javax.swing.JMenuItem btnSocios;
