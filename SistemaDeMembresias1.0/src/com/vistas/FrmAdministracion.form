@@ -137,10 +137,24 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnSocios">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/socio.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Socios Registrados"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSociosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="btnProductos">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/producto.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Productos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductosActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -171,6 +185,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnPortada">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/portada.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Portada"/>
               </Properties>
               <Events>
@@ -189,6 +206,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnVino">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/vino.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Vino"/>
               </Properties>
               <Events>
@@ -197,6 +217,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnLicor">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/licor.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Licor"/>
               </Properties>
               <Events>
@@ -215,6 +238,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnPublicidad">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/publicidad.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Plubicidad"/>
               </Properties>
               <Events>
@@ -233,6 +259,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnCobertura">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/cobertura.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cobertura"/>
               </Properties>
               <Events>
@@ -243,11 +272,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuProductoSuscripcion">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/suscripcion.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="PRODUCTO SUCRIPCION"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnOro">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/oro.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Oro"/>
               </Properties>
               <Events>
@@ -256,6 +291,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnPlata">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/plata.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Plata"/>
               </Properties>
               <Events>
@@ -264,6 +302,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="btnBronce">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/bronce.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Bronce"/>
               </Properties>
               <Events>
@@ -274,11 +315,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuEnvios">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/envio.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="ENVIOS"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnEnvios">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/envios.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Envios"/>
               </Properties>
               <Events>
@@ -289,11 +336,17 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuBancos">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/banco.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="BANCOS"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="btnBancos">
               <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/com/media/bank.png"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Bancos"/>
               </Properties>
               <Events>
