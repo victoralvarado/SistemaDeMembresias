@@ -241,7 +241,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         });
         menuTablas.add(btnSocios);
 
-        btnEnvioT.setText("Envios de productos");
+        btnEnvioT.setText("Consultas de envios");
         btnEnvioT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnvioTActionPerformed(evt);
