@@ -24,7 +24,8 @@ import net.sf.jasperreports.view.JasperViewer;
  * CopyRight: ITCA-FEPADE
  * @author Luna-
  */
-public class FrmProductos extends javax.swing.JInternalFrame {
+
+public class FrmProductosAgotados extends javax.swing.JInternalFrame {
 
     DaoProducto daop=new DaoProducto();
     Producto prod=new Producto();
@@ -34,18 +35,16 @@ public class FrmProductos extends javax.swing.JInternalFrame {
     Categoria cat=new Categoria();
     JasperReport reporte;
     Conexion con=new Conexion();
-
-    public FrmProductos() {
+    public FrmProductosAgotados() {
         initComponents();
         mostrar();
     }
 
     public void mostrar(){
         try {
-            String[] Columnas = {"Código", "Categoria","Marca", "Tipo", "Nombre", "Descripcion", "Stock",
-                "Precio Venta", "Fecha"};
-            Object[] datos = new Object[9];
-            tblProductos.getTableHeader().setReorderingAllowed(false) ;
+            String[] Columnas = {"Tipo", "Categoria", "Marca", "Nombre", "Stock"};
+            Object[] datos = new Object[5];
+            tblProductosAgotados.getTableHeader().setReorderingAllowed(false) ;
             DefaultTableModel tabla = new DefaultTableModel(null, Columnas) {
                 @Override
                 public boolean isCellEditable(int row, int col) {
@@ -58,24 +57,19 @@ public class FrmProductos extends javax.swing.JInternalFrame {
             
             for (int i = 0; i < lst.size(); i++) {
                 prod = (Producto) lst.get(i);
-                datos[0] = prod.getIdProducto();
+                datos[0] = prod.getTipo();
                 datos[1] = daoc.getCategoria(prod.getIdCategoria()).getCategoria();
                 datos[2] = daom.getMarca(prod.getIdMarca()).getNombre();
-                datos[3] = prod.getTipo();
-                datos[4] = prod.getNombre();
-                datos[5] = prod.getDescripcion();
-                datos[6] = prod.getStock();
-                datos[7] = prod.getPrecioVenta();
-                datos[8] = prod.getFecha();
+                datos[3] = prod.getNombre();
+                datos[4] = prod.getStock();
                 tabla.addRow(datos);
             }
-            this.tblProductos.setModel(tabla);
+            this.tblProductosAgotados.setModel(tabla);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al mostrar datos del producto " +e,
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -83,16 +77,16 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblProductos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tblProductosAgotados = new javax.swing.JTable();
+        btnReporte = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("PRODUCTOS");
+        jLabel1.setText("Productos Agotados");
 
-        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tblProductosAgotados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -103,12 +97,12 @@ public class FrmProductos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblProductos);
+        jScrollPane1.setViewportView(tblProductosAgotados);
 
-        jButton1.setText("Reporte");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnReporte.setText("Reporte");
+        btnReporte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btnReporteMouseClicked(evt);
             }
         });
 
@@ -116,28 +110,26 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(277, 277, 277)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(83, 83, 83))
+                .addContainerGap(316, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnReporte)
+                        .addGap(65, 65, 65))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(264, 264, 264))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(22, 22, 22)
-                .addComponent(jButton1)
+                .addGap(36, 36, 36)
+                .addComponent(btnReporte)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -161,23 +153,23 @@ public class FrmProductos extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
         try {
             con.conectar();
-            reporte= JasperCompileManager.compileReport("src/com/reportes/reporteProductos.jrxml");
+            reporte= JasperCompileManager.compileReport("src/com/reportes/reporteProductosAgotados.jrxml");
             JasperPrint jp=JasperFillManager.fillReport(reporte, null,con.getCon());
             JasperViewer.viewReport(jp,false);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btnReporteMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnReporte;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblProductos;
+    private javax.swing.JTable tblProductosAgotados;
     // End of variables declaration//GEN-END:variables
 }
