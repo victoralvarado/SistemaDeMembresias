@@ -24,7 +24,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
- * Nombre de la clase: FrmSocioRegistro
+ * Nombre de la clase: FrmEnvioRealizados
  * Fecha: 18-11-2020
  * Versión: 1.0
  * CopyRight: ITCA-FEPADE
