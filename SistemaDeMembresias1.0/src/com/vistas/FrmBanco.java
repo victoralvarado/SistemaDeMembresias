@@ -144,6 +144,9 @@ public class FrmBanco extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBanco = new javax.swing.JTable();
 
+        setClosable(true);
+        setIconifiable(true);
+
         jLabel1.setText("Mantenimiento Banco");
 
         jLabel2.setText("Codigo:");
