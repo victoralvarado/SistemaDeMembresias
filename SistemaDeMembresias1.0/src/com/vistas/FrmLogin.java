@@ -2,6 +2,7 @@ package com.vistas;
 
 import com.dao.DaoUsuario;
 import com.modelo.Usuario;
+import com.utilidades.ValidarCampos;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.util.Timer;
@@ -35,6 +36,7 @@ public class FrmLogin extends javax.swing.JFrame {
     Timer timer = new Timer();
     int segundos = 0;
     int n1 = 0;
+ 
     public FrmLogin() {
         initComponents();
         logo();
@@ -208,6 +210,9 @@ public class FrmLogin extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCorreoKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
+            }
         });
 
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -326,7 +331,7 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(btnCerrar))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -483,6 +488,10 @@ public class FrmLogin extends javax.swing.JFrame {
     private void btnMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMinimizarActionPerformed
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+       
+    }//GEN-LAST:event_txtCorreoKeyTyped
 
 
     public static void main(String args[]) {

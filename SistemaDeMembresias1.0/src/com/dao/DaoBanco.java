@@ -22,14 +22,17 @@ public class DaoBanco extends Conexion implements OperacionesBanco {
 
     @Override
     public List<Banco> mostrarBancos() throws Exception {
-        List<Banco> listaBanco = new ArrayList();
+        List<Banco>listaBanco;
+        listaBanco = new ArrayList();
         ResultSet res;
+        
         try
         {
             this.conectar();
             String sql="select * from banco";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             res= pre.executeQuery();
+            
             while(res.next())
             {
                 Banco ba = new Banco();
