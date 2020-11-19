@@ -107,37 +107,37 @@ FROM
 	<columnHeader>
 		<band height="18" splitType="Stretch">
 			<staticText>
-				<reportElement style="Column header" x="0" y="0" width="159" height="18" forecolor="#000000" uuid="edf9bd62-e648-41b3-9ad7-fe5e01c036c7"/>
+				<reportElement style="Column header" x="0" y="0" width="159" height="18" forecolor="#000066" uuid="edf9bd62-e648-41b3-9ad7-fe5e01c036c7"/>
 				<textElement>
-					<font isBold="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="159" y="0" width="159" height="18" forecolor="#000000" uuid="13ea6c2a-10c1-4155-993b-ea6686ef86f7"/>
+				<reportElement style="Column header" x="159" y="0" width="159" height="18" forecolor="#000066" uuid="13ea6c2a-10c1-4155-993b-ea6686ef86f7"/>
 				<textElement>
-					<font isBold="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Apellido]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="318" y="0" width="159" height="18" forecolor="#000000" uuid="88819c61-e593-46de-bd04-a842bda54659"/>
+				<reportElement style="Column header" x="318" y="0" width="159" height="18" forecolor="#000066" uuid="88819c61-e593-46de-bd04-a842bda54659"/>
 				<textElement>
-					<font isBold="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total de compras]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="477" y="0" width="159" height="18" forecolor="#000000" uuid="3b88cc71-6faf-4f92-a7a8-dfbeb946db97"/>
+				<reportElement style="Column header" x="477" y="0" width="159" height="18" forecolor="#000066" uuid="3b88cc71-6faf-4f92-a7a8-dfbeb946db97"/>
 				<textElement>
-					<font isBold="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Costo de la suscripción]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="Column header" x="677" y="0" width="114" height="18" forecolor="#000000" uuid="f3356477-b75b-4756-8888-7f02f49caf6f"/>
+				<reportElement style="Column header" x="677" y="0" width="114" height="18" forecolor="#000066" uuid="f3356477-b75b-4756-8888-7f02f49caf6f"/>
 				<textElement>
-					<font isBold="false"/>
+					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Regalia]]></text>
 			</staticText>

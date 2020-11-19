@@ -54,7 +54,8 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmSuscripcionPlata plata = new FrmSuscripcionPlata();
         FrmEnvioProducto envios = new FrmEnvioProducto();
         FrmSociosRegistrado socio = new FrmSociosRegistrado();
-        FrmBanco  banco = new FrmBanco();
+        FrmBanco banco = new FrmBanco();
+        FrmProductos productos = new FrmProductos();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -78,6 +79,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             banco.setVisible(false);
             envios.setVisible(true);
             socio.setVisible(false);
+            productos.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -122,6 +124,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnTipoSuscriptor = new javax.swing.JMenuItem();
         menuTablas = new javax.swing.JMenu();
         btnSocios = new javax.swing.JMenuItem();
+        btnProductos = new javax.swing.JMenuItem();
         menuInicio = new javax.swing.JMenu();
         btnProductosI = new javax.swing.JMenuItem();
         btnPortada = new javax.swing.JMenuItem();
@@ -239,6 +242,14 @@ public class FrmAdministracion extends javax.swing.JFrame {
             }
         });
         menuTablas.add(btnSocios);
+
+        btnProductos.setText("Productos");
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
+        menuTablas.add(btnProductos);
 
         menuPrincipal.add(menuTablas);
 
@@ -494,6 +505,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(socio);
     }//GEN-LAST:event_btnSociosActionPerformed
 
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        FrmProductos productos= new FrmProductos();
+        abrirFrm(productos);
+    }//GEN-LAST:event_btnProductosActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -542,6 +558,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnPlata;
     private javax.swing.JMenuItem btnPortada;
     private javax.swing.JMenuItem btnProducto;
+    private javax.swing.JMenuItem btnProductos;
     private javax.swing.JMenuItem btnProductosI;
     private javax.swing.JMenuItem btnPublicidad;
     private javax.swing.JMenuItem btnSocios;

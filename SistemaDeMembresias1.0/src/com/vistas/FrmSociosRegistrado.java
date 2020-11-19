@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.vistas;
 
 import com.conexion.Conexion;
@@ -130,7 +126,7 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
 
         dateFechaActual.setDateFormatString("yyyy-MM-dd");
 
-        jButton1.setText("Generar reporte diario");
+        jButton1.setText("Reporte diario");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
@@ -225,10 +221,8 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
     private void btnSuscripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuscripcionMouseClicked
         try {
             con.conectar();
-            Map parametros = new HashMap();
-            parametros.put("fech", formatoFecha.format(dateFechaActual.getDate()));
-            reporte = JasperCompileManager.compileReport("src/com/reportes/reporteTipoSuscriptor.jrxml");
-            JasperPrint jp = JasperFillManager.fillReport(reporte, null, con.getCon());
+            reporte= JasperCompileManager.compileReport("src/com/reportes/reporteTipoSuscriptor.jrxml");
+            JasperPrint jp=JasperFillManager.fillReport(reporte, null,con.getCon());
             JasperViewer.viewReport(jp,false);
         } catch (Exception e) {
             e.printStackTrace();
