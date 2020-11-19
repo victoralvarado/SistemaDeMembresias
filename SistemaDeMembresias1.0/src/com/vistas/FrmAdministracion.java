@@ -350,6 +350,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(menuProductoSuscripcion);
 
+        menuEnvios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/enviosA.png"))); // NOI18N
         menuEnvios.setText("ENVIOS");
 
         btnEnvios.setText("Envios");
