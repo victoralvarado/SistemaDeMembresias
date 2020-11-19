@@ -321,6 +321,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(menuCobertura);
 
+        menuProductoSuscripcion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/ProdSuscriptor.png"))); // NOI18N
         menuProductoSuscripcion.setText("PRODUCTO SUCRIPCION");
 
         btnOro.setText("Oro");
@@ -361,6 +362,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
 
         menuPrincipal.add(menuEnvios);
 
+        menuBancos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/banco.png"))); // NOI18N
         menuBancos.setText("BANCOS");
 
         btnBancos.setText("Bancos");

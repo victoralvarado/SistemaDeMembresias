@@ -251,6 +251,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuProductoSuscripcion">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/ProdSuscriptor.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="PRODUCTO SUCRIPCION"/>
           </Properties>
           <SubComponents>
@@ -297,6 +300,9 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuBancos">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/media/banco.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="BANCOS"/>
           </Properties>
           <SubComponents>
