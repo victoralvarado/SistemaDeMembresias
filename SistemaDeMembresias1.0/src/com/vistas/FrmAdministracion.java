@@ -122,6 +122,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         btnTipoSuscriptor = new javax.swing.JMenuItem();
         menuTablas = new javax.swing.JMenu();
         btnSocios = new javax.swing.JMenuItem();
+        btnEnvioT = new javax.swing.JMenuItem();
         menuInicio = new javax.swing.JMenu();
         btnProductosI = new javax.swing.JMenuItem();
         btnPortada = new javax.swing.JMenuItem();
@@ -239,6 +240,14 @@ public class FrmAdministracion extends javax.swing.JFrame {
             }
         });
         menuTablas.add(btnSocios);
+
+        btnEnvioT.setText("Envios de productos");
+        btnEnvioT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnvioTActionPerformed(evt);
+            }
+        });
+        menuTablas.add(btnEnvioT);
 
         menuPrincipal.add(menuTablas);
 
@@ -494,6 +503,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(socio);
     }//GEN-LAST:event_btnSociosActionPerformed
 
+    private void btnEnvioTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvioTActionPerformed
+        FrmEnviosRealizados env = new FrmEnviosRealizados();
+        abrirFrm(env);
+    }//GEN-LAST:event_btnEnvioTActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -535,6 +549,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnCategoria;
     private javax.swing.JMenu btnCerrarSesion;
     private javax.swing.JMenuItem btnCobertura;
+    private javax.swing.JMenuItem btnEnvioT;
     private javax.swing.JMenuItem btnEnvios;
     private javax.swing.JMenuItem btnLicor;
     private javax.swing.JMenuItem btnMarca;
