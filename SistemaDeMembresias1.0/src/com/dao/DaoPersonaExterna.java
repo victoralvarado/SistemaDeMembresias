@@ -71,7 +71,7 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
     public void modificarPersonaExterna(PersonaExterna pe) throws Exception {
         try {
             this.conectar();
-            String sql = "update  personaExterna set nombre = ?, dui = ?, telefonoMovil = ?, idSuscriptor = ? where idPersonaExerna = ?;";
+            String sql = "update  personaExterna set nombre = ?, dui = ?, telefonoMovil = ?, idSuscriptor = ? where idPersonaExterna = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setString(1, pe.getNombre());
             pre.setString(2, pe.getDui());
