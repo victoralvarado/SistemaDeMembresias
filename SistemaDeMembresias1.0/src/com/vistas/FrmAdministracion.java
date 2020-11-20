@@ -56,7 +56,6 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmSociosRegistrado socio = new FrmSociosRegistrado();
         FrmBanco banco = new FrmBanco();
         FrmProductosInventario productos = new FrmProductosInventario();
-        FrmEnviosRealizados  enviosr = new FrmEnviosRealizados();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -81,7 +80,6 @@ public class FrmAdministracion extends javax.swing.JFrame {
             envios.setVisible(true);
             socio.setVisible(false);
             productos.setVisible(false);
-            enviosr.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -538,8 +536,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnConsultaEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaEnvioActionPerformed
-        FrmEnviosRealizados enviosr = new FrmEnviosRealizados();
-        abrirFrm(enviosr);
+        
     }//GEN-LAST:event_btnConsultaEnvioActionPerformed
 
 
