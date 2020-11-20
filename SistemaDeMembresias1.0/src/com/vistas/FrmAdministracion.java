@@ -56,6 +56,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         FrmSociosRegistrado socio = new FrmSociosRegistrado();
         FrmBanco banco = new FrmBanco();
         FrmProductosInventario productos = new FrmProductosInventario();
+        FrmEnviosRealizados  enviosr = new FrmEnviosRealizados();
         if (!jInternalFramesAbiertos()) {
             mostrarFrm(frm);
         }
@@ -80,6 +81,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
             envios.setVisible(true);
             socio.setVisible(false);
             productos.setVisible(false);
+            enviosr.setVisible(false);
             deskPnlContenedor.repaint();
             mostrarFrm(frm);
         }
@@ -125,6 +127,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
         menuTablas = new javax.swing.JMenu();
         btnSocios = new javax.swing.JMenuItem();
         btnProductos = new javax.swing.JMenuItem();
+        btnConsultaEnvio = new javax.swing.JMenuItem();
         menuInicio = new javax.swing.JMenu();
         btnProductosI = new javax.swing.JMenuItem();
         btnPortada = new javax.swing.JMenuItem();
@@ -252,6 +255,15 @@ public class FrmAdministracion extends javax.swing.JFrame {
             }
         });
         menuTablas.add(btnProductos);
+
+        btnConsultaEnvio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/media/envios.png"))); // NOI18N
+        btnConsultaEnvio.setText("Consulta de Envios");
+        btnConsultaEnvio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultaEnvioActionPerformed(evt);
+            }
+        });
+        menuTablas.add(btnConsultaEnvio);
 
         menuPrincipal.add(menuTablas);
 
@@ -525,6 +537,11 @@ public class FrmAdministracion extends javax.swing.JFrame {
         abrirFrm(productos);
     }//GEN-LAST:event_btnProductosActionPerformed
 
+    private void btnConsultaEnvioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaEnvioActionPerformed
+        FrmEnviosRealizados enviosr = new FrmEnviosRealizados();
+        abrirFrm(enviosr);
+    }//GEN-LAST:event_btnConsultaEnvioActionPerformed
+
 
 
     public static void main(String args[]) {
@@ -566,6 +583,7 @@ public class FrmAdministracion extends javax.swing.JFrame {
     private javax.swing.JMenuItem btnCategoria;
     private javax.swing.JMenu btnCerrarSesion;
     private javax.swing.JMenuItem btnCobertura;
+    private javax.swing.JMenuItem btnConsultaEnvio;
     private javax.swing.JMenuItem btnEnvios;
     private javax.swing.JMenuItem btnLicor;
     private javax.swing.JMenuItem btnMarca;

@@ -17,6 +17,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -209,7 +210,7 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
             con.conectar();
             Map parametros = new HashMap();
             parametros.put("fech", formatoFecha.format(dateFechaActual.getDate()));
-            reporte = JasperCompileManager.compileReport("src/com/reportes/reporteSociosDiario.jrxml");
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/com/reportes/reporteSociosDiario.jasper"));
             JasperPrint jp = JasperFillManager.fillReport(reporte, parametros, con.getCon());
             JasperViewer.viewReport(jp,false);
         }catch(Exception e)
@@ -221,7 +222,7 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
     private void btnSuscripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuscripcionMouseClicked
         try {
             con.conectar();
-            reporte= JasperCompileManager.compileReport("src/com/reportes/reporteTipoSuscriptor.jrxml");
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/com/reportes/reporteTipoSuscriptor.jasper"));
             JasperPrint jp=JasperFillManager.fillReport(reporte, null,con.getCon());
             JasperViewer.viewReport(jp,false);
         } catch (Exception e) {

@@ -41,6 +41,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -276,7 +277,8 @@ public class FrmPedido extends javax.swing.JInternalFrame {
                     parametros.put("subtotal", (totalPagar));
                     parametros.put("totalfinal", (totalPagar - caldes));
                     parametros.put("descuento", lblDescuento.getText());
-                    reporte = JasperCompileManager.compileReport("src/com/reportes/reporteFacturaCarrito.jrxml");
+                    
+                    reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/com/reportes/reporteFacturaCarrito.jasper"));
                     JasperPrint jp = JasperFillManager.fillReport(reporte, parametros, con.getCon());
                     JasperViewer.viewReport(jp, false);
 

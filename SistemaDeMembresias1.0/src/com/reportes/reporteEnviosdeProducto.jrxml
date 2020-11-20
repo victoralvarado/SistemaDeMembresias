@@ -13,7 +13,7 @@
 			<style mode="Opaque" backcolor="#F0EFEF"/>
 		</conditionalStyle>
 	</style>
-	<queryString language="SQL">
+	<queryString>
 		<![CDATA[SELECT
      envioproducto.`fechaEnvio` AS envioproducto_fechaEnvio,
      personaexterna.`nombre` AS personaexterna_nombre,
@@ -27,7 +27,7 @@ FROM
      INNER JOIN `suscriptor` suscriptor ON envioproducto.`idSuscriptor` = suscriptor.`idSuscriptor`
      AND suscriptor.`idSuscriptor` = personaexterna.`idSuscriptor`
      INNER JOIN `producto` producto ON envioproducto.`idProducto` = producto.`idProducto`
-     INNER JOIN `cobertura` cobertura ON envioproducto.`idCobertura` = cobertura.`idCobertura`]]>
+     INNER JOIN `cobertura` cobertura ON envioproducto.`idCobertura` = cobertura.`idCobertura` WHERE  envioproducto.`estado` = 2;]]>
 	</queryString>
 	<field name="envioproducto_fechaEnvio" class="java.lang.String"/>
 	<field name="personaexterna_nombre" class="java.lang.String"/>
@@ -48,7 +48,7 @@ FROM
 					<textElement textAlignment="Right">
 						<font size="22" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Productos enviados]]></text>
+					<text><![CDATA[Envios Procesados]]></text>
 				</staticText>
 				<staticText>
 					<reportElement style="Title" x="2" y="0" width="370" height="66" uuid="7f914138-153b-448a-9566-f30a30720af3"/>

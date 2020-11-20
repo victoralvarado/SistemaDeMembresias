@@ -15,6 +15,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -189,7 +190,7 @@ public class FrmProductosInventario extends javax.swing.JInternalFrame {
     private void btnInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInventarioMouseClicked
         try {
             con.conectar();
-            reporte= JasperCompileManager.compileReport("src/com/reportes/reporteProductos.jrxml");
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/com/reportes/reporteProductos.jasper"));
             JasperPrint jp=JasperFillManager.fillReport(reporte, null,con.getCon());
             JasperViewer.viewReport(jp,false);
         } catch (Exception e) {
@@ -200,7 +201,7 @@ public class FrmProductosInventario extends javax.swing.JInternalFrame {
     private void btnAgotadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgotadosMouseClicked
         try {
             con.conectar();
-            reporte= JasperCompileManager.compileReport("src/com/reportes/reporteProductosAgotados.jrxml");
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/com/reportes/reporteProductosAgotados.jasper"));
             JasperPrint jp=JasperFillManager.fillReport(reporte, null,con.getCon());
             JasperViewer.viewReport(jp,false);
         } catch (Exception e) {
