@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -39,6 +41,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -70,6 +73,7 @@ public class FrmPedido extends javax.swing.JInternalFrame {
     DaoEnvioProducto daoe = new DaoEnvioProducto();
     PersonaExterna pe = new PersonaExterna();
     DaoBanco daoban = new DaoBanco();
+    Timer timer = new Timer();
     public FrmPedido() {
         initComponents();
         
@@ -273,7 +277,8 @@ public class FrmPedido extends javax.swing.JInternalFrame {
                     parametros.put("subtotal", (totalPagar));
                     parametros.put("totalfinal", (totalPagar - caldes));
                     parametros.put("descuento", lblDescuento.getText());
-                    reporte = JasperCompileManager.compileReport("src/com/reportes/reporteFacturaCarrito.jrxml");
+                    
+                    reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/com/reportes/reporteFacturaCarrito.jasper"));
                     JasperPrint jp = JasperFillManager.fillReport(reporte, parametros, con.getCon());
                     JasperViewer.viewReport(jp, false);
 
@@ -287,7 +292,12 @@ public class FrmPedido extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             Logger.getLogger(FrmPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }
+    
+
+    
+
     public void llenarComboBanco(JComboBox combo, ArrayList<Banco> list) {
         combo.addItem("-- Seleccione --");
         list.forEach((item) -> {

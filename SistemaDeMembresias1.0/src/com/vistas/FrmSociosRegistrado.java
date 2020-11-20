@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.vistas;
 
 import com.conexion.Conexion;
@@ -21,6 +17,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -105,6 +102,7 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         dateFechaActual = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
+        btnSuscripcion = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -129,10 +127,17 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
 
         dateFechaActual.setDateFormatString("yyyy-MM-dd");
 
-        jButton1.setText("Generar reporte diario");
+        jButton1.setText("Reporte diario");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
+            }
+        });
+
+        btnSuscripcion.setText("Reporte Suscripcion");
+        btnSuscripcion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSuscripcionMouseClicked(evt);
             }
         });
 
@@ -153,23 +158,30 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(22, 578, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSuscripcion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(22, 22, 22))
+                .addGap(25, 25, 25))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
-                    .addComponent(dateFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateFechaActual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSuscripcion)
                     .addComponent(jButton1))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -198,7 +210,7 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
             con.conectar();
             Map parametros = new HashMap();
             parametros.put("fech", formatoFecha.format(dateFechaActual.getDate()));
-            reporte = JasperCompileManager.compileReport("src/com/reportes/reporteSociosDiario.jrxml");
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/com/reportes/reporteSociosDiario.jasper"));
             JasperPrint jp = JasperFillManager.fillReport(reporte, parametros, con.getCon());
             JasperViewer.viewReport(jp,false);
         }catch(Exception e)
@@ -207,8 +219,20 @@ public class FrmSociosRegistrado extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void btnSuscripcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuscripcionMouseClicked
+        try {
+            con.conectar();
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/com/reportes/reporteTipoSuscriptor.jasper"));
+            JasperPrint jp=JasperFillManager.fillReport(reporte, null,con.getCon());
+            JasperViewer.viewReport(jp,false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnSuscripcionMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSuscripcion;
     private com.toedter.calendar.JDateChooser dateFechaActual;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

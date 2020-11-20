@@ -117,7 +117,24 @@ public class FrmUsuario extends javax.swing.JInternalFrame {
     }
     
     public void eliminar() {
-        
+        try {
+            u.setIdUsuario(Integer.parseInt(this.lblCodigo.getText()));
+            int SiONo = JOptionPane.showConfirmDialog(this, "Desea eliminar al producto",
+                    "Confirmación", JOptionPane.YES_NO_OPTION);
+            //Confirmacion para eliminar
+            if (SiONo == 0) {
+                daou.eliminarUsuario(u);
+                mostrar();
+                limpiar();
+                JOptionPane.showMessageDialog(null, "Datos eliminados correctamente",
+                    "ELIMINAR", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                limpiar();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el Usuario" + e.getMessage(),
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     public void modificar() {
