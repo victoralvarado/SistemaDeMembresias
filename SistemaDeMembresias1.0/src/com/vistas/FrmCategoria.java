@@ -26,6 +26,8 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     public FrmCategoria() {
         initComponents();
         mostrar();
+        btnModificar.setEnabled(false);
+        btnEliminar.setEnabled(false);
     }
 
     public void mostrar()
@@ -57,6 +59,8 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         }
     }
     
+    
+    
     public void limpiar()
     {
         btnModificar.setEnabled(false);
@@ -64,7 +68,6 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         btnAgregar.setEnabled(true);
         txtCodigoCategoria.setEnabled(true);
         txtCodigoCategoria.setText("");
-        comboTipo.setSelectedIndex(0);
         txtCategoria.setText("");
         tblCategoria.clearSelection();
         txtCodigoCategoria.requestFocus();
@@ -84,7 +87,6 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         try {
             cat.setIdCategoria(Integer.parseInt(this.txtCodigoCategoria.getText()));
             cat.setCategoria(this.txtCategoria.getText());
-            
             int SiONo = JOptionPane.showConfirmDialog(this, "Desea modificar el coordinador",
                     "Confirmación", JOptionPane.YES_NO_OPTION);
             //Confirmacion para modificar
@@ -134,11 +136,6 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
                     JOptionPane.WARNING_MESSAGE);
             txtCodigoCategoria.requestFocus();
             val = true;
-        } else if (comboTipo.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Seleccione un tipo", "VALIDACIÓN",
-                    JOptionPane.WARNING_MESSAGE);
-            txtCategoria.requestFocus();
-            val = true;
         } else if (this.txtCategoria.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(null, "Ingrese un nombre", "VALIDACIÓN",
                     JOptionPane.WARNING_MESSAGE);
@@ -156,8 +153,7 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         if (fila > -1) 
         {
             txtCodigoCategoria.setText(String.valueOf(this.tblCategoria.getValueAt(fila, 0)));
-            comboTipo.getModel().setSelectedItem(String.valueOf(this.tblCategoria.getValueAt(fila, 1)));
-            txtCategoria.setText(String.valueOf(this.tblCategoria.getValueAt(fila, 2)));
+            txtCategoria.setText(String.valueOf(this.tblCategoria.getValueAt(fila, 1)));
             btnModificar.setEnabled(true);
             btnEliminar.setEnabled(true);
             btnAgregar.setEnabled(false);
@@ -182,8 +178,6 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        comboTipo = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -257,10 +251,6 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
             }
         });
 
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Seleccione --", "Vino", "Licor" }));
-
-        jLabel4.setText("Tipo");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -269,41 +259,38 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
                 .addGap(72, 72, 72)
                 .addComponent(btnAgregar)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnModificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addComponent(btnModificar)
+                .addGap(18, 18, 18)
+                .addComponent(btnEliminar)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                        .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtCodigoCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(13, 13, 13))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(16, 16, 16))
-                            .addComponent(txtCodigoCategoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(51, 51, 51)))
-                        .addGap(49, 49, 49)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3))
-                            .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(129, 129, 129)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(68, 68, 68))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(107, 107, 107))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(209, 209, 209))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,10 +298,6 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -331,7 +314,7 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
                     .addComponent(btnCancelar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -372,11 +355,9 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarMouseClicked
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
-        if (this.btnModificar.isEnabled()) {
+        if (btnModificar.isEnabled()) {
             try {
-                if (!validar()) {
                     modificar();
-                }
             } catch (Exception ex) {
                 Logger.getLogger(FrmCategoria.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -384,7 +365,7 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnModificarMouseClicked
 
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
-        if (this.btnEliminar.isEnabled()) {
+        if (btnEliminar.isEnabled()) {
             eliminar();
         }
     }//GEN-LAST:event_btnEliminarMouseClicked
@@ -411,11 +392,9 @@ public class FrmCategoria extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
-    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCategoria;

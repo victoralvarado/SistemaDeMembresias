@@ -27,7 +27,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select concat(s.nombre, ' ',s.apellido)  as nombre, p.idProducto, p.nombre as nombrep, c.cantidad, p.precioVenta from carrito c inner join suscriptor s 
-on c.idSuscriptor = s.idSuscriptor inner join producto p on c.idProducto=p.idProducto where c.idSuscriptor = 1;]]>
+on c.idSuscriptor = s.idSuscriptor inner join producto p on c.idProducto=p.idProducto where c.idSuscriptor = $P{id};]]>
 	</queryString>
 	<field name="nombre" class="java.lang.String"/>
 	<field name="idProducto" class="java.lang.Integer">
