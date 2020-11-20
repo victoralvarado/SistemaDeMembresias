@@ -2,6 +2,7 @@ package com.vistas;
 
 import com.dao.DaoCobertura;
 import com.modelo.Cobertura;
+import com.utilidades.ValidarCampos;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,7 +26,7 @@ public class FrmCobertura extends javax.swing.JInternalFrame {
 
     Cobertura cob = new Cobertura();
     DaoCobertura daoCob = new DaoCobertura();
-    
+    ValidarCampos vc = new ValidarCampos();
     public FrmCobertura() {
         initComponents();
         mostra();
@@ -193,6 +194,18 @@ public class FrmCobertura extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Id:");
+
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
+            }
+        });
+
+        txtMunicipio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMunicipioKeyTyped(evt);
+            }
+        });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -374,6 +387,14 @@ public class FrmCobertura extends javax.swing.JInternalFrame {
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         eliminarCobertura();
     }//GEN-LAST:event_btnEliminarMouseClicked
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        vc.numbersOnly(evt);
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtMunicipioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMunicipioKeyTyped
+        vc.wordsOnly(evt);
+    }//GEN-LAST:event_txtMunicipioKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;

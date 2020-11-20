@@ -91,7 +91,7 @@ public class DaoPersonaExterna extends Conexion implements OperacionesPersonaExt
     public void eliminarPersonaExterna(PersonaExterna pe) throws Exception {
         try {
             this.conectar();
-            String sql = "delete from  personaExterna where idPersonaExterna = ?;";
+            String sql = "delete from  personaExterna where idPersonaExerna = ?;";
             PreparedStatement pre = this.getCon().prepareStatement(sql);
             pre.setInt(1, pe.getIdPersonaExterna());
             pre.executeUpdate();
