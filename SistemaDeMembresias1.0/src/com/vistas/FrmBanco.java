@@ -8,16 +8,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-   /**
- * Nombre de la clase: FrmBanco
- * Fecha: 14-11-2020
- * Versión: 1.0
- * CopyRight: ITCA-FEPADE
- * @author Andrea Rosales
+/**
+ *
+ * @author manza
  */
 public class FrmBanco extends javax.swing.JInternalFrame {
 
-    Banco ba = new Banco();
+    Banco ba;
     DaoBanco daoB = new DaoBanco();
     ValidarCampos vc = new ValidarCampos();
     public FrmBanco() {
@@ -27,10 +24,10 @@ public class FrmBanco extends javax.swing.JInternalFrame {
 
     public void mostrar()
     {
-        
-        String[] encabezados = {"Codigo","Nombre"};
+        DefaultTableModel tabla;
+        String encabezados[] = {"Codigo","Nombre"};
+        tabla=new DefaultTableModel(null,encabezados);
         Object datos[] = new Object[2];
-        DefaultTableModel tabla=new DefaultTableModel(null,encabezados);
         try
         {
             List lista;
@@ -43,6 +40,7 @@ public class FrmBanco extends javax.swing.JInternalFrame {
                 tabla.addRow(datos);
             }
             this.tblBanco.setModel(tabla);
+            
             
         }catch(Exception e)
         {
@@ -70,11 +68,12 @@ public class FrmBanco extends javax.swing.JInternalFrame {
             ba.setIdBanco(Integer.parseInt(this.txtCodigo.getText()));
             ba.setNombre(this.txtNombre.getText());
             daoB.insertarBanco(ba);
+            JOptionPane.showMessageDialog(null, "Banco insertado correctamente");
             limpiar();
             mostrar();
         }catch(Exception e)
         {
-             JOptionPane.showMessageDialog(null, "Error al insertar en formulario "+e);
+             JOptionPane.showMessageDialog(null, "Error al insertar en formulario");
         }
         
     }
@@ -131,8 +130,6 @@ public class FrmBanco extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblBanco = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -144,29 +141,8 @@ public class FrmBanco extends javax.swing.JInternalFrame {
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblBanco1 = new javax.swing.JTable();
-
-        tblBanco.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        tblBanco.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblBancoMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblBanco);
-
-        setClosable(true);
-        setIconifiable(true);
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblBanco = new javax.swing.JTable();
 
         setClosable(true);
         setIconifiable(true);
@@ -289,7 +265,7 @@ public class FrmBanco extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        tblBanco1.setModel(new javax.swing.table.DefaultTableModel(
+        tblBanco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -300,40 +276,44 @@ public class FrmBanco extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblBanco1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblBanco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblBanco1MouseClicked(evt);
+                tblBancoMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tblBanco1);
+        jScrollPane1.setViewportView(tblBanco);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 416, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(116, 116, 116)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(149, Short.MAX_VALUE)))
         );
 
         pack();
@@ -348,7 +328,7 @@ public class FrmBanco extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void btnInsertarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInsertarMouseClicked
-        insertar();
+       insertar();
     }//GEN-LAST:event_btnInsertarMouseClicked
 
     private void btnModificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarMouseClicked
@@ -367,10 +347,6 @@ public class FrmBanco extends javax.swing.JInternalFrame {
         llenarT();
     }//GEN-LAST:event_tblBancoMouseClicked
 
-    private void tblBanco1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBanco1MouseClicked
-        llenarT();
-    }//GEN-LAST:event_tblBanco1MouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -383,9 +359,7 @@ public class FrmBanco extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblBanco;
-    private javax.swing.JTable tblBanco1;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables

@@ -21,7 +21,7 @@ public class Conexion {
     public boolean conectar() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistemademembresias?autoReconnect=true&useSSL=false", "root", "Itca123!");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdsistemademembresias?autoReconnect=true&useSSL=false", "root", "luna");
             //Cambiar la contraseña del usuario root si es diferente 
             return true;
         } catch (ClassNotFoundException | SQLException e) {
