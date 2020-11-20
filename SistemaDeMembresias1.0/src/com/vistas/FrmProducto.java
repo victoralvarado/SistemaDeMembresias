@@ -322,6 +322,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txtCodigo = new javax.swing.JLabel();
         comboTipo = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
+        btnReporte = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -425,6 +426,13 @@ public class FrmProducto extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Tipo");
 
+        btnReporte.setText("Reporte");
+        btnReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReporteMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
@@ -457,7 +465,10 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(dateFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCancelar)))
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addComponent(btnCancelar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnReporte))))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -538,7 +549,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addComponent(btnImagen)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addComponent(txtCodigo)
@@ -585,7 +596,8 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                             .addComponent(btnAgregar)
                             .addComponent(btnModificar)
                             .addComponent(btnEliminar)
-                            .addComponent(btnCancelar))))
+                            .addComponent(btnCancelar)
+                            .addComponent(btnReporte))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -669,6 +681,17 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnModificarMouseClicked
 
+    private void btnReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReporteMouseClicked
+        try {
+            con.conectar();
+            reporte= JasperCompileManager.compileReport("src/com/reportes/reporteProductos.jrxml");
+            JasperPrint jp=JasperFillManager.fillReport(reporte, null,con.getCon());
+            JasperViewer.viewReport(jp,false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnReporteMouseClicked
+
     private void txtPrecioVentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVentaKeyTyped
         val.numbersAndPoint(evt, txtPrecioVenta);
     }//GEN-LAST:event_txtPrecioVentaKeyTyped
@@ -680,6 +703,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnImagen;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnReporte;
     private javax.swing.JComboBox<ComboItem> comboCategoria;
     private javax.swing.JComboBox<ComboItem> comboMarca;
     private javax.swing.JComboBox<String> comboTipo;
