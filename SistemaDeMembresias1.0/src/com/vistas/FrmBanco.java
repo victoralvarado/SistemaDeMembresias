@@ -168,6 +168,9 @@ public class FrmBanco extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
 
+        setClosable(true);
+        setIconifiable(true);
+
         jLabel1.setText("Mantenimiento Banco");
 
         jLabel2.setText("Codigo:");
