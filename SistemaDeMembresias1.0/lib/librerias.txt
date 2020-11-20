@@ -1,0 +1,1 @@
+En esta carpeta se incluyen las librerias utilizadas para el funcionamiento del programa.
